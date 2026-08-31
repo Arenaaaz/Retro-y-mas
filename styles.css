@@ -368,26 +368,40 @@ body {
 /* ==========================================================================
    8. BOTÓN FLOTANTE INDEPENDIENTE
    ========================================================================== */
-.btn-flotante-wa {
+/* Botón flotante de WhatsApp */
+.wpp-btn {
   position: fixed;
-  bottom: 80px;
+  bottom: 20px;
   right: 20px;
-  background-color: #25d366;
-  color: #ffffff;
-  width: 54px;
-  height: 54px;
+  z-index: 1000;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
+  background-color: #25d366;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-  z-index: 99;
-  transition: transform 0.2s, background-color 0.2s;
 }
 
-.btn-flotante-wa:hover {
-  transform: scale(1.1);
-  background-color: #128c7e;
+.wpp-btn img {
+  width: 32px;
+  height: 32px;
+}
+
+/* Corrección responsiva para móviles */
+@media (max-width: 480px) {
+  .wpp-btn {
+    bottom: 15px;
+    right: 15px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .wpp-btn img {
+    width: 26px;
+    height: 26px;
+  }
 }
 
 /* ==========================================================================
