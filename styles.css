@@ -1,0 +1,531 @@
+/* ==========================================================================
+   1. VARIABLES Y RESET GLOBAL
+   ========================================================================== */
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --success: #22c55e;
+  --success-hover: #16a34a;
+  --bg-main: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  padding-bottom: 100px;
+}
+
+/* ==========================================================================
+   2. ENCABEZADO (HEADER)
+   ========================================================================== */
+.header {
+  background: #1e293b; /* Gris pizarra oscuro/mate */
+  color: #ffffff;
+  padding: 24px 32px;
+  border-bottom: 3px solid #64748b; /* Borde gris neutro elegante */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.header-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.header-info h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  color: #ffffff;
+}
+
+.header-info p {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-top: 6px;
+  font-weight: 400;
+}
+
+.header-logo-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-logo {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 2px solid #e2e8f0;
+}
+
+/* ==========================================================================
+   3. NAVEGACIÓN Y CATEGORÍAS
+   ========================================================================== */
+/* Barra de búsqueda */
+.busqueda-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 12px 16px 4px 16px;
+}
+
+#input-busqueda {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+#input-busqueda:focus {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+   .categorias-nav {
+  background: white;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.categorias-container {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.btn-categoria {
+  background: #f1f5f9;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.btn-categoria.active, 
+.btn-categoria:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ==========================================================================
+   4. CONTENEDOR PRINCIPAL Y GRID DE PRODUCTOS
+   ========================================================================== */
+.main-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card-producto {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-producto:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ==========================================================================
+   5. GALERÍA DE IMÁGENES Y MINIATURAS
+   ========================================================================== */
+.galeria-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9;
+}
+
+.img-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+  padding: 0 !important;
+  display: block;
+}
+
+.miniaturas-container {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.miniatura {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.7;
+  transition: all 0.2s;
+}
+
+.miniatura.active, 
+.miniatura:hover {
+  border-color: var(--primary);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   6. INFORMACIÓN Y BOTONES DE PRODUCTO
+   ========================================================================== */
+.info-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.titulo-producto {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.descripcion-producto {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.precio-producto {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.selector-opcion {
+  margin-bottom: 14px;
+}
+
+.selector-opcion label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.selector-opcion select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.selector-opcion select:focus {
+  border-color: var(--primary);
+}
+
+.btn-agregar {
+  background: #e0e7ff;
+  color: var(--primary);
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.btn-agregar:hover {
+  background: #c7d2fe;
+}
+
+/* ==========================================================================
+   7. BARRA DEL CARRITO DE COMPRAS
+   ========================================================================== */
+.barra-carrito {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+}
+
+.carrito-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.label-total {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.precio-total {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.acciones-carrito {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-whatsapp {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.btn-whatsapp:hover {
+  background: var(--success-hover);
+}
+
+/* ==========================================================================
+   8. BOTÓN FLOTANTE INDEPENDIENTE
+   ========================================================================== */
+.btn-flotante-wa {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #25d366;
+  color: #ffffff;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  z-index: 99;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-flotante-wa:hover {
+  transform: scale(1.1);
+  background-color: #128c7e;
+}
+
+/* ==========================================================================
+   9. MODAL Y REVISIÓN DE PEDIDO
+   ========================================================================== */
+.btn-ver-pedido {
+  background: #f1f5f9;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.btn-ver-pedido:hover {
+  background: #e2e8f0;
+}
+
+/* Oscurece el fondo al abrir el modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none; /* Oculto por defecto */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.active {
+  display: flex !important;
+}
+
+/* Tarjeta flotante en el centro */
+.modal-contenido {
+  background: white;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 16px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.btn-cerrar-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #64748b;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.item-pedido-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.item-pedido-info h4 {
+  font-size: 0.95rem;
+  margin: 0;
+  color: #0f172a;
+}
+
+.item-pedido-info p {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}
+
+.btn-eliminar-item {
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-eliminar-item:hover {
+  background: #fca5a5;
+}
+
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.modal-total-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+}
+
+/* Corrige el ancho del botón verde dentro del modal */
+.modal-footer .btn-whatsapp {
+  width: 100%;
+  justify-content: center;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
