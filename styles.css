@@ -365,14 +365,6 @@ body {
   background: var(--success-hover);
 }
 
-.btn-confirmar {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-}
-
 /* ==========================================================================
    8. BOTÓN FLOTANTE INDEPENDIENTE
    ========================================================================== */
@@ -605,4 +597,36 @@ body {
   justify-content: center;
   margin-top: 10px;
   box-sizing: border-box;
+}
+
+
+/* Banner Superior */
+.shipping-banner {
+  background: #111827;
+  color: #f3f4f6;
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #1f2937;
+}
+
+
+.modal-trust-box {
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin: 15px 0;
+  text-align: left;
+}
+
+.modal-trust-box p {
+  color: #d1d5db;
+  font-size: 0.82rem;
+  margin: 4px 0;
+  line-height: 1.3;
+}
+
+.modal-trust-box strong {
+  color: #10b981; /* Verde esmeralda */
 }

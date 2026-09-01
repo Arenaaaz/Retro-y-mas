@@ -25,6 +25,9 @@
   <!-- End Meta Pixel Code -->
 </head>
 <body>
+  <div class="shipping-banner">
+  <span>📦 <strong>Camisetas de Colección e Importación Exclusiva:</strong> Envíos a toda Colombia en 15 a 20 días hábiles.</span>
+  </div>
 
   <!-- Encabezado -->
   <header class="header">
@@ -69,7 +72,7 @@
       <button class="btn-ver-pedido" onclick="abrirModalPedido()">
         🛒 Ver pedido (<span id="contador-cant">0</span>)
       </button>
-      <button class="btn-whatsapp" onclick="enviarWhatsApp()">
+      <button class="btn-whatsapp" onclick="abrirModalPedido()">
         <span>Realizar pedido</span>
       </button>
     </div>
@@ -91,6 +94,11 @@
         <div class="modal-total-info">
           <span>Total:</span>
           <strong id="modal-total-precio">$ 0 COP</strong>
+        </div>
+        
+        <div class="modal-trust-box">
+          <p>🚚 <strong>Envío de importación:</strong> 15 a 20 días hábiles a toda Colombia.</p>
+          <p>🔒 <strong>Compra Segura:</strong> Confirmación de disponibilidad, talla y guía de rastreo por WhatsApp.</p>
         </div>
         <button class="btn-whatsapp btn-confirmar" onclick="if(typeof fbq !== 'undefined'){ fbq('track', 'Lead'); } enviarWhatsApp();">
           Confirmar y Enviar a WhatsApp
