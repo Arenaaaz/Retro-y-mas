@@ -4,8 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Retro y Más</title>
-<link rel="icon" type="image/png" href="img/logo.png?v=1">
+  <link rel="icon" type="image/png" href="img/logo.png?v=1">
   <link rel="stylesheet" href="styles.css">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '4610009249257064');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=4610009249257064&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -75,18 +92,20 @@
           <span>Total:</span>
           <strong id="modal-total-precio">$ 0 COP</strong>
         </div>
-        <button class="btn-whatsapp" onclick="enviarWhatsApp()" style="width: 100%; justify-content: center; margin-top: 10px;">
+        <button class="btn-whatsapp btn-confirmar" onclick="if(typeof fbq !== 'undefined'){ fbq('track', 'Lead'); } enviarWhatsApp();">
           Confirmar y Enviar a WhatsApp
         </button>
       </div>
     </div>
   </div>
   <!-- Botón Flotante de WhatsApp para Consultas -->
-<a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" rel="noopener noreferrer">
+<a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" onclick="fbq('track', 'Contact');">
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
 </a>
 <script src="script.js"></script>
 
-  
+
+
+
 </body>
 </html>

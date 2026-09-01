@@ -895,6 +895,14 @@ function enviarWhatsApp() {
     return;
   }
 
+  // Registra la conversión en Meta Ads antes de enviar
+  if (typeof fbq !== 'undefined') {
+    fbq('track', 'Lead', {
+      value: total,
+      currency: 'COP'
+    });
+  }
+
   let mensaje = `👋 ¡Hola *${CONFIG.nombreTienda}*! Quisiera realizar el siguiente pedido:\n\n`;
   
   carrito.forEach((item, idx) => {
@@ -906,7 +914,9 @@ function enviarWhatsApp() {
   mensaje += "📌 Quedo atento para confirmar disponibilidad de stock y datos de envío.";
 
   const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensaje)}`;
-  window.open(url, '_blank');
+  
+  // Enlace directo para evitar bloqueos de pop-ups en celulares
+  window.location.href = url;
 }
 
 let categoriaActual = 'todos';
