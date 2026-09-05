@@ -511,7 +511,7 @@ const PRODUCTOS = [
     id: 51,
     nombre: "Colombia 2014 Local",
     categoria: "Retro",
-    entregaInmediata: False,
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta retro Colombia temporada 2014.",
     imagenes: ["img/Colombia14.jpg", "img/Colombia14-1.jpg", "img/Colombia14-2.jpg"],
