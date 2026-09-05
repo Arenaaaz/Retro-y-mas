@@ -11,9 +11,9 @@ const PRODUCTOS = [
     id: 1,
     nombre: "AC Milan 06/07",
     categoria: "Retro",
+    entregaInmediata: true, // ⚡ Disponible en stock local
     precio: 100000,
     descripcion: "Camiseta retro AC Milan versión local temporada 2006/2007.",
-    // Pasamos un arreglo de imágenes en lugar de una sola
     imagenes: [
       "img/AcMilan06.jpeg",
       "img/AcMilan06-1.jpeg",
@@ -25,7 +25,8 @@ const PRODUCTOS = [
     id: 2,
     nombre: "Argentina 2006 Local",
     categoria: "Retro",
-    precio: 130000,
+    entregaInmediata: false,
+    precio: 120000,
     descripcion: "Camiseta retro Argentina versión local temporada 2006.",
     imagenes: [
       "img/Argentina06.jpg",
@@ -37,6 +38,7 @@ const PRODUCTOS = [
     id: 3,
     nombre: "Brasil 2002 Local",
     categoria: "Retro",
+    entregaInmediata: true, // ⚡ Disponible en stock local
     precio: 100000,
     descripcion: "Camiseta retro Brasil versión local temporada 2002.",
     imagenes: [
@@ -50,6 +52,7 @@ const PRODUCTOS = [
     id: 4,
     nombre: "Manchester United 2007/08 Champions League",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Manchester United versión Champions League de local temporada 2007/2008.",
     imagenes: [
@@ -62,8 +65,9 @@ const PRODUCTOS = [
   },
   {
     id: 5,
-    nombre: "Ac Milan 23/24 Edicion Beige",
+    nombre: "Ac Milan 23/24 Edicion Beige",re
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 110000,
     descripcion: "Camiseta retro Ac Milan edición especial beige temporada 2023/2024.",
     imagenes: [
@@ -74,10 +78,11 @@ const PRODUCTOS = [
     ],
     tallas: ["S", "M", "L", "XL"]
   },
-    {
+  {
     id: 6,
     nombre: "Ac Milan 23/24 Edicion Oscura",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 110000,
     descripcion: "Camiseta retro Ac Milan edición especial oscura temporada 2023/2024.",
     imagenes: [
@@ -92,6 +97,7 @@ const PRODUCTOS = [
     id: 7,
     nombre: "Alemania 2024 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Alemania versión local temporada 2024.",
     imagenes: [
@@ -105,6 +111,7 @@ const PRODUCTOS = [
     id: 8,
     nombre: "Argentina 2026 Alternativa",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta actual Argentina versión alternativa temporada 2026.",
     imagenes: [
@@ -117,6 +124,7 @@ const PRODUCTOS = [
     id: 9,
     nombre: "Arsenal 2005 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Arsenal versión local temporada 2005.",
     imagenes: [
@@ -130,6 +138,7 @@ const PRODUCTOS = [
     id: 10,
     nombre: "Arsenal 2022 Alternativa",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Arsenal versión alternativa temporada 2022.",
     imagenes: [
@@ -143,6 +152,7 @@ const PRODUCTOS = [
     id: 11,
     nombre: "Barcelona 2008/2009 Local Edicion Champions League",
     categoria: "Retro",
+    entregaInmediata: true, // ⚡ Disponible en stock local
     precio: 100000,
     descripcion: "Camiseta retro Barcelona versión Champions League de local temporada 2008.",
     imagenes: [
@@ -156,6 +166,7 @@ const PRODUCTOS = [
     id: 12,
     nombre: "Barcelona 2006/2007 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Barcelona versión local temporada 2006/2007.",
     imagenes: [
@@ -169,6 +180,7 @@ const PRODUCTOS = [
     id: 13,
     nombre: "Barcelona Edicion especial Travis Scott 2025/2026",
     categoria: "Ediciones Especiales",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta edicion especial Travis Scott Barcelona temporada 2025/2026.",
     imagenes: [
@@ -182,6 +194,7 @@ const PRODUCTOS = [
     id: 14,
     nombre: "Barcelona Edicion especial 2025/2026",
     categoria: "Ediciones Especiales",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta edicion especial Barcelona temporada 2025/2026.",
     imagenes: [
@@ -195,6 +208,7 @@ const PRODUCTOS = [
     id: 15,
     nombre: "Bayern Munich 2017/2018 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Bayern Munich versión local temporada 2017/2018.",
     imagenes: [
@@ -208,6 +222,7 @@ const PRODUCTOS = [
     id: 16,
     nombre: "Bayern Munich 2024/2025 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Bayern Munich versión local temporada 2024/2025.",
     imagenes: [
@@ -221,6 +236,7 @@ const PRODUCTOS = [
     id: 17,
     nombre: "Bayern Munich 2025/26 Local",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Bayern Munich versión local temporada 2025/26.",
     imagenes: [
@@ -234,6 +250,7 @@ const PRODUCTOS = [
     id: 18,
     nombre: "Brasil 2002 Alternativa azul",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Brasil versión alternativa azul temporada 2002.",
     imagenes: [
@@ -247,6 +264,7 @@ const PRODUCTOS = [
     id: 19,
     nombre: "Brasil 2010",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Brasil temporada 2010.",
     imagenes: [
@@ -260,6 +278,7 @@ const PRODUCTOS = [
     id: 20,
     nombre: "Brasil 2010 Alternativa azul",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Brasil versión alternativa azul temporada 2010.",
     imagenes: [
@@ -273,6 +292,7 @@ const PRODUCTOS = [
     id: 21,
     nombre: "Chelsea 2026/2027 Local",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta Chelsea versión local temporada 2026/2027.",
     imagenes: [
@@ -286,6 +306,7 @@ const PRODUCTOS = [
     id: 22,
     nombre: "Chelsea 20211/2012 Local Edicion Champions League",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Chelsea versión Champions League local temporada 2011/2012.",
     imagenes: [
@@ -299,6 +320,7 @@ const PRODUCTOS = [
     id: 23,
     nombre: "Francia 2006 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Francia versión local temporada 2006.",
     imagenes: [
@@ -312,6 +334,7 @@ const PRODUCTOS = [
     id: 24,
     nombre: "Francia 2025 Local",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta actual de Francia versión local temporada 2025.",
     imagenes: [
@@ -325,6 +348,7 @@ const PRODUCTOS = [
     id: 25,
     nombre: "Francia 2018 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Francia versión local temporada 2018.",
     imagenes: [
@@ -338,6 +362,7 @@ const PRODUCTOS = [
     id: 26,
     nombre: "Inter de Milan 2025/2026 Local",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta actual Inter de Milan versión local temporada 2025/2026.",
     imagenes: [
@@ -351,6 +376,7 @@ const PRODUCTOS = [
     id: 27,
     nombre: "Inter de Milan 2004/2005 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Inter de Milan versión local temporada 2004/2005.",
     imagenes: [
@@ -364,6 +390,7 @@ const PRODUCTOS = [
     id: 28,
     nombre: "Inter de Milan 2001/2002 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Inter de Milan versión local temporada 2001/2002.",
     imagenes: [
@@ -377,6 +404,7 @@ const PRODUCTOS = [
     id: 29,
     nombre: "Inter de Milan 2011/2012 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Inter de Milan versión local temporada 2011/2012.",
     imagenes: [
@@ -390,6 +418,7 @@ const PRODUCTOS = [
     id: 30,
     nombre: "Japon 2006 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Japon versión local temporada 2006.",
     imagenes: [
@@ -402,6 +431,7 @@ const PRODUCTOS = [
     id: 31,
     nombre: "Juventus 2004/2005 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Juventus versión local temporada 2004/2005.",
     imagenes: [
@@ -415,6 +445,7 @@ const PRODUCTOS = [
     id: 32,
     nombre: "Juventus 2019/2020 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Juventus versión local temporada 2019/2020.",
     imagenes: [
@@ -428,6 +459,7 @@ const PRODUCTOS = [
     id: 33,
     nombre: "Noruega 2026 Local",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta actual Noruega versión local temporada 2026.",
     imagenes: [
@@ -440,6 +472,7 @@ const PRODUCTOS = [
     id: 34,
     nombre: "Portugal 2026 Local",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta actual Portugal versión local temporada 2026.",
     imagenes: [
@@ -452,6 +485,7 @@ const PRODUCTOS = [
     id: 35,
     nombre: "Portugal 2016 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Portugal versión local temporada 2016.",
     imagenes: [
@@ -465,6 +499,7 @@ const PRODUCTOS = [
     id: 36,
     nombre: "Portugal 2023 Edicion Especial ",
     categoria: "Ediciones Especiales",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta edicion especial \"The Siuu\" Portugal temporada 2023.",
     imagenes: [
@@ -479,6 +514,7 @@ const PRODUCTOS = [
     id: 37,
     nombre: "Paris Saint Germain 2021/2022 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Paris Saint Germain versión local temporada 2021/2022.",
     imagenes: [
@@ -491,6 +527,7 @@ const PRODUCTOS = [
     id: 38,
     nombre: "Paris Saint Germain 2024/2025 Cuarta equipacion",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Paris Saint Germain versión local temporada 2024/2025.",
     imagenes: [
@@ -504,6 +541,7 @@ const PRODUCTOS = [
     id: 39,
     nombre: "Real Madrid 2022/2023 Visitante",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid versión visitante temporada 2022/2023.",
     imagenes: [
@@ -517,6 +555,7 @@ const PRODUCTOS = [
     id: 40,
     nombre: "Real Madrid 2025/2026 Visitante",
     categoria: "Ediciones Especiales",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta edicion especial Real Madrid temporada 2025/2026.",
     imagenes: [
@@ -530,6 +569,7 @@ const PRODUCTOS = [
     id: 41,
     nombre: "Real Madrid 2012/2013 Visitante",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2012/2013.",
     imagenes: [
@@ -543,6 +583,7 @@ const PRODUCTOS = [
     id: 42,
     nombre: "Real Madrid 2006/2007",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2006/2007.",
     imagenes: [
@@ -556,6 +597,7 @@ const PRODUCTOS = [
     id: 43,
     nombre: "Real Madrid 2017/2018",
     categoria: "Retro",
+    entregaInmediata: true, // ⚡ Disponible en stock local
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2017/2018.",
     imagenes: [
@@ -569,6 +611,7 @@ const PRODUCTOS = [
     id: 44,
     nombre: "Real Madrid 2017/2018 Visitante",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid Visitante temporada 2017/2018.",
     imagenes: [
@@ -582,6 +625,7 @@ const PRODUCTOS = [
     id: 45,
     nombre: "Real Madrid 2026/2027 Local",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta actual Real Madrid Local temporada 2026/2027.",
     imagenes: [
@@ -594,6 +638,7 @@ const PRODUCTOS = [
     id: 46,
     nombre: "Real Madrid 2026/2027 Visitante",
     categoria: "Actual",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta actual Real Madrid Visitante temporada 2026/2027.",
     imagenes: [
@@ -606,6 +651,7 @@ const PRODUCTOS = [
     id: 47,
     nombre: "Sporting 2003/2004 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Sporting temporada 2003/2004.",
     imagenes: [
@@ -618,6 +664,7 @@ const PRODUCTOS = [
     id: 48,
     nombre: "Japon 2024 Edicion Especial",
     categoria: "Ediciones Especiales",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta edicion especial Japon temporada 2024.",
     imagenes: [
@@ -631,6 +678,7 @@ const PRODUCTOS = [
     id: 49,
     nombre: "Argentina 2023 Edicion Especial",
     categoria: "Ediciones Especiales",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta edicion especial \"La Pulga\" Argentina temporada 2023.",
     imagenes: [
@@ -644,6 +692,7 @@ const PRODUCTOS = [
     id: 50,
     nombre: "Brasil 2022 Edicion Especial",
     categoria: "Ediciones Especiales",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta edicion especial Brasil temporada 2022.",
     imagenes: [
@@ -657,6 +706,7 @@ const PRODUCTOS = [
     id: 51,
     nombre: "Colombia 2014 Local",
     categoria: "Retro",
+    entregaInmediata: true, // ⚡ Disponible en stock local
     precio: 120000,
     descripcion: "Camiseta retro Colombia temporada 2014.",
     imagenes: [
@@ -670,6 +720,7 @@ const PRODUCTOS = [
     id: 52,
     nombre: "Colombia 1994 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta retro Colombia temporada 1994.",
     imagenes: [
@@ -682,6 +733,7 @@ const PRODUCTOS = [
     id: 53,
     nombre: "España 2008 Local",
     categoria: "Retro",
+    entregaInmediata: false,
     precio: 120000,
     descripcion: "Camiseta retro España temporada 2008.",
     imagenes: [
@@ -690,56 +742,112 @@ const PRODUCTOS = [
       "img/España08-2.jpg"
     ],
     tallas: ["S", "M", "L", "XL"]
-  },  
-
-
-
+  }
 ];
-
-
 // --------------------------------- AQUI ACABA EL CATALOGO --------------------------------- 
-
-
-
-
 
 let carrito = [];
 let total = 0;
+let categoriaActual = 'todos';
 
 document.addEventListener("DOMContentLoaded", () => {
   renderizarCategorias();
-  renderizarProductos(PRODUCTOS);
+  renderizarProductos(PRODUCTOS, "contenedor-productos");
+
+  // Si el usuario entra mediante enlace con hash #entrega-inmediata desde un Meta Ad
+  if (window.location.hash === "#entrega-inmediata") {
+    filtrarCategoria("entrega-inmediata");
+  }
 });
 
 function renderizarCategorias() {
-  const categorias = ["todos", ...new Set(PRODUCTOS.map(p => p.categoria))];
+  const categoriasUnicas = [...new Set(PRODUCTOS.map(p => p.categoria))];
   const contenedor = document.getElementById("contenedor-categorias");
   
-  contenedor.innerHTML = categorias.map(cat => `
-    <button class="btn-categoria ${cat === 'todos' ? 'active' : ''}" 
-            onclick="filtrarCategoria('${cat}', this)">
-      ${cat.charAt(0).toUpperCase() + cat.slice(1)}
-    </button>
-  `).join('');
+  // Mantiene el botón 'Todos' y el botón especial '⚡ Entrega Inmediata'
+  contenedor.innerHTML = `
+    <button class="btn-categoria active" onclick="filtrarCategoria('todos', this)">Todos</button>
+    <button class="btn-categoria btn-inmediato" onclick="filtrarCategoria('entrega-inmediata', this)">⚡ Entrega Inmediata</button>
+    ${categoriasUnicas.map(cat => `
+      <button class="btn-categoria" onclick="filtrarCategoria('${cat}', this)">
+        ${cat.charAt(0).toUpperCase() + cat.slice(1)}
+      </button>
+    `).join('')}
+  `;
 }
 
 function filtrarCategoria(categoria, elemento) {
+  categoriaActual = categoria;
   document.querySelectorAll('.btn-categoria').forEach(btn => btn.classList.remove('active'));
-  if(elemento) elemento.classList.add('active');
-
-  if (categoria === 'todos') {
-    renderizarProductos(PRODUCTOS);
+  
+  if (elemento) {
+    elemento.classList.add('active');
   } else {
-    const filtrados = PRODUCTOS.filter(p => p.categoria === categoria);
-    renderizarProductos(filtrados);
+    // Si la función es llamada programáticamente
+    const btnCoincidente = Array.from(document.querySelectorAll('.btn-categoria')).find(btn => 
+      btn.innerText.toLowerCase().includes(categoria.toLowerCase())
+    );
+    if (btnCoincidente) btnCoincidente.classList.add('active');
+  }
+
+  const seccionInmediata = document.getElementById("seccion-entrega-inmediata");
+  const seccionCatalogo = document.getElementById("seccion-catalogo-general");
+
+  if (categoria === 'entrega-inmediata') {
+    // Muestra únicamente la sección de stock destacado
+    if (seccionInmediata) seccionInmediata.style.display = "block";
+    if (seccionCatalogo) seccionCatalogo.style.display = "none";
+    
+    const productosStock = PRODUCTOS.filter(p => p.entregaInmediata === true);
+    renderizarProductos(productosStock, "contenedor-stock-inmediato");
+  } else {
+    // Muestra el catálogo general
+    if (seccionInmediata) seccionInmediata.style.display = "none";
+    if (seccionCatalogo) seccionCatalogo.style.display = "block";
+    
+    ejecutarFiltroCombinado();
   }
 }
 
-function renderizarProductos(productos) {
-  const contenedor = document.getElementById("contenedor-productos");
-  contenedor.innerHTML = productos.map(prod => `
+function filtrarPorBusqueda() {
+  ejecutarFiltroCombinado();
+}
+
+function ejecutarFiltroCombinado() {
+  const textoBusqueda = document.getElementById('input-busqueda').value.toLowerCase().trim();
+
+  const resultados = PRODUCTOS.filter(prod => {
+    const coincideCategoria = (categoriaActual === 'todos') || (prod.categoria === categoriaActual);
+    const coincideTexto = prod.nombre.toLowerCase().includes(textoBusqueda) || 
+                          (prod.descripcion && prod.descripcion.toLowerCase().includes(textoBusqueda)) ||
+                          prod.categoria.toLowerCase().includes(textoBusqueda);
+
+    return coincideCategoria && coincideTexto;
+  });
+
+  renderizarProductos(resultados, "contenedor-productos");
+}
+
+function renderizarProductos(productos, idContenedor = "contenedor-productos") {
+  const contenedor = document.getElementById(idContenedor);
+  if (!contenedor) return;
+
+  if (productos.length === 0) {
+    contenedor.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 40px 0;">No se encontraron camisetas disponibles en esta sección.</p>`;
+    return;
+  }
+
+  // ⚡ ORDENAR: Las camisetas con entregaInmediata: true aparecen de PRIMERAS en la lista
+  const productosOrdenados = [...productos].sort((a, b) => {
+    return (b.entregaInmediata === true ? 1 : 0) - (a.entregaInmediata === true ? 1 : 0);
+  });
+
+  contenedor.innerHTML = productosOrdenados.map(prod => `
     <div class="card-producto">
       
+      <!-- Badge de Entrega Inmediata si aplica -->
+      ${prod.entregaInmediata ? `<span class="badge-inmediato-card">⚡ Entrega Inmediata</span>` : ''}
+
       <!-- Visor de Imagen Principal y Miniaturas -->
       <div class="galeria-container">
         <div class="img-container">
@@ -783,13 +891,11 @@ function renderizarProductos(productos) {
 }
 
 function cambiarImagenPrincipal(idProducto, nuevaUrl, elementoMiniatura) {
-  // Cambia la foto principal
   const imgPrincipal = document.getElementById(`img-principal-${idProducto}`);
   if (imgPrincipal) {
     imgPrincipal.src = nuevaUrl;
   }
   
-  // Cambia el borde activo de la miniatura seleccionada
   const contenedorPadre = elementoMiniatura.parentElement;
   contenedorPadre.querySelectorAll('.miniatura').forEach(m => m.classList.remove('active'));
   elementoMiniatura.classList.add('active');
@@ -805,65 +911,49 @@ function agregarAlCarrito(idProducto) {
   }
 
   carrito.push({
-    nombre: producto.nombre,
-    precio: producto.precio,
-    talla: tallaSeleccionada
-  });
-
-  total += producto.precio;
-  actualizarBarraCarrito();
-}
-
-// Funciones del Carrito y Modal
-
-function agregarAlCarrito(idProducto) {
-  const producto = PRODUCTOS.find(p => p.id === idProducto);
-  let tallaSeleccionada = "";
-
-  const selectTalla = document.getElementById(`talla-${idProducto}`);
-  if (selectTalla) {
-    tallaSeleccionada = selectTalla.value;
-  }
-
-  // Se agrega un ID único a cada ítem para poder eliminarlo de forma individual
-  carrito.push({
     itemUniqueId: Date.now() + Math.random(),
     id: producto.id,
     nombre: producto.nombre,
     precio: producto.precio,
-    talla: tallaSeleccionada
+    talla: tallaSeleccionada,
+    entregaInmediata: producto.entregaInmediata || false
   });
 
   actualizarCarrito();
 }
 
 function eliminarDelCarrito(itemUniqueId) {
-  // Filtra y remueve solo el ítem seleccionado
   carrito = carrito.filter(item => item.itemUniqueId !== itemUniqueId);
   actualizarCarrito();
-  renderizarModalPedido(); // Actualiza la lista dentro del modal
+  renderizarModalPedido();
 }
 
 function actualizarCarrito() {
   total = carrito.reduce((sum, item) => sum + item.precio, 0);
   
-  // Actualiza textos de totales y contadores
-  document.getElementById("total-precio").innerText = `$ ${total.toLocaleString('es-CO')} COP`;
-  document.getElementById("modal-total-precio").innerText = `$ ${total.toLocaleString('es-CO')} COP`;
-  document.getElementById("contador-cant").innerText = carrito.length;
+  const totalPrecio = document.getElementById("total-precio");
+  const modalTotalPrecio = document.getElementById("modal-total-precio");
+  const contadorCant = document.getElementById("contador-cant");
+
+  if (totalPrecio) totalPrecio.innerText = `$ ${total.toLocaleString('es-CO')} COP`;
+  if (modalTotalPrecio) modalTotalPrecio.innerText = `$ ${total.toLocaleString('es-CO')} COP`;
+  if (contadorCant) contadorCant.innerText = carrito.length;
 }
 
 function abrirModalPedido() {
   renderizarModalPedido();
-  document.getElementById("modal-pedido").classList.add("active");
+  const modal = document.getElementById("modal-pedido");
+  if (modal) modal.classList.add("active");
 }
 
 function cerrarModalPedido() {
-  document.getElementById("modal-pedido").classList.remove("active");
+  const modal = document.getElementById("modal-pedido");
+  if (modal) modal.classList.remove("active");
 }
 
 function renderizarModalPedido() {
   const contenedor = document.getElementById("lista-detallada-pedido");
+  if (!contenedor) return;
   
   if (carrito.length === 0) {
     contenedor.innerHTML = `<p style="text-align: center; color: #64748b; padding: 20px 0;">Tu pedido está vacío.</p>`;
@@ -873,7 +963,7 @@ function renderizarModalPedido() {
   contenedor.innerHTML = carrito.map(item => `
     <div class="item-pedido-row">
       <div class="item-pedido-info">
-        <h4>${item.nombre}</h4>
+        <h4>${item.nombre} ${item.entregaInmediata ? '<span style="color:#22c55e; font-size:0.75rem;">(⚡ Entrega Inmediata)</span>' : ''}</h4>
         <p>${item.talla ? `Talla: <strong>${item.talla}</strong> | ` : ''}$ ${item.precio.toLocaleString('es-CO')} COP</p>
       </div>
       <div class="item-pedido-acciones">
@@ -885,17 +975,12 @@ function renderizarModalPedido() {
   `).join('');
 }
 
-function actualizarBarraCarrito() {
-  document.getElementById("total-precio").innerText = `$ ${total.toLocaleString('es-CO')} COP`;
-}
-
 function enviarWhatsApp() {
   if (carrito.length === 0) {
     alert("Por favor agrega al menos un producto a tu pedido.");
     return;
   }
 
-  // Registra la conversión en Meta Ads antes de enviar
   if (typeof fbq !== 'undefined') {
     fbq('track', 'Lead', {
       value: total,
@@ -907,61 +992,13 @@ function enviarWhatsApp() {
   
   carrito.forEach((item, idx) => {
     const detalleTalla = item.talla ? ` (Talla: ${item.talla})` : '';
-    mensaje += `*${idx + 1}.* ${item.nombre}${detalleTalla} - $${item.precio.toLocaleString('es-CO')}\n`;
+    const etiquetaInmediata = item.entregaInmediata ? ' ⚡ [ENTREGA INMEDIATA]' : '';
+    mensaje += `*${idx + 1}.* ${item.nombre}${detalleTalla}${etiquetaInmediata} - $${item.precio.toLocaleString('es-CO')}\n`;
   });
 
   mensaje += `\n💵 *TOTAL A PAGAR:* $${total.toLocaleString('es-CO')} COP\n\n`;
   mensaje += "📌 Quedo atento para confirmar disponibilidad de stock y datos de envío.";
 
   const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensaje)}`;
-  
-  // Enlace directo para evitar bloqueos de pop-ups en celulares
   window.location.href = url;
-}
-
-let categoriaActual = 'todos';
-
-// Filtra según la categoría seleccionada
-function filtrarCategoria(categoria, elemento) {
-  categoriaActual = categoria;
-  document.querySelectorAll('.btn-categoria').forEach(btn => btn.classList.remove('active'));
-  if (elemento) elemento.classList.add('active');
-
-  ejecutarFiltroCombinado();
-}
-
-// Filtra en tiempo real al escribir en el buscador
-function filtrarPorBusqueda() {
-  ejecutarFiltroCombinado();
-}
-
-// Combina el filtro de categoría y el de texto
-function ejecutarFiltroCombinado() {
-  const textoBusqueda = document.getElementById('input-busqueda').value.toLowerCase().trim();
-
-  const resultados = PRODUCTOS.filter(prod => {
-    // Valida si coincide con la categoría
-    const coincideCategoria = (categoriaActual === 'todos') || (prod.categoria === categoriaActual);
-    
-    // Valida si el texto coincide con nombre, descripción o categoría
-    const coincideTexto = prod.nombre.toLowerCase().includes(textoBusqueda) || 
-                          (prod.descripcion && prod.descripcion.toLowerCase().includes(textoBusqueda)) ||
-                          prod.categoria.toLowerCase().includes(textoBusqueda);
-
-    return coincideCategoria && coincideTexto;
-  });
-
-  renderizarProductos(resultados);
-}
-
-/**
- * Intercambia la fuente de la imagen principal según la miniatura seleccionada
- * @param {string} targetId - ID del elemento img principal a actualizar
- * @param {string} newSrc - URL de la imagen miniatura seleccionada
- */
-function changeImage(targetId, newSrc) {
-  const mainImage = document.getElementById(targetId);
-  if (mainImage) {
-    mainImage.src = newSrc;
-  }
 }

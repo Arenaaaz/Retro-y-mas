@@ -26,7 +26,7 @@
 </head>
 <body>
   <div class="shipping-banner">
-  <span>📦 <strong>Camisetas de Colección e Importación Exclusiva:</strong> Envíos a toda Colombia en 15 a 20 días hábiles.</span>
+    <span>📦 <strong>Camisetas de Colección e Importación Exclusiva:</strong> Envíos a toda Colombia en 15 a 20 días hábiles.</span>
   </div>
 
   <!-- Encabezado -->
@@ -42,26 +42,45 @@
     </div>
   </header>
 
-  <!-- Categorías / Filtros -->
-<!-- Barra de Búsqueda y Categorías -->
+  <!-- Barra de Búsqueda y Categorías -->
   <nav class="categorias-nav">
     <div class="busqueda-container">
       <input type="text" id="input-busqueda" placeholder="🔍 Buscar camiseta por equipo o año..." onkeyup="filtrarPorBusqueda()">
     </div>
     <div class="categorias-container" id="contenedor-categorias">
       <button class="btn-categoria active" onclick="filtrarCategoria('todos')">Todos</button>
+      <!-- Botón destacado de Entrega Inmediata -->
+      <button class="btn-categoria btn-inmediato" onclick="filtrarCategoria('entrega-inmediata')">⚡ Entrega Inmediata</button>
       <!-- Categorías dinámicas -->
     </div>
   </nav>
 
-  <!-- Lista de Productos -->
+  <!-- Principal -->
   <main class="main-container">
-    <div class="grid-productos" id="contenedor-productos">
-      <!-- Se carga dinámicamente desde script.js -->
-    </div>
+
+    <!-- SECCIÓN ENTREGA INMEDIATA (Puntos de contacto directo desde Meta Ads) -->
+    <section id="seccion-entrega-inmediata" class="seccion-stock-destacado" style="display: none;">
+      <div class="banner-stock">
+        <span class="badge-flash">⚡ DISPONIBLE HOY MISMO</span>
+        <h2>Camisetas para Entrega Inmediata</h2>
+        <p>¡Despacho inmediato o domicilio el mismo día sin esperar importación!</p>
+      </div>
+
+      <div class="grid-productos" id="contenedor-stock-inmediato">
+        <!-- Se renderizarán únicamente las camisetas en stock desde script.js -->
+      </div>
+    </section>
+
+    <!-- Catálogo General / Lista de Productos -->
+    <section id="seccion-catalogo-general">
+      <div class="grid-productos" id="contenedor-productos">
+        <!-- Se carga dinámicamente desde script.js -->
+      </div>
+    </section>
+
   </main>
 
-<!-- Barra Flotante del Carrito -->
+  <!-- Barra Flotante del Carrito -->
   <div class="barra-carrito">
     <div class="carrito-info">
       <span class="label-total">Total acumulado:</span>
@@ -97,7 +116,7 @@
         </div>
         
         <div class="modal-trust-box">
-          <p>🚚 <strong>Envío de importación:</strong> 15 a 20 días hábiles a toda Colombia.</p>
+          <p>🚚 <strong>Envíos:</strong> 15-20 días hábiles (Importaciones) | 24-48 horas (Entrega Inmediata).</p>
           <p>🔒 <strong>Compra Segura:</strong> Confirmación de disponibilidad, talla y guía de rastreo por WhatsApp.</p>
         </div>
         <button class="btn-whatsapp btn-confirmar" onclick="if(typeof fbq !== 'undefined'){ fbq('track', 'Lead'); } enviarWhatsApp();">
@@ -106,14 +125,12 @@
       </div>
     </div>
   </div>
+
   <!-- Botón Flotante de WhatsApp para Consultas -->
-<a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" onclick="fbq('track', 'Contact');">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-</a>
-<script src="script.js"></script>
+  <a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" onclick="fbq('track', 'Contact');">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
 
-
-
-
+  <script src="script.js"></script>
 </body>
 </html>

@@ -630,3 +630,88 @@ body {
 .modal-trust-box strong {
   color: #10b981; /* Verde esmeralda */
 }
+
+
+/* ==========================================================================
+   10. ESTILOS PARA ENTREGA INMEDIATA (STOCK)
+   ========================================================================== */
+/* Botón destacado en la barra de categorías */
+.btn-categoria.btn-inmediato {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  animation: pulse-btn 2s infinite;
+}
+
+.btn-categoria.btn-inmediato:hover,
+.btn-categoria.btn-inmediato.active {
+  background: #b91c1c;
+  color: #ffffff;
+}
+
+/* Animación de pulso para llamar la atención */
+@keyframes pulse-btn {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Contenedor de la sección destacada de stock */
+.seccion-stock-destacado {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 24px 18px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  border: 1px solid #1e293b;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.banner-stock {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.badge-flash {
+  background-color: #ef4444;
+  color: #ffffff;
+  padding: 4px 12px;
+  font-weight: 800;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  display: inline-block;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.banner-stock h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.banner-stock p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* Badge 'Entrega Inmediata' flotante dentro de las tarjetas */
+.card-producto {
+  position: relative;
+}
+
+.badge-inmediato-card {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #22c55e;
+  color: #000000;
+  font-weight: 800;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
