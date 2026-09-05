@@ -24,7 +24,7 @@ const PRODUCTOS = [
     nombre: "Argentina 2006 Local",
     categoria: "Retro",
     entregaInmediata: false,
-    precio: 130000,
+    precio: 120000,
     descripcion: "Camiseta retro Argentina versión local temporada 2006.",
     imagenes: ["img/Argentina06.jpg", "img/Argentina06-1.jpg"],
     tallas: ["S", "M", "L", "XL"]
