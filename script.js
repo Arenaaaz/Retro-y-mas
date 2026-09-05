@@ -121,7 +121,7 @@ const PRODUCTOS = [
     id: 12,
     nombre: "Barcelona 2006/2007 Local",
     categoria: "Retro",
-    entregaInmediata: true,
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Barcelona versión local temporada 2006/2007.",
     imagenes: ["img/Barcelona06.jpeg", "img/Barcelona06-1.jpeg", "img/Barcelona06-2.jpeg"],
@@ -535,6 +535,16 @@ const PRODUCTOS = [
     precio: 120000,
     descripcion: "Camiseta retro España temporada 2008.",
     imagenes: ["img/España08.jpeg", "img/España08-1.jpg", "img/España08-2.jpg"],
+    tallas: ["S", "M", "L", "XL"]
+  },
+  {
+    id: 54,
+    nombre: "Barcelona 2009/2010 Local",
+    categoria: "Retro",
+    entregaInmediata: true,
+    precio: 120000,
+    descripcion: "Camiseta retro Barcelona temporada 2009/2010.",
+    imagenes: ["img/Barcelona09.jpg", "img/Barcelona09-1.jpg", "img/Barcelona09-2.jpg"],
     tallas: ["S", "M", "L", "XL"]
   }
 ];
