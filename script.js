@@ -12,6 +12,8 @@ const PRODUCTOS = [
     nombre: "AC Milan 06/07",
     categoria: "Retro",
     entregaInmediata: true,
+    dorsalInmediato: "Kaká 22",
+    tallasInmediatas: ["L"],
     precio: 100000,
     descripcion: "Camiseta retro AC Milan versión local temporada 2006/2007.",
     imagenes: ["img/AcMilan06.jpeg", "img/AcMilan06-1.jpeg", "img/AcMilan06-2.jpeg"],
@@ -32,6 +34,8 @@ const PRODUCTOS = [
     nombre: "Brasil 2002 Local",
     categoria: "Retro",
     entregaInmediata: true,
+    dorsalInmediato: "Ronaldo 9",
+    tallasInmediatas: ["L"],
     precio: 100000,
     descripcion: "Camiseta retro Brasil versión local temporada 2002.",
     imagenes: ["img/Brasil02.jpeg", "img/Brasil02-1.jpeg", "img/Brasil02-2.jpeg"],
@@ -232,6 +236,8 @@ const PRODUCTOS = [
     nombre: "Francia 2006 Local",
     categoria: "Retro",
     entregaInmediata: true,
+    dorsalInmediato: "Zidane 10",
+    tallasInmediatas: ["L"],
     precio: 100000,
     descripcion: "Camiseta retro Francia versión local temporada 2006.",
     imagenes: ["img/Francia06.jpeg", "img/Francia06-1.jpeg", "img/Francia06-2.jpeg"],
@@ -342,6 +348,8 @@ const PRODUCTOS = [
     nombre: "Portugal 2026 \"La pantera negra\"",
     categoria: "Actual",
     entregaInmediata: true,
+    dorsalInmediato: "Sin dorsal",
+    tallasInmediatas: ["L"],
     precio: 100000,
     descripcion: "Camiseta actual Portugal versión \"La pantera negra\" temporada 2026.",
     imagenes: ["img/Portugal26.jpg", "img/Portugal26-1.jpg"],
@@ -432,7 +440,9 @@ const PRODUCTOS = [
     nombre: "Real Madrid 2017/2018",
     categoria: "Retro",
     entregaInmediata: true,
-    precio: 100000,
+    dorsalInmediato: "Ronaldo 7 + Parches - Manga larga",
+    tallasInmediatas: ["L"],
+    precio: 120000,
     descripcion: "Camiseta retro Real Madrid temporada 2017/2018.",
     imagenes: ["img/Real17.jpeg", "img/Real17-1.jpeg", "img/Real17-2.jpeg"],
     tallas: ["S", "M", "L", "XL"]
@@ -542,9 +552,11 @@ const PRODUCTOS = [
     nombre: "Barcelona 2009/2010 Local",
     categoria: "Retro",
     entregaInmediata: true,
+    dorsalInmediato: "Messi 10",
+    tallasInmediatas: ["L"],
     precio: 120000,
     descripcion: "Camiseta retro Barcelona temporada 2009/2010.",
-    imagenes: ["img/Barcelona09.jpg", "img/Barcelona09-1.jpg", "img/Barcelona09-2.jpg"],
+    imagenes: ["img/Barcelona09.jpeg", "img/Barcelona09-1.jpeg", "img/Barcelona09-2.jpeg"],
     tallas: ["S", "M", "L", "XL"]
   }
 ];
@@ -596,7 +608,8 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
     return (b.entregaInmediata === true ? 1 : 0) - (a.entregaInmediata === true ? 1 : 0);
   });
 
-  contenedor.innerHTML = productosOrdenados.map(prod => `
+  contenedor.innerHTML = productosOrdenados.map(prod => {
+    return `
     <div class="card-producto">
       ${prod.entregaInmediata ? `<span class="badge-inmediato-card">⚡ Entrega Inmediata</span>` : ''}
 
@@ -620,6 +633,14 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
       <div class="info-container">
         <div>
           <h3 class="titulo-producto">${prod.nombre}</h3>
+          
+          <!-- Dorsal destacado -->
+          ${(prod.entregaInmediata && prod.dorsalInmediato) ? `
+            <p class="dorsal-destacado" style="color: #22c55e; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px;">
+              👕 Dorsal disponible: ${prod.dorsalInmediato}
+            </p>
+          ` : ''}
+
           ${prod.descripcion ? `<p class="descripcion-producto">${prod.descripcion}</p>` : ''}
           <div class="precio-producto">$ ${prod.precio.toLocaleString('es-CO')} COP</div>
           
@@ -627,7 +648,14 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
             <div class="selector-opcion">
               <label for="talla-${prod.id}">Seleccionar Talla:</label>
               <select id="talla-${prod.id}">
-                ${prod.tallas.map(t => `<option value="${t}">${t}</option>`).join('')}
+                ${prod.tallas.map(t => {
+                  const esStockInmediato = prod.entregaInmediata && prod.tallasInmediatas && prod.tallasInmediatas.includes(t);
+                  return `
+                    <option value="${t}">
+                      ${t} ${esStockInmediato ? '⚡ (Entrega Inmediata)' : ''}
+                    </option>
+                  `;
+                }).join('')}
               </select>
             </div>
           ` : ''}
@@ -638,7 +666,8 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
         </button>
       </div>
     </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 // FILTROS

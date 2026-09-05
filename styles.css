@@ -715,3 +715,30 @@ body {
   z-index: 2;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
+
+/* BANNER PEDIDO POR ENCARGO */
+.banner-encargo {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 1px solid #334155;
+  border-left: 5px solid #4f46e5;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  color: #f8fafc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.banner-encargo-contenido span {
+  font-size: 0.95rem;
+  color: #ffffff;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.banner-encargo-contenido p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.4;
+}
