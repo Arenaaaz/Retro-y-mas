@@ -699,6 +699,9 @@ function filtrarCategoria(categoria, elemento) {
     
     ejecutarFiltroCombinado();
   }
+
+  // 🚀 LÍNEA AGREGADA: Reinicia el scroll hacia arriba con una transición suave
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function filtrarPorBusqueda() {
