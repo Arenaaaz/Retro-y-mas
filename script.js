@@ -646,7 +646,7 @@ const PRODUCTOS = [
     entregaInmediata: true,
     dorsalInmediato: "Messi 10",
     tallasInmediatas: ["L"],
-    precio: 10000,
+    precio: 100000,
     descripcion: "Camiseta retro Barcelona temporada 2009/2010.",
     imagenes: ["img/Barcelona09.jpeg", "img/Barcelona09-1.jpeg", "img/Barcelona09-2.jpeg"],
     tallas: ["S", "M", "L", "XL"],
