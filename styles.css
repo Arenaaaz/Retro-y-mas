@@ -96,28 +96,49 @@ body:has(.modal-overlay.active) {
 /* ==========================================================================
    3. NAVEGACIÓN, SIDEBAR Y CATEGORÍAS
    ========================================================================== */
-.top-nav-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px 16px 0 16px;
+/* BANNER SUPERIOR DE ENVÍOS */
+.shipping-banner {
+  background: #111827;
+  color: #f3f4f6;
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  border-bottom: 1px solid #1f2937;
 }
 
-.btn-menu-sidebar {
+/* BOTÓN DE SECCIONES ANCHO COMPLETO */
+.top-nav-bar {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px 0 16px;
+}
+
+.btn-menu-sidebar-full {
+  width: 100%;
   background: #1e293b;
-  color: white;
+  color: #ffffff;
   border: none;
-  padding: 8px 14px;
-  border-radius: 10px;
+  padding: 12px 18px;
+  border-radius: 12px;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn-menu-sidebar-full:hover {
+  background: #0f172a;
+}
+
+.btn-menu-sidebar-full:active {
+  transform: scale(0.99);
 }
 
 .tipos-prenda-wrapper {
@@ -222,10 +243,19 @@ body:has(.modal-overlay.active) {
   border-color: #4f46e5;
 }
 
-.sidebar-item.item-destacado {
-  background: #ef4444;
-  color: white;
-  border-color: #ef4444;
+.sidebar-item.item-destacado,
+.sidebar-item.item-destacado:hover,
+.sidebar-item.item-destacado:focus {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #ffffff !important;
+  border-color: #059669 !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+  transition: filter 0.2s ease, transform 0.1s ease;
+}
+
+.sidebar-item.item-destacado:hover {
+  filter: brightness(0.9); /* Oscurece suavemente sin cambiar el tono de fondo */
 }
 
 .busqueda-container {
@@ -809,18 +839,38 @@ body:has(.modal-overlay.active) {
   color: #10b981;
 }
 
-.btn-categoria.btn-inmediato {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: #ffffff;
+/* BOTÓN DE ENTREGA INMEDIATA EN BARRAS HORIZONTALES */
+.btn-categoria.btn-inmediato,
+.btn-categoria.btn-inmediato:hover,
+.btn-categoria.btn-inmediato:focus,
+.btn-categoria.btn-inmediato.active {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #ffffff !important;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-  animation: pulse-btn 2s infinite;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+  transition: filter 0.2s ease, transform 0.1s ease;
 }
 
-.btn-categoria.btn-inmediato:hover,
-.btn-categoria.btn-inmediato.active {
-  background: #b91c1c;
-  color: #ffffff;
+.btn-categoria.btn-inmediato:hover {
+  filter: brightness(0.9);
+}
+
+/* BOTÓN DESTACADO EN LA SIDEBAR LATERAL */
+.sidebar-item.item-destacado,
+.sidebar-item.item-destacado:hover,
+.sidebar-item.item-destacado:focus,
+.sidebar-item.item-destacado.active {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #ffffff !important;
+  border-color: #059669 !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+  transition: filter 0.2s ease, transform 0.1s ease;
+}
+
+.sidebar-item.item-destacado:hover {
+  filter: brightness(0.9);
+}
 }
 
 @keyframes pulse-btn {
@@ -846,7 +896,7 @@ body:has(.modal-overlay.active) {
 }
 
 .badge-flash {
-  background-color: #ef4444;
+  background: linear-gradient(135deg, #10b981, #059669) !important;
   color: #ffffff;
   padding: 4px 12px;
   font-weight: 800;

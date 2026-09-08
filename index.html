@@ -26,8 +26,9 @@
 </head>
 <body>
   <script src="productos.js"></script>
+  <!-- Banner Superior con info de envíos -->
   <div class="shipping-banner">
-    <span>📦 <strong>Camisetas de Colección e Importación Exclusiva:</strong> Envíos a toda Colombia en 15 a 20 días hábiles.</span>
+    <span>📦 <strong>Envíos por encargo:</strong> ¡GRATIS a partir de 2 unidades! (15 a 20 días hábiles). Envíos inmediatos en Medellín varían según la dirección.</span>
   </div>
 
   <!-- Encabezado -->
@@ -43,16 +44,13 @@
     </div>
   </header>
 
-  <!-- Barra de Búsqueda y Navegación de Prendas -->
+  <!-- Barra de Navegación con Botón Ancho Completo -->
   <nav class="categorias-nav">
     <div class="top-nav-bar">
-      <!-- Botón Menú Lateral / Sidebar -->
-      <button class="btn-menu-sidebar" onclick="toggleSidebar()">
-        ☰ <span>Secciones</span>
+      <!-- Botón Menú Lateral / Sidebar Ancho Completo -->
+      <button class="btn-menu-sidebar-full" onclick="toggleSidebar()">
+        ☰ <span>Ver Secciones (Camisetas, Pantalonetas, Buzos...)</span>
       </button>
-
-      <!-- Selector Rápido de Tipo de Prenda -->
-      
     </div>
 
     <div class="busqueda-container">
@@ -78,7 +76,7 @@
         <button class="sidebar-item" onclick="filtrarTipoPrenda('Pantalonetas'); toggleSidebar();">
           🩳 Pantalonetas
         </button>
-        <button class="sidebar-item" onclick="filtrarTipoPrenda('Buzos'); toggleSidebar();">
+        <button class="sidebar-item" onclick="filtrarTipoPrenda('Entrenamiento'); toggleSidebar();">
           🧥 Buzos y entrenamiento 
         </button>
         <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
