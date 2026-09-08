@@ -5,7 +5,7 @@ const CONFIG = {
   moneda: "COP"
 };
 
-// --------------------------------- CATALOGO --------------------------------- 
+// --------------------------------- CATÁLOGO --------------------------------- 
 const PRODUCTOS = [
   {
     id: 1,
@@ -17,7 +17,17 @@ const PRODUCTOS = [
     precio: 100000,
     descripcion: "Camiseta retro AC Milan versión local temporada 2006/2007.",
     imagenes: ["img/AcMilan06.jpeg", "img/AcMilan06-1.jpeg", "img/AcMilan06-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Mundial de clubes", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 2,
@@ -27,13 +37,19 @@ const PRODUCTOS = [
     precio: 120000,
     descripcion: "Camiseta retro Argentina versión local temporada 2006.",
     imagenes: ["img/Argentina06.jpg", "img/Argentina06-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 3,
     nombre: "Brasil 2002 Local",
     categoria: "Retro",
-    entregaInmediata: false,
+    entregaInmediata: true,
     dorsalInmediato: "Ronaldo 9",
     tallasInmediatas: ["L"],
     precio: 100000,
@@ -49,25 +65,35 @@ const PRODUCTOS = [
     precio: 100000,
     descripcion: "Camiseta retro Manchester United versión Champions League de local temporada 2007/2008.",
     imagenes: ["img/United07.jpeg", "img/United07-1.jpeg", "img/United07-2.jpeg", "img/United07-3.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions League", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 5,
-    nombre: "Ac Milan 23/24 Edicion Beige",
+    nombre: "AC Milan 23/24 Edicion Beige",
     categoria: "Retro",
     entregaInmediata: false,
     precio: 110000,
-    descripcion: "Camiseta retro Ac Milan edición especial beige temporada 2023/2024.",
+    descripcion: "Camiseta retro AC Milan edición especial beige temporada 2023/2024.",
     imagenes: ["img/AcMilan23-Blanco.jpg", "img/AcMilan23-Blanco-1.jpg", "img/AcMilan23-Blanco-2.jpg", "img/AcMilan23-Blanco-3.jpg"],
     tallas: ["S", "M", "L", "XL"]
   },
   {
     id: 6,
-    nombre: "Ac Milan 23/24 Edicion Oscura",
+    nombre: "AC Milan 23/24 Edicion Oscura",
     categoria: "Retro",
     entregaInmediata: false,
     precio: 110000,
-    descripcion: "Camiseta retro Ac Milan edición especial oscura temporada 2023/2024.",
+    descripcion: "Camiseta retro AC Milan edición especial oscura temporada 2023/2024.",
     imagenes: ["img/AcMilan23-Negra.jpg", "img/AcMilan23-Negra-1.jpg", "img/AcMilan23-Negra-2.jpg", "img/AcMilan23-Negra-3.jpg"],
     tallas: ["S", "M", "L", "XL"]
   },
@@ -99,7 +125,17 @@ const PRODUCTOS = [
     precio: 100000,
     descripcion: "Camiseta retro Arsenal versión local temporada 2005.",
     imagenes: ["img/Arsenal05.jpeg", "img/Arsenal05-1.jpeg", "img/Arsenal05-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions ", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 10,
@@ -129,7 +165,18 @@ const PRODUCTOS = [
     precio: 100000,
     descripcion: "Camiseta retro Barcelona versión local temporada 2006/2007.",
     imagenes: ["img/Barcelona06.jpeg", "img/Barcelona06-1.jpeg", "img/Barcelona06-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Edicion Champions League (Bordado de la final)", adicional: 0 },
+        { tipo: "Parches Champions", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 13,
@@ -223,13 +270,24 @@ const PRODUCTOS = [
   },
   {
     id: 22,
-    nombre: "Chelsea 20211/2012 Local Edicion Champions League",
+    nombre: "Chelsea 2011/2012 Local Edicion Champions League",
     categoria: "Retro",
     entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro Chelsea versión Champions League local temporada 2011/2012.",
     imagenes: ["img/Chelsea11.jpeg", "img/Chelsea11-1.jpeg", "img/Chelsea11-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Edicion Champions League (Bordado de la final)", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 23,
@@ -261,7 +319,13 @@ const PRODUCTOS = [
     precio: 100000,
     descripcion: "Camiseta retro Francia versión local temporada 2018.",
     imagenes: ["img/Francia18.jpeg", "img/Francia18-1.jpeg", "img/Francia18-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 26,
@@ -363,7 +427,13 @@ const PRODUCTOS = [
     precio: 100000,
     descripcion: "Camiseta retro Portugal versión local temporada 2016.",
     imagenes: ["img/Portugal16.jpeg", "img/Portugal16-1.jpeg", "img/Portugal16-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+     variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 36,
@@ -393,7 +463,13 @@ const PRODUCTOS = [
     precio: 100000,
     descripcion: "Camiseta retro Paris Saint Germain versión local temporada 2024/2025.",
     imagenes: ["img/Psg24.jpg", "img/Psg24-1.jpg", "img/Psg24-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+     variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 39,
@@ -433,7 +509,13 @@ const PRODUCTOS = [
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2006/2007.",
     imagenes: ["img/Real06.jpeg", "img/Real06-1.jpeg", "img/Real06-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+     variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 43,
@@ -442,10 +524,20 @@ const PRODUCTOS = [
     entregaInmediata: true,
     dorsalInmediato: "Ronaldo 7 + Parches - Manga larga",
     tallasInmediatas: ["L"],
-    precio: 120000,
+    precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2017/2018.",
     imagenes: ["img/Real17.jpeg", "img/Real17-1.jpeg", "img/Real17-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    }
   },
   {
     id: 44,
@@ -557,26 +649,71 @@ const PRODUCTOS = [
     precio: 120000,
     descripcion: "Camiseta retro Barcelona temporada 2009/2010.",
     imagenes: ["img/Barcelona09.jpeg", "img/Barcelona09-1.jpeg", "img/Barcelona09-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Edicion Champions League (Bordado de la final)", adicional: 0 },
+        { tipo: "Parches Champions / Mundial de clubes", adicional: 10000 }
+      ]
+    }
   },
   {
-    id: 55, 
-    nombre: "Ac Milan 2009/2010 Local",
+    id: 55,
+    nombre: "AC Milan 2009/2010 Local",
     categoria: "Retro",
     entregaInmediata: false,
     precio: 100000,
-    descripcion: "Camiseta retro Ac Milan temporada 2009/2010.",
+    descripcion: "Camiseta retro AC Milan temporada 2009/2010.",
     imagenes: ["img/AcMilan09.jpeg", "img/AcMilan09-1.jpeg", "img/AcMilan09-2.jpeg", "img/AcMilan09-3.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
-  }
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: 56,
+    nombre: "AC Milan 06/07 Visitante",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro AC Milan versión visitante de Champions League temporada 2006/2007.",
+    imagenes: ["img/AcMilan06-Visitante.jpg", "img/AcMilan06-Visitante-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Edicion Champions League (Bordado de la final)", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    }
+  },
 ];
 
-// VARIABLES GLOBALES
+// --------------------------------- VARIABLES GLOBALES --------------------------------- 
 let carrito = [];
 let total = 0;
 let categoriaActual = 'todos';
 
-// INICIALIZACIÓN
+let productoSeleccionadoTemp = null;
+let opcionesSeleccionadas = { talla: '', manga: '', parches: '', nombreNumero: '' };
+
+// --------------------------------- INICIALIZACIÓN --------------------------------- 
 document.addEventListener("DOMContentLoaded", () => {
   renderizarCategorias();
   
@@ -587,7 +724,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// FUNCIONES DE RENDERIZADO
+// --------------------------------- FUNCIONES DE RENDERIZADO --------------------------------- 
 function renderizarCategorias() {
   const categoriasUnicas = [...new Set(PRODUCTOS.map(p => p.categoria))];
   const contenedor = document.getElementById("contenedor-categorias");
@@ -613,7 +750,6 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
     return;
   }
 
-  // Ordenar: Entrega Inmediata primero
   const productosOrdenados = [...productos].sort((a, b) => {
     return (b.entregaInmediata === true ? 1 : 0) - (a.entregaInmediata === true ? 1 : 0);
   });
@@ -644,7 +780,6 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
         <div>
           <h3 class="titulo-producto">${prod.nombre}</h3>
           
-          <!-- Dorsal destacado -->
           ${(prod.entregaInmediata && prod.dorsalInmediato) ? `
             <p class="dorsal-destacado" style="color: #22c55e; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px;">
               👕 Dorsal disponible: ${prod.dorsalInmediato}
@@ -653,26 +788,10 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
 
           ${prod.descripcion ? `<p class="descripcion-producto">${prod.descripcion}</p>` : ''}
           <div class="precio-producto">$ ${prod.precio.toLocaleString('es-CO')} COP</div>
-          
-          ${prod.tallas ? `
-            <div class="selector-opcion">
-              <label for="talla-${prod.id}">Seleccionar Talla:</label>
-              <select id="talla-${prod.id}">
-                ${prod.tallas.map(t => {
-                  const esStockInmediato = prod.entregaInmediata && prod.tallasInmediatas && prod.tallasInmediatas.includes(t);
-                  return `
-                    <option value="${t}">
-                      ${t} ${esStockInmediato ? '⚡ (Entrega Inmediata)' : ''}
-                    </option>
-                  `;
-                }).join('')}
-              </select>
-            </div>
-          ` : ''}
         </div>
         
-        <button class="btn-agregar" onclick="agregarAlCarrito(${prod.id})">
-          + Agregar al pedido
+        <button class="btn-agregar" onclick="abrirModalOpciones(${prod.id})">
+          + Personalizar y Agregar
         </button>
       </div>
     </div>
@@ -680,7 +799,174 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
   }).join('');
 }
 
-// FILTROS
+// --------------------------------- MODAL DE OPCIONES DE PRODUCTO --------------------------------- 
+function abrirModalOpciones(idProducto) {
+  const prod = PRODUCTOS.find(p => p.id === idProducto);
+  if (!prod) return;
+
+  productoSeleccionadoTemp = prod;
+  opcionesSeleccionadas = {
+    talla: prod.tallas ? prod.tallas[0] : '',
+    manga: prod.variantes?.manga ? prod.variantes.manga[0].tipo : '',
+    parches: prod.variantes?.parches ? prod.variantes.parches[0].tipo : '',
+    nombreNumero: ''
+  };
+
+  document.getElementById("modal-opt-titulo").innerText = prod.nombre;
+
+  const contenedorBody = document.getElementById("modal-opt-body");
+  contenedorBody.innerHTML = `
+    <!-- ALERTA STOCK DESTACADO SI ES ENTREGA INMEDIATA -->
+    ${prod.entregaInmediata ? `
+      <div class="alerta-stock-modal">
+        <span>⚡ <strong>DISPONIBLE PARA ENTREGA INMEDIATA:</strong></span>
+        <p>Talla: <strong>${prod.tallasInmediatas ? prod.tallasInmediatas.join(', ') : 'L'}</strong> | Dorsal: <strong>${prod.dorsalInmediato || 'Sin estampado especificado'}</strong></p>
+      </div>
+    ` : ''}
+
+    <!-- CHIPS DE TALLA -->
+    ${prod.tallas ? `
+      <div class="selector-chip-container">
+        <label>Talla:</label>
+        <div class="chips-wrapper">
+          ${prod.tallas.map((t, idx) => {
+            const esStock = prod.entregaInmediata && prod.tallasInmediatas?.includes(t);
+            return `
+              <button type="button" 
+                      class="chip-opcion ${idx === 0 ? 'active' : ''} ${esStock ? 'chip-inmediato' : ''}" 
+                      onclick="cambiarOpcionModal('talla', '${t}', this)">
+                ${t} ${esStock ? '⚡ (Entrega Inmediata)' : ''}
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    ` : ''}
+
+    <!-- CAMPO NOMBRE Y NÚMERO DE JUGADOR -->
+    <div class="campo-personalizacion-container">
+      <label for="input-nombre-numero">Nombre y Número de Jugador (Opcional):</label>
+      <input type="text" 
+             id="input-nombre-numero" 
+             placeholder="Ej: Messi 10" 
+             oninput="opcionesSeleccionadas.nombreNumero = this.value">
+      <small style="color: #64748b; font-size: 0.75rem; display: block; margin-top: 4px;">
+        Déjalo en blanco si prefieres la camiseta sin dorsal estampado.
+      </small>
+    </div>
+
+    <!-- CHIPS DE MANGA -->
+    ${prod.variantes?.manga ? `
+      <div class="selector-chip-container">
+        <label>Tipo de Manga:</label>
+        <div class="chips-wrapper">
+          ${prod.variantes.manga.map((m, idx) => `
+            <button type="button" 
+                    class="chip-opcion ${idx === 0 ? 'active' : ''}" 
+                    onclick="cambiarOpcionModal('manga', '${m.tipo}', this)">
+              ${m.tipo} ${m.adicional > 0 ? `(+$${m.adicional.toLocaleString('es-CO')})` : ''}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+
+    <!-- CHIPS DE PARCHES -->
+    ${prod.variantes?.parches ? `
+      <div class="selector-chip-container">
+        <label>Parches / Escudos:</label>
+        <div class="chips-wrapper">
+          ${prod.variantes.parches.map((p, idx) => `
+            <button type="button" 
+                    class="chip-opcion ${idx === 0 ? 'active' : ''}" 
+                    onclick="cambiarOpcionModal('parches', '${p.tipo}', this)">
+              ${p.tipo} ${p.adicional > 0 ? `(+$${p.adicional.toLocaleString('es-CO')})` : ''}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+  `;
+
+  actualizarPrecioModal();
+
+  const btnConfirmar = document.getElementById("btn-confirmar-opciones");
+  btnConfirmar.onclick = () => {
+    confirmarAgregarAlCarrito();
+  };
+
+  document.getElementById("modal-opciones-producto").classList.add("active");
+}
+
+function cambiarOpcionModal(tipo, valor, elemento) {
+  opcionesSeleccionadas[tipo] = valor;
+  
+  const padre = elemento.parentElement;
+  if (padre) {
+    padre.querySelectorAll('.chip-opcion').forEach(btn => btn.classList.remove('active'));
+  }
+  elemento.classList.add('active');
+
+  actualizarPrecioModal();
+}
+
+function actualizarPrecioModal() {
+  if (!productoSeleccionadoTemp) return;
+  
+  let precioCalculado = productoSeleccionadoTemp.precio;
+
+  if (opcionesSeleccionadas.manga && productoSeleccionadoTemp.variantes?.manga) {
+    const varManga = productoSeleccionadoTemp.variantes.manga.find(m => m.tipo === opcionesSeleccionadas.manga);
+    if (varManga) precioCalculado += varManga.adicional;
+  }
+
+  if (opcionesSeleccionadas.parches && productoSeleccionadoTemp.variantes?.parches) {
+    const varParches = productoSeleccionadoTemp.variantes.parches.find(p => p.tipo === opcionesSeleccionadas.parches);
+    if (varParches) precioCalculado += varParches.adicional;
+  }
+
+  document.getElementById("modal-opt-precio-total").innerText = `$ ${precioCalculado.toLocaleString('es-CO')} COP`;
+}
+
+function cerrarModalOpciones() {
+  document.getElementById("modal-opciones-producto").classList.remove("active");
+  productoSeleccionadoTemp = null;
+}
+
+function confirmarAgregarAlCarrito() {
+  if (!productoSeleccionadoTemp) return;
+
+  let precioFinal = productoSeleccionadoTemp.precio;
+
+  if (opcionesSeleccionadas.manga && productoSeleccionadoTemp.variantes?.manga) {
+    const varManga = productoSeleccionadoTemp.variantes.manga.find(m => m.tipo === opcionesSeleccionadas.manga);
+    if (varManga) precioFinal += varManga.adicional;
+  }
+
+  if (opcionesSeleccionadas.parches && productoSeleccionadoTemp.variantes?.parches) {
+    const varParches = productoSeleccionadoTemp.variantes.parches.find(p => p.tipo === opcionesSeleccionadas.parches);
+    if (varParches) precioFinal += varParches.adicional;
+  }
+
+  const dorsalIngresado = document.getElementById("input-nombre-numero")?.value.trim() || '';
+
+  carrito.push({
+    itemUniqueId: Date.now() + Math.random(),
+    id: productoSeleccionadoTemp.id,
+    nombre: productoSeleccionadoTemp.nombre,
+    precio: precioFinal,
+    talla: opcionesSeleccionadas.talla,
+    manga: opcionesSeleccionadas.manga,
+    parches: opcionesSeleccionadas.parches,
+    dorsalPersonalizado: dorsalIngresado,
+    entregaInmediata: productoSeleccionadoTemp.entregaInmediata || false
+  });
+
+  actualizarCarrito();
+  cerrarModalOpciones();
+}
+
+// --------------------------------- FILTROS Y BÚSQUEDA --------------------------------- 
 function filtrarCategoria(categoria, elemento) {
   categoriaActual = categoria;
   document.querySelectorAll('.btn-categoria').forEach(btn => btn.classList.remove('active'));
@@ -694,9 +980,50 @@ function filtrarCategoria(categoria, elemento) {
     if (btnCoincidente) btnCoincidente.classList.add('active');
   }
 
+  const seccionInmediata = document.getElementById("seccion-entrega-inmediata");
+  const seccionCatalogo = document.getElementById("seccion-catalogo-general");
+
+  if (categoria === 'entrega-inmediata') {
+    if (seccionInmediata) seccionInmediata.style.display = "block";
+    if (seccionCatalogo) seccionCatalogo.style.display = "none";
+    
+    const productosStock = PRODUCTOS.filter(p => p.entregaInmediata === true);
+    renderizarProductos(productosStock, "contenedor-stock-inmediato");
+  } else {
+    if (seccionInmediata) seccionInmediata.style.display = "none";
+    if (seccionCatalogo) seccionCatalogo.style.display = "block";
+    
+    ejecutarFiltroCombinado();
+  }
+
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// MANEJO DE IMÁGENES
+function filtrarPorBusqueda() {
+  ejecutarFiltroCombinado();
+}
+
+function ejecutarFiltroCombinado() {
+  const inputBusqueda = document.getElementById('input-busqueda');
+  const textoBusqueda = inputBusqueda ? inputBusqueda.value.toLowerCase().trim() : '';
+
+  const resultados = PRODUCTOS.filter(prod => {
+    const coincideCategoria = (categoriaActual === 'todos') || (prod.categoria === categoriaActual);
+    const coincideTexto = prod.nombre.toLowerCase().includes(textoBusqueda) || 
+                          (prod.descripcion && prod.descripcion.toLowerCase().includes(textoBusqueda)) ||
+                          prod.categoria.toLowerCase().includes(textoBusqueda);
+
+    return coincideCategoria && coincideTexto;
+  });
+
+  renderizarProductos(resultados, "contenedor-productos");
+}
+
+// --------------------------------- MANEJO DE IMÁGENES --------------------------------- 
 function cambiarImagenPrincipal(idProducto, nuevaUrl, elementoMiniatura) {
   const imgPrincipal = document.getElementById(`img-principal-${idProducto}`);
   if (imgPrincipal) {
@@ -710,29 +1037,7 @@ function cambiarImagenPrincipal(idProducto, nuevaUrl, elementoMiniatura) {
   }
 }
 
-// LOGICA DEL CARRITO
-function agregarAlCarrito(idProducto) {
-  const producto = PRODUCTOS.find(p => p.id === idProducto);
-  if (!producto) return;
-
-  let tallaSeleccionada = "";
-  const selectTalla = document.getElementById(`talla-${idProducto}`);
-  if (selectTalla) {
-    tallaSeleccionada = selectTalla.value;
-  }
-
-  carrito.push({
-    itemUniqueId: Date.now() + Math.random(),
-    id: producto.id,
-    nombre: producto.nombre,
-    precio: producto.precio,
-    talla: tallaSeleccionada,
-    entregaInmediata: producto.entregaInmediata || false
-  });
-
-  actualizarCarrito();
-}
-
+// --------------------------------- LÓGICA DEL CARRITO Y WHATSAPP --------------------------------- 
 function eliminarDelCarrito(itemUniqueId) {
   carrito = carrito.filter(item => item.itemUniqueId !== itemUniqueId);
   actualizarCarrito();
@@ -771,11 +1076,18 @@ function renderizarModalPedido() {
     return;
   }
 
-  contenedor.innerHTML = carrito.map(item => `
+  contenedor.innerHTML = carrito.map(item => {
+    let opcionesElegidas = [];
+    if (item.talla) opcionesElegidas.push(`Talla: ${item.talla}`);
+    if (item.dorsalPersonalizado) opcionesElegidas.push(`Dorsal: ${item.dorsalPersonalizado}`);
+    if (item.manga) opcionesElegidas.push(item.manga);
+    if (item.parches && item.parches !== "Sin parches") opcionesElegidas.push(item.parches);
+
+    return `
     <div class="item-pedido-row">
       <div class="item-pedido-info">
         <h4>${item.nombre} ${item.entregaInmediata ? '<span style="color:#22c55e; font-size:0.75rem;">(⚡ Entrega Inmediata)</span>' : ''}</h4>
-        <p>${item.talla ? `Talla: <strong>${item.talla}</strong> | ` : ''}$ ${item.precio.toLocaleString('es-CO')} COP</p>
+        <p>${opcionesElegidas.join(' | ')} - <strong>$ ${item.precio.toLocaleString('es-CO')} COP</strong></p>
       </div>
       <div class="item-pedido-acciones">
         <button class="btn-eliminar-item" onclick="eliminarDelCarrito(${item.itemUniqueId})" title="Quitar del pedido">
@@ -783,7 +1095,8 @@ function renderizarModalPedido() {
         </button>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function enviarWhatsApp() {
@@ -802,9 +1115,16 @@ function enviarWhatsApp() {
   let mensaje = `👋 ¡Hola *${CONFIG.nombreTienda}*! Quisiera realizar el siguiente pedido:\n\n`;
   
   carrito.forEach((item, idx) => {
-    const detalleTalla = item.talla ? ` (Talla: ${item.talla})` : '';
+    let detalles = [];
+    if (item.talla) detalles.push(`Talla: ${item.talla}`);
+    if (item.dorsalPersonalizado) detalles.push(`Dorsal: ${item.dorsalPersonalizado}`);
+    if (item.manga) detalles.push(item.manga);
+    if (item.parches && item.parches !== "Sin parches") detalles.push(item.parches);
+    
+    const infoVariantes = detalles.length > 0 ? ` (${detalles.join(' | ')})` : '';
     const etiquetaInmediata = item.entregaInmediata ? ' ⚡ [ENTREGA INMEDIATA]' : '';
-    mensaje += `*${idx + 1}.* ${item.nombre}${detalleTalla}${etiquetaInmediata} - $${item.precio.toLocaleString('es-CO')}\n`;
+
+    mensaje += `*${idx + 1}.* ${item.nombre}${infoVariantes}${etiquetaInmediata} - $${item.precio.toLocaleString('es-CO')}\n`;
   });
 
   mensaje += `\n💵 *TOTAL A PAGAR:* $${total.toLocaleString('es-CO')} COP\n\n`;

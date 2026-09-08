@@ -19,6 +19,10 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--bg-main);
@@ -30,10 +34,10 @@ body {
    2. ENCABEZADO (HEADER)
    ========================================================================== */
 .header {
-  background: #1e293b; /* Gris pizarra oscuro/mate */
+  background: #1e293b;
   color: #ffffff;
   padding: 24px 32px;
-  border-bottom: 3px solid #64748b; /* Borde gris neutro elegante */
+  border-bottom: 3px solid #64748b;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
 }
 
@@ -86,7 +90,6 @@ body {
 /* ==========================================================================
    3. NAVEGACIÓN Y CATEGORÍAS
    ========================================================================== */
-/* Barra de búsqueda */
 .busqueda-container {
   max-width: 900px;
   margin: 0 auto;
@@ -110,7 +113,7 @@ body {
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-   .categorias-nav {
+.categorias-nav {
   background: white;
   border-bottom: 1px solid var(--border-color);
   position: sticky;
@@ -170,6 +173,7 @@ body {
   flex-direction: column;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
 }
 
 .card-producto:hover {
@@ -260,32 +264,6 @@ body {
   margin-bottom: 12px;
 }
 
-.selector-opcion {
-  margin-bottom: 14px;
-}
-
-.selector-opcion label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  display: block;
-  margin-bottom: 6px;
-}
-
-.selector-opcion select {
-  width: 100%;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  background: white;
-  font-size: 0.9rem;
-  outline: none;
-}
-
-.selector-opcion select:focus {
-  border-color: var(--primary);
-}
-
 .btn-agregar {
   background: #e0e7ff;
   color: var(--primary);
@@ -303,7 +281,62 @@ body {
 }
 
 /* ==========================================================================
-   7. BARRA DEL CARRITO DE COMPRAS
+   7. CHIPS Y PERSONALIZACIÓN DENTRO DEL MODAL
+   ========================================================================== */
+.selector-chip-container {
+  margin-bottom: 14px;
+}
+
+.selector-chip-container label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.chips-wrapper {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip-opcion {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chip-opcion:hover {
+  border-color: var(--primary);
+  background: #e0e7ff;
+}
+
+.chip-opcion.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+}
+
+.chip-opcion.chip-inmediato {
+  border-color: #22c55e;
+}
+
+.chip-opcion.chip-inmediato.active {
+  background: #22c55e;
+  border-color: #22c55e;
+  box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3);
+}
+
+/* ==========================================================================
+   8. BARRA DEL CARRITO Y BOTÓN FLOTANTE
    ========================================================================== */
 .barra-carrito {
   position: fixed;
@@ -347,7 +380,7 @@ body {
 }
 
 .btn-whatsapp {
-  background: var(--success);
+  background: linear-gradient(135deg, #25d366, #128c7e);
   color: white;
   border: none;
   padding: 12px 20px;
@@ -359,69 +392,16 @@ body {
   align-items: center;
   gap: 8px;
   transition: background 0.2s;
+  box-shadow: 0 3px 8px rgba(37, 211, 102, 0.3);
 }
 
 .btn-whatsapp:hover {
-  background: var(--success-hover);
+  background: #128c7e;
 }
 
-/* ==========================================================================
-   8. BOTÓN FLOTANTE INDEPENDIENTE
-   ========================================================================== */
-/* --- BARRA INFERIOR FLOTANTE ESTILIZADA --- */
-.bottom-bar, 
-[class*="bottom"], 
-[class*="footer-cart"] {
-  position: fixed !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(8px) !important; /* Efecto vidrio moderno */
-  padding: 10px 16px !important;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 10px !important;
-  z-index: 9999 !important;
-  box-sizing: border-box !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
-}
-
-/* Ajustes de tipografía del total */
-.bottom-bar div, 
-[class*="bottom"] div {
-  line-height: 1.2 !important;
-}
-
-/* Botón Ver Pedido */
-.bottom-bar button:first-of-type,
-[class*="bottom"] button:first-of-type {
-  border-radius: 10px !important;
-  border: 1px solid #e0e0e0 !important;
-  background-color: #f8f9fa !important;
-  font-weight: 600 !important;
-  transition: background-color 0.2s ease !important;
-}
-
-/* Botón Pedir por WhatsApp (Barra) */
-.bottom-bar button:last-of-type,
-[class*="bottom"] button:last-of-type,
-.btn-whatsapp {
-  background: linear-gradient(135deg, #25d366, #128c7e) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 3px 8px rgba(37, 211, 102, 0.3) !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.2px !important;
-  border: none !important;
-}
-
-/* --- BOTÓN FLOTANTE CIRCULAR REUBICADO --- */
 .wpp-btn, a.wpp-btn {
   position: fixed !important;
-  bottom: 85px !important; /* Despejado por completo de la barra */
+  bottom: 85px !important;
   right: 16px !important;
   z-index: 10000 !important;
   width: 52px !important;
@@ -445,22 +425,8 @@ body {
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)) !important;
 }
 
-/* --- RESPONSIVE MOBILE --- */
-@media (max-width: 480px) {
-  .bottom-bar, 
-  [class*="bottom"] {
-    padding: 8px 12px !important;
-  }
-
-  .wpp-btn, a.wpp-btn {
-    bottom: 80px !important;
-    right: 14px !important;
-    width: 48px !important;
-    height: 48px !important;
-  }
-}
 /* ==========================================================================
-   9. MODAL Y REVISIÓN DE PEDIDO
+   9. MODALES Y VENTANAS FLOTANTES
    ========================================================================== */
 .btn-ver-pedido {
   background: #f1f5f9;
@@ -478,7 +444,6 @@ body {
   background: #e2e8f0;
 }
 
-/* Oscurece el fondo al abrir el modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -486,7 +451,7 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  display: none; /* Oculto por defecto */
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 1000;
@@ -498,7 +463,6 @@ body {
   display: flex !important;
 }
 
-/* Tarjeta flotante en el centro */
 .modal-contenido {
   background: white;
   width: 100%;
@@ -591,7 +555,6 @@ body {
   font-size: 1.1rem;
 }
 
-/* Corrige el ancho del botón verde dentro del modal */
 .modal-footer .btn-whatsapp {
   width: 100%;
   justify-content: center;
@@ -599,8 +562,9 @@ body {
   box-sizing: border-box;
 }
 
-
-/* Banner Superior */
+/* ==========================================================================
+   10. BANNERS Y SECCIONES DESTACADAS
+   ========================================================================== */
 .shipping-banner {
   background: #111827;
   color: #f3f4f6;
@@ -609,7 +573,6 @@ body {
   font-size: 0.85rem;
   border-bottom: 1px solid #1f2937;
 }
-
 
 .modal-trust-box {
   background: #1f2937;
@@ -628,14 +591,9 @@ body {
 }
 
 .modal-trust-box strong {
-  color: #10b981; /* Verde esmeralda */
+  color: #10b981;
 }
 
-
-/* ==========================================================================
-   10. ESTILOS PARA ENTREGA INMEDIATA (STOCK)
-   ========================================================================== */
-/* Botón destacado en la barra de categorías */
 .btn-categoria.btn-inmediato {
   background: linear-gradient(135deg, #ef4444, #dc2626);
   color: #ffffff;
@@ -650,14 +608,12 @@ body {
   color: #ffffff;
 }
 
-/* Animación de pulso para llamar la atención */
 @keyframes pulse-btn {
   0% { transform: scale(1); }
   50% { transform: scale(1.03); }
   100% { transform: scale(1); }
 }
 
-/* Contenedor de la sección destacada de stock */
 .seccion-stock-destacado {
   background: #0f172a;
   color: #ffffff;
@@ -697,11 +653,6 @@ body {
   color: #94a3b8;
 }
 
-/* Badge 'Entrega Inmediata' flotante dentro de las tarjetas */
-.card-producto {
-  position: relative;
-}
-
 .badge-inmediato-card {
   position: absolute;
   top: 10px;
@@ -716,8 +667,6 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-
-/* BANNER PEDIDO POR ENCARGO */
 .banner-encargo {
   background: linear-gradient(135deg, #1e293b, #0f172a);
   border: 1px solid #334155;
@@ -741,4 +690,63 @@ body {
   color: #94a3b8;
   margin: 0;
   line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .wpp-btn, a.wpp-btn {
+    bottom: 80px !important;
+    right: 14px !important;
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
+/* ALERTA ENTREGA INMEDIATA EN MODAL */
+.alerta-stock-modal {
+  background: #0f172a;
+  border: 1px solid #22c55e;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  color: #f8fafc;
+}
+
+.alerta-stock-modal span {
+  color: #22c55e;
+  font-size: 0.8rem;
+  display: block;
+}
+
+.alerta-stock-modal p {
+  font-size: 0.85rem;
+  margin-top: 4px;
+  color: #cbd5e1;
+}
+
+/* CAMPO TEXTO PERSONALIZACIÓN */
+.campo-personalizacion-container {
+  margin-bottom: 14px;
+}
+
+.campo-personalizacion-container label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.campo-personalizacion-container input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.9rem;
+  outline: none;
+  background: #f8fafc;
+}
+
+.campo-personalizacion-container input:focus {
+  border-color: var(--primary);
+  background: white;
 }

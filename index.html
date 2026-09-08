@@ -49,9 +49,7 @@
     </div>
     <div class="categorias-container" id="contenedor-categorias">
       <button class="btn-categoria active" onclick="filtrarCategoria('todos')">Todos</button>
-      <!-- Botón destacado de Entrega Inmediata -->
       <button class="btn-categoria btn-inmediato" onclick="filtrarCategoria('entrega-inmediata')">⚡ Entrega Inmediata</button>
-      <!-- Categorías dinámicas -->
     </div>
   </nav>
 
@@ -64,7 +62,8 @@
         <p>¡No te preocupes! Podemos traerte cualquier camiseta, dorsal o talla bajo pedido por encargo con envío de 15 a 20 días hábiles.</p>
       </div>
     </div>
-    <!-- SECCIÓN ENTREGA INMEDIATA (Puntos de contacto directo desde Meta Ads) -->
+
+    <!-- SECCIÓN ENTREGA INMEDIATA -->
     <section id="seccion-entrega-inmediata" class="seccion-stock-destacado" style="display: none;">
       <div class="banner-stock">
         <span class="badge-flash">⚡ DISPONIBLE HOY MISMO</span>
@@ -73,17 +72,16 @@
       </div>
 
       <div class="grid-productos" id="contenedor-stock-inmediato">
-        <!-- Se renderizarán únicamente las camisetas en stock desde script.js -->
+        <!-- Se renderizan camisetas en stock desde script.js -->
       </div>
     </section>
 
-    <!-- Catálogo General / Lista de Productos -->
+    <!-- Catálogo General -->
     <section id="seccion-catalogo-general">
       <div class="grid-productos" id="contenedor-productos">
         <!-- Se carga dinámicamente desde script.js -->
       </div>
     </section>
-
   </main>
 
   <!-- Barra Flotante del Carrito -->
@@ -103,7 +101,31 @@
     </div>
   </div>
 
-  <!-- Modal / Ventana Flotante de Revisión de Pedido -->
+  <!-- Modal de Personalización Rápida de Producto -->
+  <div id="modal-opciones-producto" class="modal-overlay">
+    <div class="modal-contenido">
+      <div class="modal-header">
+        <h2 id="modal-opt-titulo">Personalizar Camiseta</h2>
+        <button class="btn-cerrar-modal" onclick="cerrarModalOpciones()">&times;</button>
+      </div>
+      
+      <div id="modal-opt-body" class="modal-body">
+        <!-- Contenido generado dinámicamente desde JS -->
+      </div>
+      
+      <div class="modal-footer">
+        <div class="modal-total-info">
+          <span>Precio final:</span>
+          <strong id="modal-opt-precio-total">$ 0 COP</strong>
+        </div>
+        <button id="btn-confirmar-opciones" class="btn-whatsapp btn-confirmar" style="width: 100%; margin-top: 10px;">
+          Añadir al pedido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Revisión de Pedido / Carrito -->
   <div id="modal-pedido" class="modal-overlay">
     <div class="modal-contenido">
       <div class="modal-header">
@@ -112,7 +134,7 @@
       </div>
       
       <div id="lista-detallada-pedido" class="modal-body">
-        <!-- Se genera dinámicamente desde JS -->
+        <!-- Contenido dinámico desde script.js -->
       </div>
       
       <div class="modal-footer">
@@ -132,7 +154,7 @@
     </div>
   </div>
 
-  <!-- Botón Flotante de WhatsApp para Consultas -->
+  <!-- Botón Flotante de WhatsApp -->
   <a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" onclick="fbq('track', 'Contact');">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </a>
