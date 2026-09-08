@@ -25,6 +25,7 @@
   <!-- End Meta Pixel Code -->
 </head>
 <body>
+  <script src="productos.js"></script>
   <div class="shipping-banner">
     <span>📦 <strong>Camisetas de Colección e Importación Exclusiva:</strong> Envíos a toda Colombia en 15 a 20 días hábiles.</span>
   </div>
@@ -42,16 +43,55 @@
     </div>
   </header>
 
-  <!-- Barra de Búsqueda y Categorías -->
+  <!-- Barra de Búsqueda y Navegación de Prendas -->
   <nav class="categorias-nav">
-    <div class="busqueda-container">
-      <input type="text" id="input-busqueda" placeholder="🔍 Buscar camiseta por equipo o año..." onkeyup="filtrarPorBusqueda()">
+    <div class="top-nav-bar">
+      <!-- Botón Menú Lateral / Sidebar -->
+      <button class="btn-menu-sidebar" onclick="toggleSidebar()">
+        ☰ <span>Secciones</span>
+      </button>
+
+      <!-- Selector Rápido de Tipo de Prenda -->
+      <div class="tipos-prenda-wrapper" id="contenedor-tipos-prenda">
+        <button class="btn-tipo-prenda active" onclick="filtrarTipoPrenda('Camisetas', this)">👕 Camisetas</button>
+        <button class="btn-tipo-prenda" onclick="filtrarTipoPrenda('Pantalonetas', this)">🩳 Pantalonetas</button>
+        <button class="btn-tipo-prenda" onclick="filtrarTipoPrenda('Entrenamiento', this)">🧥 Buzos y entrenamiento </button>
+      </div>
     </div>
+
+    <div class="busqueda-container">
+      <input type="text" id="input-busqueda" placeholder="🔍 Buscar por equipo, año o prenda..." onkeyup="filtrarPorBusqueda()">
+    </div>
+
     <div class="categorias-container" id="contenedor-categorias">
-      <button class="btn-categoria active" onclick="filtrarCategoria('todos')">Todos</button>
-      <button class="btn-categoria btn-inmediato" onclick="filtrarCategoria('entrega-inmediata')">⚡ Entrega Inmediata</button>
+      <!-- Se genera dinámicamente según el tipo de prenda activo -->
     </div>
   </nav>
+
+  <!-- Sidebar Lateral Deslizable -->
+  <aside id="sidebar-secciones" class="sidebar-overlay" onclick="toggleSidebar(event)">
+    <div class="sidebar-contenido" onclick="event.stopPropagation()">
+      <div class="sidebar-header">
+        <h2>Secciones de la Tienda</h2>
+        <button class="btn-cerrar-modal" onclick="toggleSidebar()">&times;</button>
+      </div>
+      <div class="sidebar-body">
+        <button class="sidebar-item active" onclick="filtrarTipoPrenda('Camisetas'); toggleSidebar();">
+          👕 Camisetas de Fútbol
+        </button>
+        <button class="sidebar-item" onclick="filtrarTipoPrenda('Pantalonetas'); toggleSidebar();">
+          🩳 Pantalonetas
+        </button>
+        <button class="sidebar-item" onclick="filtrarTipoPrenda('Buzos'); toggleSidebar();">
+          🧥 Buzos y entrenamiento 
+        </button>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
+        <button class="sidebar-item item-destacado" onclick="filtrarCategoria('entrega-inmediata'); toggleSidebar();">
+          ⚡ Entrega Inmediata (Stock)
+        </button>
+      </div>
+    </div>
+  </aside>
 
   <!-- Principal -->
   <main class="main-container">
@@ -59,7 +99,7 @@
     <div class="banner-encargo">
       <div class="banner-encargo-contenido">
         <span>💡 <strong>¿No encuentras tu talla o dorsal favorito en entrega inmediata?</strong></span>
-        <p>¡No te preocupes! Podemos traerte cualquier camiseta, dorsal o talla bajo pedido por encargo con envío de 15 a 20 días hábiles.</p>
+        <p>¡No te preocupes! Podemos traerte cualquier prenda, dorsal o talla bajo pedido por encargo con envío de 15 a 20 días hábiles.</p>
       </div>
     </div>
 
@@ -67,12 +107,13 @@
     <section id="seccion-entrega-inmediata" class="seccion-stock-destacado" style="display: none;">
       <div class="banner-stock">
         <span class="badge-flash">⚡ DISPONIBLE HOY MISMO</span>
-        <h2>Camisetas para Entrega Inmediata</h2>
+        <!-- 👈 Le agregamos el id="titulo-stock-dinamico" -->
+        <h2 id="titulo-stock-dinamico">Camisetas para Entrega Inmediata</h2>
         <p>¡Despacho inmediato o domicilio el mismo día sin esperar importación!</p>
       </div>
 
       <div class="grid-productos" id="contenedor-stock-inmediato">
-        <!-- Se renderizan camisetas en stock desde script.js -->
+        <!-- Se renderizan prendas en stock desde script.js -->
       </div>
     </section>
 
@@ -105,7 +146,7 @@
   <div id="modal-opciones-producto" class="modal-overlay">
     <div class="modal-contenido">
       <div class="modal-header">
-        <h2 id="modal-opt-titulo">Personalizar Camiseta</h2>
+        <h2 id="modal-opt-titulo">Personalizar Producto</h2>
         <button class="btn-cerrar-modal" onclick="cerrarModalOpciones()">&times;</button>
       </div>
       
