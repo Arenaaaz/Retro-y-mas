@@ -33,7 +33,7 @@ const PRODUCTOS = [
     id: 3,
     nombre: "Brasil 2002 Local",
     categoria: "Retro",
-    entregaInmediata: true,
+    entregaInmediata: false,
     dorsalInmediato: "Ronaldo 9",
     tallasInmediatas: ["L"],
     precio: 100000,
@@ -558,6 +558,16 @@ const PRODUCTOS = [
     descripcion: "Camiseta retro Barcelona temporada 2009/2010.",
     imagenes: ["img/Barcelona09.jpeg", "img/Barcelona09-1.jpeg", "img/Barcelona09-2.jpeg"],
     tallas: ["S", "M", "L", "XL"]
+  },
+  {
+    id: 55, 
+    nombre: "Ac Milan 2009/2010 Local",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Ac Milan temporada 2009/2010.",
+    imagenes: ["img/AcMilan09.jpeg", "img/AcMilan09-1.jpeg", "img/AcMilan09-2.jpeg", "img/AcMilan09-3.jpeg"],
+    tallas: ["S", "M", "L", "XL"]
   }
 ];
 
@@ -684,44 +694,6 @@ function filtrarCategoria(categoria, elemento) {
     if (btnCoincidente) btnCoincidente.classList.add('active');
   }
 
-  const seccionInmediata = document.getElementById("seccion-entrega-inmediata");
-  const seccionCatalogo = document.getElementById("seccion-catalogo-general");
-
-  if (categoria === 'entrega-inmediata') {
-    if (seccionInmediata) seccionInmediata.style.display = "block";
-    if (seccionCatalogo) seccionCatalogo.style.display = "none";
-    
-    const productosStock = PRODUCTOS.filter(p => p.entregaInmediata === true);
-    renderizarProductos(productosStock, "contenedor-stock-inmediato");
-  } else {
-    if (seccionInmediata) seccionInmediata.style.display = "none";
-    if (seccionCatalogo) seccionCatalogo.style.display = "block";
-    
-    ejecutarFiltroCombinado();
-  }
-
-  // 🚀 LÍNEA AGREGADA: Reinicia el scroll hacia arriba con una transición suave
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function filtrarPorBusqueda() {
-  ejecutarFiltroCombinado();
-}
-
-function ejecutarFiltroCombinado() {
-  const inputBusqueda = document.getElementById('input-busqueda');
-  const textoBusqueda = inputBusqueda ? inputBusqueda.value.toLowerCase().trim() : '';
-
-  const resultados = PRODUCTOS.filter(prod => {
-    const coincideCategoria = (categoriaActual === 'todos') || (prod.categoria === categoriaActual);
-    const coincideTexto = prod.nombre.toLowerCase().includes(textoBusqueda) || 
-                          (prod.descripcion && prod.descripcion.toLowerCase().includes(textoBusqueda)) ||
-                          prod.categoria.toLowerCase().includes(textoBusqueda);
-
-    return coincideCategoria && coincideTexto;
-  });
-
-  renderizarProductos(resultados, "contenedor-productos");
 }
 
 // MANEJO DE IMÁGENES
