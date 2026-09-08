@@ -750,3 +750,47 @@ body {
   border-color: var(--primary);
   background: white;
 }
+
+/* --- CORRECCIÓN DE SCROLL EN MODALES MÓVILES --- */
+
+/* 1. Bloquea el scroll de la página trasera cuando un modal está abierto */
+body:has(.modal-overlay.active) {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+/* 2. Asegura que el contenedor del modal gestione su propio scroll sin encadenamiento */
+.modal-contenido {
+  max-height: 85vh !important; /* Mantiene la ventana dentro de la pantalla del celular */
+  display: flex !important;
+  flex-direction: column !important;
+  overscroll-behavior: contain !important; /* Evita que el scroll 'traspase' al fondo de la página */
+}
+
+/* 3. Estiliza la barra de desplazamiento para que siempre sea visible en el cuerpo del modal */
+.modal-body {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch; /* Vuelo suave en iOS */
+  overscroll-behavior: contain !important;
+  padding-right: 12px; /* Espacio para que la barra no pise el texto */
+}
+
+/* Personalización visual de la barra de scroll (Android/Chrome/Safari) */
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+  display: block !important;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #94a3b8; /* Gris visible que indica que se puede bajar */
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}

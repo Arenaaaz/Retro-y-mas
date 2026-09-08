@@ -896,6 +896,9 @@ function abrirModalOpciones(idProducto) {
   };
 
   document.getElementById("modal-opciones-producto").classList.add("active");
+
+  document.body.style.overflow = "hidden"; // Bloquea el fondo
+  document.getElementById("modal-opciones-producto").classList.add("active");
 }
 
 function cambiarOpcionModal(tipo, valor, elemento) {
@@ -930,6 +933,7 @@ function actualizarPrecioModal() {
 
 function cerrarModalOpciones() {
   document.getElementById("modal-opciones-producto").classList.remove("active");
+  document.body.style.overflow = ""; // Restaura el scroll del fondo
   productoSeleccionadoTemp = null;
 }
 
@@ -1058,6 +1062,7 @@ function actualizarCarrito() {
 
 function abrirModalPedido() {
   renderizarModalPedido();
+  document.body.style.overflow = "hidden"; // Bloquea el fondo
   const modal = document.getElementById("modal-pedido");
   if (modal) modal.classList.add("active");
 }
@@ -1065,6 +1070,7 @@ function abrirModalPedido() {
 function cerrarModalPedido() {
   const modal = document.getElementById("modal-pedido");
   if (modal) modal.classList.remove("active");
+  document.body.style.overflow = ""; // Restaura el scroll del fondo
 }
 
 function renderizarModalPedido() {
