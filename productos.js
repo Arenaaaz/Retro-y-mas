@@ -1,6 +1,55 @@
 // ==========================================================================
-// CATÁLOGO ORGANIZADO POR TIPO DE PRENDA
+// CATÁLOGO DE PRODUCTOS
 // ==========================================================================
+// Este archivo es la ÚNICA fuente de datos de todo el catálogo. No contiene
+// lógica: solo arreglos de objetos "producto". script.js lee estos datos
+// para dibujar las tarjetas, el modal de personalización y los filtros.
+//
+// -----------------------------------------------------------------------
+// CÓMO AGREGAR UN PRODUCTO NUEVO (cópialo y pégalo dentro del arreglo que
+// corresponda a su tipo de prenda — CAMISETAS, PANTALONETAS, ENTRENAMIENTO
+// o CORTAVIENTOS — y ajusta los campos):
+//
+// {
+//   id: "CAM-99",                 // único en todo el catálogo, no lo repitas
+//   nombre: "Nombre visible del producto",
+//   tipoPrenda: "Camisetas",      // debe coincidir EXACTO con una de las
+//                                 // secciones del menú lateral (ver más
+//                                 // abajo "TIPOS DE PRENDA REGISTRADOS")
+//   categoria: "Retro",           // agrupa los botones de filtro superiores;
+//                                 // usa el mismo texto en varios productos
+//                                 // para que caigan en el mismo botón
+//   entregaInmediata: false,      // true = aparece en la sección "Entrega
+//                                 // Inmediata" y arriba del catálogo
+//   dorsalInmediato: "Messi 10",  // opcional, solo tiene sentido si
+//                                 // entregaInmediata es true
+//   tallasInmediatas: ["M"],      // opcional, tallas que SÍ hay en stock ya
+//   precio: 100000,               // número entero en pesos, sin puntos ni $
+//   descripcion: "Frase corta que describe la prenda.",
+//   imagenes: ["img/foto1.jpg", "img/foto2.jpg"], // la primera es la
+//                                 // portada de la tarjeta; agrega las que
+//                                 // quieras, todas quedan navegables
+//   tallas: ["S", "M", "L", "XL"],
+//   variantes: {                  // opcional, agrega costo extra
+//     manga: [
+//       { tipo: "Manga Corta", adicional: 0 },
+//       { tipo: "Manga Larga", adicional: 10000 }
+//     ],
+//     parches: [
+//       { tipo: "Sin parches", adicional: 0 },
+//       { tipo: "Parches Champions", adicional: 10000 }
+//     ]
+//   },
+//   tieneOpcionBordado: true,               // opcional, casilla sin costo
+//   textoBordado: "Bordado Final Moscow 2008"
+// }
+//
+// TIPOS DE PRENDA REGISTRADOS EN EL MENÚ LATERAL (sidebar en index.html):
+// "Camisetas", "Pantalonetas", "Entrenamiento" y "Cortavientos". Si algún
+// día agregas un tipoPrenda distinto a estos cuatro, también debes crear
+// su botón en el <aside id="sidebar-secciones"> de index.html o esos
+// productos quedarán invisibles para el cliente (nadie podrá filtrarlos).
+// -----------------------------------------------------------------------
 
 // 👕 CAMISETAS DE FÚTBOL
 const CAMISETAS = [
@@ -1217,6 +1266,10 @@ const CORTAVIENTOS = [
 // ==========================================================================
 // UNIFICACIÓN EN LA VARIABLE GLOBAL PRODUCTOS
 // ==========================================================================
+// script.js y el resto del sitio SOLO leen este arreglo unificado; nunca
+// referencian CAMISETAS, PANTALONETAS, etc. por separado. Si agregas una
+// categoría de prenda completamente nueva (ej. "Balones"), crea su propio
+// arreglo arriba con el mismo formato y súmalo aquí abajo con "...".
 const PRODUCTOS = [
   ...CAMISETAS,
   ...PANTALONETAS,

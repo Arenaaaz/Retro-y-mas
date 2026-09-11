@@ -3,9 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Retro y Más</title>
-  <link rel="icon" type="image/png" href="img/logo.png?v=1">
+
+  <title>Retro y Más | Camisetas Retro de Fútbol en Medellín</title>
+  <meta name="description" content="Camisetas retro de fútbol de selecciones y clubes históricos. Personalización con dorsal, tallas S a XL. Entrega inmediata en Medellín y envíos a toda Colombia.">
+  <meta name="keywords" content="camisetas retro, camisetas de futbol vintage, camisetas retro Medellin, camisetas retro Colombia">
+  <link rel="canonical" href="https://www.retroymas.com/">
+  <!-- TODO Sebastian: reemplaza la URL de arriba por el dominio real cuando lo tengas -->
+
+  <!-- Open Graph (vista previa al compartir en WhatsApp/Instagram/Facebook) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Retro y Más | Camisetas Retro de Fútbol">
+  <meta property="og:description" content="Donde encuentras las camisetas retro de mejor calidad. Personalizadas con dorsal y envíos a toda Colombia.">
+  <meta property="og:image" content="/img/logo.png">
+  <meta property="og:locale" content="es_CO">
+
+  <meta name="theme-color" content="#111827">
+  <!-- Favicon: usamos ruta ABSOLUTA (empieza con "/") en vez de relativa,
+       que es la causa más común de que el ícono no aparezca en la pestaña
+       cuando el sitio queda publicado (con una ruta relativa, si el
+       navegador visita cualquier URL que no sea exactamente la raíz, por
+       ejemplo con una barra "/" al final o una subpágina, puede pedir el
+       archivo en el lugar equivocado). Ver la nota "FAVICON" en GUIA-DE-CAMBIOS.md
+       si después de publicar el sitio el ícono sigue sin verse. -->
+  <link rel="icon" type="image/png" href="/img/logo.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="/img/logo.png">
+  <link rel="apple-touch-icon" href="/img/logo.png?v=2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Datos estructurados para buscadores (ayuda a que Google entienda que
+       esto es una tienda real, con forma de contacto y ubicación). -->
+  <!-- TODO Sebastian: cuando tengas el dominio real y (si aplica) una
+       dirección física, actualiza "url" y agrega "address" aquí abajo. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportingGoodsStore",
+    "name": "Retro y más",
+    "description": "Camisetas retro de fútbol de selecciones y clubes históricos, con personalización de dorsal y envíos a toda Colombia.",
+    "url": "https://www.retroymas.com/",
+    "telephone": "+573013276930",
+    "areaServed": "CO",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Medellín",
+      "addressCountry": "CO"
+    }
+  }
+  </script>
+
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -25,11 +75,13 @@
   <!-- End Meta Pixel Code -->
 </head>
 <body>
-  <script src="productos.js"></script>
   <!-- Banner Superior con info de envíos -->
   <div class="shipping-banner">
-    <span>📦 <strong>Envíos por encargo:</strong> ¡GRATIS a partir de 2 unidades! (15 a 20 días hábiles). Envíos inmediatos en Medellín varían según la dirección.</span>
+    <span>📦 <strong>Envíos por encargo:</strong> ¡GRATIS a partir de 3 unidades! (15 a 20 días hábiles). Envíos inmediatos en Medellín varían según la dirección.</span>
   </div>
+
+  <!-- Barra de resumen de reseñas: se llena sola en cuanto haya reseñas reales -->
+  <div id="barra-resenas" class="barra-resenas"></div>
 
   <!-- Encabezado -->
   <header class="header">
@@ -49,8 +101,17 @@
     <div class="top-nav-bar">
       <!-- Botón Menú Lateral / Sidebar Ancho Completo -->
       <button class="btn-menu-sidebar-full" onclick="toggleSidebar()">
-        ☰ <span>Ver Secciones (Camisetas, Pantalonetas, Buzos...)</span>
+        <span class="icono-menu">☰</span>
+        <span>
+          Ver secciones
+          <small>Camisetas · Pantalonetas · Buzos</small>
+        </span>
       </button>
+      <!-- Acceso directo y permanente a las reseñas, sin importar si ya hay o no -->
+      <a href="#seccion-testimonios" class="btn-ver-resenas-nav">
+        <span class="icono-estrella-nav">★</span>
+        <span>Reseñas</span>
+      </a>
     </div>
 
     <div class="busqueda-container">
@@ -66,23 +127,52 @@
   <aside id="sidebar-secciones" class="sidebar-overlay" onclick="toggleSidebar(event)">
     <div class="sidebar-contenido" onclick="event.stopPropagation()">
       <div class="sidebar-header">
-        <h2>Secciones de la Tienda</h2>
+        <div class="sidebar-marca">
+          <img src="img/logo.png" alt="Retro y más" class="sidebar-logo">
+          <div>
+            <strong>Retro y más</strong>
+            <small>Elige una sección</small>
+          </div>
+        </div>
         <button class="btn-cerrar-modal" onclick="toggleSidebar()">&times;</button>
       </div>
       <div class="sidebar-body">
-        <button class="sidebar-item active" onclick="filtrarTipoPrenda('Camisetas'); toggleSidebar();">
-          👕 Camisetas de Fútbol
+        <button class="sidebar-item active" onclick="filtrarTipoPrenda('Camisetas', this); toggleSidebar();">
+          <span class="sidebar-item-icono">👕</span>
+          <span class="sidebar-item-texto">Camisetas de Fútbol</span>
+          <span class="sidebar-item-flecha">›</span>
         </button>
-        <button class="sidebar-item" onclick="filtrarTipoPrenda('Pantalonetas'); toggleSidebar();">
-          🩳 Pantalonetas
+        <button class="sidebar-item" onclick="filtrarTipoPrenda('Pantalonetas', this); toggleSidebar();">
+          <span class="sidebar-item-icono">🩳</span>
+          <span class="sidebar-item-texto">Pantalonetas</span>
+          <span class="sidebar-item-flecha">›</span>
         </button>
-        <button class="sidebar-item" onclick="filtrarTipoPrenda('Entrenamiento'); toggleSidebar();">
-          🧥 Buzos y entrenamiento 
+        <button class="sidebar-item" onclick="filtrarTipoPrenda('Entrenamiento', this); toggleSidebar();">
+          <span class="sidebar-item-icono">🧥</span>
+          <span class="sidebar-item-texto">Buzos y Entrenamiento</span>
+          <span class="sidebar-item-flecha">›</span>
         </button>
-        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
+        <button class="sidebar-item" onclick="filtrarTipoPrenda('Cortavientos', this); toggleSidebar();">
+          <span class="sidebar-item-icono">🧵</span>
+          <span class="sidebar-item-texto">Cortavientos</span>
+          <span class="sidebar-item-flecha">›</span>
+        </button>
+
+        <div class="sidebar-divisor"><span>Acceso rápido</span></div>
+
         <button class="sidebar-item item-destacado" onclick="filtrarCategoria('entrega-inmediata'); toggleSidebar();">
-          ⚡ Entrega Inmediata (Stock)
+          <span class="sidebar-item-icono">⚡</span>
+          <span class="sidebar-item-texto">Entrega Inmediata<small>Disponible hoy en Medellín</small></span>
+          <span class="sidebar-item-flecha">›</span>
         </button>
+        <a href="#seccion-testimonios" class="sidebar-item" onclick="toggleSidebar();">
+          <span class="sidebar-item-icono">⭐</span>
+          <span class="sidebar-item-texto">Reseñas de Clientes<small>Mira lo que dicen de nosotros</small></span>
+          <span class="sidebar-item-flecha">›</span>
+        </a>
+      </div>
+      <div class="sidebar-footer">
+        <a href="https://wa.me/573013276930" target="_blank" rel="noopener">📱 Escríbenos por WhatsApp</a>
       </div>
     </div>
   </aside>
@@ -117,7 +207,94 @@
         <!-- Se carga dinámicamente desde script.js -->
       </div>
     </section>
+
+    <!-- SECCIÓN DE TESTIMONIOS / RESEÑAS -->
+    <section id="seccion-testimonios" class="seccion-testimonios">
+      <div class="testimonios-header">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <div id="resumen-calificacion" class="resumen-calificacion"></div>
+      </div>
+      <div class="grid-testimonios" id="contenedor-testimonios">
+        <!-- Se renderiza dinámicamente desde script.js usando testimonios.js -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE CONFIANZA: qué pasa después de que pides por WhatsApp -->
+    <section class="seccion-confianza" aria-labelledby="confianza-titulo">
+      <h2 id="confianza-titulo" class="confianza-titulo">Cómo funciona tu compra</h2>
+      <div class="confianza-pasos">
+        <div class="paso-confianza">
+          <span class="paso-numero">1</span>
+          <div>
+            <h3>Arma tu pedido</h3>
+            <p>Elige talla, dorsal y detalles desde la página; nada se cobra todavía.</p>
+          </div>
+        </div>
+        <div class="paso-confianza">
+          <span class="paso-numero">2</span>
+          <div>
+            <h3>Confirmamos por WhatsApp</h3>
+            <p>Verificamos disponibilidad real de talla y prenda antes de pedirte cualquier pago.</p>
+          </div>
+        </div>
+        <div class="paso-confianza">
+          <span class="paso-numero">3</span>
+          <div>
+            <h3>Coordinamos el envío</h3>
+            <p>Te contamos el tiempo exacto según tu ciudad y si es entrega inmediata o por encargo.</p>
+          </div>
+        </div>
+        <div class="paso-confianza">
+          <span class="paso-numero">4</span>
+          <div>
+            <h3>Seguimiento hasta que te llegue</h3>
+            <p>Te compartimos la guía de rastreo y quedamos atentos a cualquier novedad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="seccion-faq" aria-labelledby="faq-titulo">
+      <h2 id="faq-titulo" class="faq-titulo">Preguntas frecuentes</h2>
+      <div id="contenedor-faq">
+        <!-- Se genera dinámicamente desde script.js (arreglo FAQS) -->
+      </div>
+    </section>
   </main>
+
+  <!-- Pie de Página -->
+  <footer class="footer-tienda">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>Retro y más</h3>
+        <p>Camisetas retro de fútbol seleccionadas con cuidado, con opción de personalización en dorsal y número.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Compra con confianza</h4>
+        <ul class="footer-lista-confianza">
+          <li>✅ Confirmamos talla y disponibilidad antes de procesar tu pago</li>
+          <li>✅ Seguimiento de tu pedido por WhatsApp</li>
+          <li>✅ Atención directa, sin intermediarios</li>
+        </ul>
+        <div class="footer-insignias">
+          <span class="footer-insignia">🔒 Pago contra confirmación</span>
+          <span class="footer-insignia">📦 Guía de rastreo incluida</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <p><a href="https://wa.me/573013276930" target="_blank" rel="noopener">📱 WhatsApp: 301 327 6930</a></p>
+        <!-- TODO Sebastian: agrega aquí tu Instagram/Facebook cuando los tengas -->
+        <p class="footer-nota">Escríbenos y te respondemos lo antes posible.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span id="footer-anio">© Retro y más</span>
+    </div>
+  </footer>
 
   <!-- Barra Flotante del Carrito -->
   <div class="barra-carrito">
@@ -130,24 +307,44 @@
       <button class="btn-ver-pedido" onclick="abrirModalPedido()">
         🛒 Ver pedido (<span id="contador-cant">0</span>)
       </button>
-      <button class="btn-whatsapp" onclick="abrirModalPedido()">
+      <button class="btn-whatsapp btn-realizar-pedido" onclick="abrirModalPedido()">
         <span>Realizar pedido</span>
       </button>
     </div>
   </div>
 
-  <!-- Modal de Personalización Rápida de Producto -->
+  <!-- Modal de Vista Rápida de Producto: foto en grande a la izquierda +
+       panel de personalización y pedido a la derecha (una sola ventana,
+       ver abrirVistaProducto() en script.js) -->
   <div id="modal-opciones-producto" class="modal-overlay">
-    <div class="modal-contenido">
+    <div class="modal-contenido modal-vista-producto">
       <div class="modal-header">
         <h2 id="modal-opt-titulo">Personalizar Producto</h2>
         <button class="btn-cerrar-modal" onclick="cerrarModalOpciones()">&times;</button>
       </div>
-      
-      <div id="modal-opt-body" class="modal-body">
-        <!-- Contenido generado dinámicamente desde JS -->
+
+      <div class="vista-producto-layout">
+        <!-- Columna izquierda: foto grande + miniaturas + flechas -->
+        <div class="vista-galeria">
+          <div class="vista-galeria-principal">
+            <span id="vista-badge-inmediato" class="badge-inmediato-vista" style="display:none;">⚡ Entrega Inmediata</span>
+            <button class="vista-galeria-nav prev" onclick="cambiarImagenVista(-1)" aria-label="Foto anterior">‹</button>
+            <img id="vista-img-principal" src="" alt="">
+            <button class="vista-galeria-nav next" onclick="cambiarImagenVista(1)" aria-label="Foto siguiente">›</button>
+          </div>
+          <div id="vista-miniaturas" class="vista-galeria-miniaturas"></div>
+        </div>
+
+        <!-- Columna derecha: talla, estampado, variantes y precio -->
+        <div class="vista-opciones">
+          <h3 id="vista-opt-nombre" class="vista-opciones-titulo"></h3>
+          <div id="vista-opt-precio" class="vista-opciones-precio"></div>
+          <div id="modal-opt-body">
+            <!-- Contenido generado dinámicamente desde JS -->
+          </div>
+        </div>
       </div>
-      
+
       <div class="modal-footer">
         <div class="modal-total-info">
           <span>Precio final:</span>
@@ -189,11 +386,34 @@
     </div>
   </div>
 
-  <!-- Botón Flotante de WhatsApp -->
-  <a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" onclick="fbq('track', 'Contact');">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  <!-- Visor simple para ampliar las fotos que los clientes suben en sus
+       reseñas (no tiene opciones de compra, solo muestra la imagen) -->
+  <div id="modal-foto-resena" class="modal-overlay visor-foto-overlay" onclick="cerrarVisorFoto()">
+    <button class="btn-cerrar-visor" onclick="event.stopPropagation(); cerrarVisorFoto()" aria-label="Cerrar">&times;</button>
+    <div class="visor-foto-contenido" onclick="event.stopPropagation()">
+      <img id="visor-foto-img" src="" alt="Foto de reseña de cliente">
+    </div>
+  </div>
+
+  <!-- Botón Flotante de Instagram / Redes Sociales -->
+  <!-- El enlace real vive en CONFIG.redesSociales.instagram (script.js),
+       que sobrescribe este href al cargar la página. Si cambias de cuenta,
+       actualiza el valor ahí (no aquí). -->
+  <a href="https://www.instagram.com/retroymas_/" id="btn-social-flotante" class="social-btn" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+    <svg viewBox="0 0 448 512" aria-hidden="true">
+      <path fill="#ffffff" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+    </svg>
   </a>
 
+  <!-- Botón Flotante de WhatsApp -->
+  <a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" onclick="fbq('track', 'Contact');">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="#ffffff" aria-hidden="true">
+      <path d="M16.01 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.615 4.56 1.694 6.475L2.667 29.333l6.99-1.833a13.27 13.27 0 0 0 6.353 1.62h.006c7.363 0 13.333-5.97 13.333-13.333S23.373 2.667 16.01 2.667zm7.797 18.973c-.328.923-1.63 1.69-2.66 1.913-.708.15-1.633.27-4.744-1.02-3.984-1.65-6.55-5.68-6.75-5.943-.192-.263-1.617-2.153-1.617-4.107 0-1.953 1.024-2.913 1.388-3.313.328-.36.716-.45.955-.45.24 0 .478.003.687.013.22.01.516-.083.807.617.328.79 1.115 2.72 1.213 2.92.098.2.163.433.033.697-.13.263-.196.43-.39.66-.196.23-.41.51-.586.687-.196.196-.4.408-.172.798.229.39 1.017 1.678 2.183 2.72 1.5 1.34 2.766 1.755 3.156 1.953.39.196.62.163.848-.098.229-.263.98-1.143 1.243-1.535.262-.393.523-.328.882-.196.36.13 2.29 1.08 2.683 1.277.393.196.653.294.75.457.098.163.098.943-.23 1.865z"/>
+    </svg>
+  </a>
+
+  <script src="productos.js"></script>
+  <script src="testimonios.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

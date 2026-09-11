@@ -2,15 +2,39 @@
    1. VARIABLES Y RESET GLOBAL
    ========================================================================== */
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --success: #22c55e;
-  --success-hover: #16a34a;
-  --bg-main: #f8fafc;
-  --card-bg: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border-color: #e2e8f0;
+  /* Paleta de marca: azul marino de camiseta + dorado de escudo sobre
+     un fondo "lino" neutro (evita el look genérico de papel envejecido
+     plano, manteniendo la calidez que pidió el cliente). */
+  --navy: #0F1830;
+  --navy-dark: #090E1D;
+  --navy-light: #1C2A47;
+  --gold: #C6A038;
+  --gold-hover: #A9860F;
+  --brick: #A23B2E;
+  --success: #15803D;
+  --success-hover: #116530;
+  --bg-main: #F1EEE6;
+  --bg-main-alt: #EAE6DA;
+  --card-bg: #FFFFFF;
+  --text-main: #12161F;
+  --text-muted: #5B6272;
+  --border-color: #E1DDD0;
+
+  /* Escala única de radios y sombras: se usa en tarjetas, modales, botones
+     y banners para que todo el sitio se sienta "de la misma familia" en
+     vez de que cada bloque tenga su propia esquina y sombra (punto 8 del
+     rediseño: armonía visual). */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 999px;
+  --shadow-sm: 0 2px 8px rgba(15, 24, 48, 0.08);
+  --shadow-md: 0 6px 20px rgba(15, 24, 48, 0.12);
+  --shadow-lg: 0 12px 32px rgba(15, 24, 48, 0.18);
+
+  /* Compatibilidad con nombres usados en el resto del archivo */
+  --primary: var(--navy);
+  --primary-hover: var(--navy-dark);
 }
 
 * {
@@ -24,10 +48,51 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Textura sutil de "malla de camiseta" sobre el fondo lino: un guiño al
+     material del producto en vez de un color plano genérico. */
+  background-image:
+    radial-gradient(rgba(15, 24, 48, 0.035) 1px, transparent 1px);
+  background-size: 16px 16px;
   background-color: var(--bg-main);
   color: var(--text-main);
-  padding-bottom: 100px;
+}
+
+/* ==========================================================================
+   BARRA DE DESPLAZAMIENTO PERSONALIZADA
+   ========================================================================== */
+/* Firefox: grosor delgado + color del "riel" y del "pulgar" (thumb) que
+   combinan con la paleta de la marca. Se aplica a toda la página y a
+   cualquier contenedor interno con scroll propio (modales, sidebar,
+   chips de categorías, miniaturas). */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) var(--bg-main-alt);
+}
+
+/* Chrome, Edge, Safari y otros basados en WebKit */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--gold);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg-main-alt);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--gold-hover);
+}
+
+h1, h2, h3, .titulo-producto {
+  font-family: 'Bebas Neue', 'Work Sans', sans-serif;
+  letter-spacing: 0.4px;
 }
 
 /* BLOQUEO DE SCROLL CUANDO UN MODAL ESTÁ ABIERTO */
@@ -36,15 +101,53 @@ body:has(.modal-overlay.active) {
   touch-action: none;
 }
 
+.barra-resenas:empty {
+  display: none;
+}
+
+.barra-resenas {
+  background:
+    radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px) 0 0 / 14px 14px,
+    var(--navy);
+  text-align: center;
+  padding: 7px 15px;
+}
+
+.barra-resenas a {
+  display: inline-block;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: rgba(198, 160, 56, 0.15);
+  border: 1px solid rgba(198, 160, 56, 0.4);
+  border-radius: var(--radius-full);
+  padding: 4px 14px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.barra-resenas a:hover {
+  background: rgba(198, 160, 56, 0.28);
+  border-color: var(--gold);
+  text-decoration: none;
+}
+
+.estrellas-mini {
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
 /* ==========================================================================
    2. ENCABEZADO (HEADER)
    ========================================================================== */
 .header {
-  background: #1e293b;
+  background:
+    radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px) 0 0 / 14px 14px,
+    var(--navy);
   color: #ffffff;
   padding: 24px 32px;
-  border-bottom: 3px solid #64748b;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  border-bottom: 4px solid var(--gold);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .header-container {
@@ -63,19 +166,20 @@ body:has(.modal-overlay.active) {
 }
 
 .header-info h1 {
-  font-size: 2.2rem;
-  font-weight: 900;
+  font-size: 2.8rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   margin: 0;
   color: #ffffff;
 }
 
 .header-info p {
+  font-family: 'Work Sans', sans-serif;
   font-size: 1rem;
-  color: #cbd5e1;
-  margin-top: 6px;
-  font-weight: 400;
+  color: var(--gold);
+  margin-top: 2px;
+  font-weight: 500;
 }
 
 .header-logo-wrapper {
@@ -90,7 +194,8 @@ body:has(.modal-overlay.active) {
   height: 75px;
   object-fit: contain;
   border-radius: 50%;
-  border: 2px solid #e2e8f0;
+  border: 3px solid var(--gold);
+  background: #ffffff;
 }
 
 /* ==========================================================================
@@ -98,13 +203,14 @@ body:has(.modal-overlay.active) {
    ========================================================================== */
 /* BANNER SUPERIOR DE ENVÍOS */
 .shipping-banner {
-  background: #111827;
+  background:
+    radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px) 0 0 / 14px 14px,
+    var(--navy);
   color: #f3f4f6;
   text-align: center;
   padding: 10px 15px;
   font-size: 0.85rem;
   line-height: 1.4;
-  border-bottom: 1px solid #1f2937;
 }
 
 /* BOTÓN DE SECCIONES ANCHO COMPLETO */
@@ -113,28 +219,93 @@ body:has(.modal-overlay.active) {
   max-width: 1200px;
   margin: 0 auto;
   padding: 12px 16px 0 16px;
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
 }
 
-.btn-menu-sidebar-full {
-  width: 100%;
-  background: #1e293b;
-  color: #ffffff;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
+.top-nav-bar .btn-menu-sidebar-full {
+  width: auto;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+/* Botón de acceso directo a reseñas, siempre visible junto al menú */
+.btn-ver-resenas-nav {
+  flex-shrink: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
+  background: #ffffff;
+  border: 1px solid var(--gold);
+  color: var(--navy);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  line-height: 1.15;
   transition: background 0.2s, transform 0.1s;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+.btn-ver-resenas-nav:hover {
+  background: #FBF3DC;
+}
+
+.btn-ver-resenas-nav:active {
+  transform: scale(0.98);
+}
+
+.btn-ver-resenas-nav .icono-estrella-nav {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+.btn-menu-sidebar-full {
+  width: 100%;
+  background: var(--navy);
+  color: #ffffff;
+  border: 1px solid var(--gold);
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  text-align: left;
+}
+
+.btn-menu-sidebar-full .icono-menu {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.btn-menu-sidebar-full span {
+  font-family: 'Work Sans', sans-serif;
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  letter-spacing: normal;
+}
+
+.btn-menu-sidebar-full small {
+  display: block;
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: #C9D2E0;
+  letter-spacing: normal;
+}
+
 .btn-menu-sidebar-full:hover {
-  background: #0f172a;
+  background: var(--navy-dark);
 }
 
 .btn-menu-sidebar-full:active {
@@ -146,25 +317,6 @@ body:has(.modal-overlay.active) {
   gap: 8px;
   overflow-x: auto;
   white-space: nowrap;
-}
-
-.btn-tipo-prenda {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  color: #0f172a;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-tipo-prenda.active,
-.btn-tipo-prenda:hover {
-  background: #4f46e5;
-  color: white;
-  border-color: #4f46e5;
 }
 
 /* SIDEBAR LATERAL DESLIZABLE */
@@ -188,10 +340,11 @@ body:has(.modal-overlay.active) {
   position: absolute;
   top: 0;
   left: 0;
-  width: 280px;
+  width: 300px;
+  max-width: 85vw;
   height: 100%;
-  background: white;
-  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+  background: var(--navy);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
   animation: slideIn 0.25s ease-out;
@@ -204,58 +357,179 @@ body:has(.modal-overlay.active) {
 
 .sidebar-header {
   padding: 20px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(135deg, var(--navy), var(--navy-dark));
 }
 
-.sidebar-header h2 {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #0f172a;
+.sidebar-marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  object-fit: contain;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.sidebar-marca strong {
+  display: block;
+  color: #ffffff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.sidebar-marca small {
+  color: #9AA3B5;
+  font-size: 0.75rem;
+}
+
+.sidebar-header .btn-cerrar-modal {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.sidebar-header .btn-cerrar-modal:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
 .sidebar-body {
-  padding: 16px;
+  padding: 18px 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex-grow: 1;
+  overflow-y: auto;
+  background: var(--navy);
 }
 
 .sidebar-item {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 12px 16px;
+  text-decoration: none;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 12px;
   border-radius: 10px;
   text-align: left;
   font-weight: 600;
-  font-size: 0.9rem;
-  color: #0f172a;
+  font-size: 0.92rem;
+  color: #E7E9EE;
   cursor: pointer;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-item-icono {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.sidebar-item-texto {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sidebar-item-texto small {
+  font-weight: 500;
+  font-size: 0.72rem;
+  color: #9AA3B5;
+}
+
+.sidebar-item-flecha {
+  color: #6B7280;
+  font-size: 1.1rem;
+  transition: transform 0.2s, color 0.2s;
 }
 
 .sidebar-item:hover,
 .sidebar-item.active {
-  background: #4f46e5;
-  color: white;
-  border-color: #4f46e5;
+  background: rgba(212, 166, 42, 0.12);
+  border-color: var(--gold);
 }
 
-.sidebar-item.item-destacado,
-.sidebar-item.item-destacado:hover,
-.sidebar-item.item-destacado:focus {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
+.sidebar-item:hover .sidebar-item-flecha,
+.sidebar-item.active .sidebar-item-flecha {
+  transform: translateX(3px);
+  color: var(--gold);
+}
+
+.sidebar-item.active .sidebar-item-icono {
+  background: var(--gold);
+}
+
+.sidebar-divisor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 2px;
+  color: #6B7280;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.sidebar-divisor::before,
+.sidebar-divisor::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+}
+
+.sidebar-item.item-destacado {
+  background: linear-gradient(135deg, #16A34A, #15803D) !important;
+  border-color: #15803D !important;
   color: #ffffff !important;
-  border-color: #059669 !important;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
-  transition: filter 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.4);
+  animation: pulse-btn 2.4s ease-in-out infinite;
 }
 
-.sidebar-item.item-destacado:hover {
-  filter: brightness(0.9); /* Oscurece suavemente sin cambiar el tono de fondo */
+.sidebar-item.item-destacado .sidebar-item-icono {
+  background: rgba(255,255,255,0.22) !important;
+}
+
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  background: var(--navy);
+}
+
+.sidebar-footer a {
+  display: block;
+  text-align: center;
+  background: rgba(255,255,255,0.06);
+  color: #E7E9EE;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.sidebar-footer a:hover {
+  background: rgba(255,255,255,0.14);
 }
 
 .busqueda-container {
@@ -337,20 +611,21 @@ body:has(.modal-overlay.active) {
 .card-producto {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
   height: 100%;
 }
 
 .card-producto:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--gold);
 }
 
 /* ==========================================================================
@@ -363,6 +638,7 @@ body:has(.modal-overlay.active) {
 }
 
 .img-container {
+  position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
@@ -372,12 +648,53 @@ body:has(.modal-overlay.active) {
   justify-content: center;
 }
 
+/* La imagen completa es clicable y abre el mismo modal que el botón
+   "Personalizar y Agregar" (punto 2 del rediseño: una sola acción de
+   pedido en la tarjeta, en vez de un botón de lupa aparte). El cursor y
+   la superposición al pasar el mouse son la única pista visual de que
+   se puede hacer clic ahí; en celular basta con tocar la foto. */
+.img-container {
+  cursor: pointer;
+}
+
 .img-container img {
   width: 100%;
   height: 100%;
   object-fit: cover !important;
   padding: 0 !important;
   display: block;
+  transition: transform 0.35s ease;
+}
+
+.img-container:hover img {
+  transform: scale(1.05);
+}
+
+.img-overlay-ver {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(9, 14, 29, 0.55) 0%, rgba(9, 14, 29, 0) 55%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 12px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.img-container:hover .img-overlay-ver {
+  opacity: 1;
+}
+
+.img-overlay-ver span {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--navy);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
 }
 
 .miniaturas-container {
@@ -421,7 +738,7 @@ body:has(.modal-overlay.active) {
 .titulo-producto {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 4px;
 }
 
@@ -432,41 +749,64 @@ body:has(.modal-overlay.active) {
 }
 
 .precio-producto {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: var(--primary);
+  color: var(--navy);
   margin-bottom: 8px;
+  letter-spacing: -0.2px;
 }
 
 .btn-agregar {
-  background: #e0e7ff;
-  color: var(--primary);
+  background: var(--gold);
+  color: #ffffff;
   border: none;
   padding: 12px;
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.92rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.1s;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-agregar::before {
+  content: "🛍️";
+  font-size: 0.95rem;
 }
 
 .btn-agregar:hover {
-  background: #c7d2fe;
+  background: var(--gold-hover);
+}
+
+.btn-agregar:active {
+  transform: scale(0.98);
 }
 
 /* ==========================================================================
    7. CHIPS Y PERSONALIZACIÓN DENTRO DEL MODAL
    ========================================================================== */
 .selector-chip-container {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.selector-chip-container:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .selector-chip-container label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .chips-wrapper {
@@ -478,40 +818,44 @@ body:has(.modal-overlay.active) {
 .chip-opcion {
   background: #f1f5f9;
   border: 1px solid #cbd5e1;
-  color: #0f172a;
-  padding: 8px 14px;
-  border-radius: 8px;
+  color: var(--text-main);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .chip-opcion:hover {
-  border-color: var(--primary);
-  background: #e0e7ff;
+  border-color: var(--navy);
+  background: #F3E4C2;
 }
 
 .chip-opcion.active {
-  background: var(--primary);
+  background: var(--navy);
   color: #ffffff;
-  border-color: var(--primary);
-  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+  border-color: var(--navy);
+  box-shadow: var(--shadow-sm);
+}
+
+.chip-opcion.active::before {
+  content: "✓ ";
 }
 
 .chip-opcion.chip-inmediato {
-  border-color: #22c55e;
+  border-color: #16A34A;
 }
 
 .chip-opcion.chip-inmediato.active {
-  background: #22c55e;
-  border-color: #22c55e;
+  background: #16A34A;
+  border-color: #16A34A;
   box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3);
 }
 
 .alerta-stock-modal {
-  background: #0f172a;
-  border: 1px solid #22c55e;
+  background: var(--text-main);
+  border: 1px solid #16A34A;
   border-radius: 10px;
   padding: 10px 14px;
   margin-bottom: 16px;
@@ -519,7 +863,7 @@ body:has(.modal-overlay.active) {
 }
 
 .alerta-stock-modal span {
-  color: #22c55e;
+  color: #16A34A;
   font-size: 0.8rem;
   display: block;
 }
@@ -531,15 +875,23 @@ body:has(.modal-overlay.active) {
 }
 
 .campo-personalizacion-container {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.campo-personalizacion-container:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .campo-personalizacion-container label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .campo-personalizacion-container input {
@@ -565,16 +917,32 @@ body:has(.modal-overlay.active) {
   bottom: 0;
   left: 0;
   right: 0;
-  background: white;
-  border-top: 1px solid #e2e8f0;
-  padding: 12px 20px;
+  background: var(--navy);
+  border-top: 2px solid var(--gold);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 14px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.28);
   z-index: 100;
+}
+
+/* En pantallas anchas, "despegamos" la barra de los bordes para que se
+   lea como un elemento flotante y no como una franja pegada de lado a
+   lado (punto 7: menos cuadrada, más "flotante"). En celular se deja
+   pegada a los bordes para no perder espacio útil de toque. */
+@media (min-width: 620px) {
+  .barra-carrito {
+    left: 16px;
+    right: 16px;
+    bottom: 12px;
+    border-radius: var(--radius-lg);
+    border-top: none;
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(198, 160, 56, 0.35);
+  }
 }
 
 .carrito-info {
@@ -584,15 +952,15 @@ body:has(.modal-overlay.active) {
 }
 
 .label-total {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+  font-size: 0.72rem;
+  color: #9AA3B5;
   margin-bottom: 2px;
 }
 
 .precio-total {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--gold);
 }
 
 .acciones-carrito {
@@ -619,6 +987,21 @@ body:has(.modal-overlay.active) {
 
 .btn-whatsapp:hover {
   background: #128c7e;
+}
+
+.btn-realizar-pedido {
+  padding: 14px 24px;
+  font-size: 1rem;
+}
+
+.btn-realizar-pedido.con-items {
+  animation: brillo-pedido 2s ease-in-out infinite;
+}
+
+@keyframes brillo-pedido {
+  0% { box-shadow: 0 3px 8px rgba(37, 211, 102, 0.35); }
+  50% { box-shadow: 0 3px 18px rgba(37, 211, 102, 0.7); }
+  100% { box-shadow: 0 3px 8px rgba(37, 211, 102, 0.35); }
 }
 
 .wpp-btn, a.wpp-btn {
@@ -651,9 +1034,9 @@ body:has(.modal-overlay.active) {
    9. MODALES Y VENTANAS FLOTANTES
    ========================================================================== */
 .btn-ver-pedido {
-  background: #f1f5f9;
-  color: #0f172a;
-  border: 1px solid #cbd5e1;
+  background: rgba(255,255,255,0.08);
+  color: #E7E9EE;
+  border: 1px solid rgba(255,255,255,0.25);
   padding: 10px 14px;
   border-radius: 10px;
   font-weight: 600;
@@ -663,7 +1046,7 @@ body:has(.modal-overlay.active) {
 }
 
 .btn-ver-pedido:hover {
-  background: #e2e8f0;
+  background: rgba(255,255,255,0.16);
 }
 
 .modal-overlay {
@@ -689,19 +1072,27 @@ body:has(.modal-overlay.active) {
   background: white;
   width: 100%;
   max-width: 480px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   max-height: 85vh !important;
   display: flex !important;
   flex-direction: column !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
   position: relative;
   overscroll-behavior: contain !important;
+  animation: modalEntrada 0.22s ease-out;
+}
+
+/* Un solo momento de entrada (no animamos nada más dentro del modal) para
+   que abrir la ficha de producto se sienta intencional sin ser excesivo. */
+@keyframes modalEntrada {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .modal-header {
   padding: 16px 20px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -714,12 +1105,25 @@ body:has(.modal-overlay.active) {
 }
 
 .btn-cerrar-modal {
-  background: none;
+  background: #f1f5f9;
   border: none;
-  font-size: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.3rem;
   cursor: pointer;
   color: #64748b;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-cerrar-modal:hover {
+  background: #e2e8f0;
+  color: var(--navy);
 }
 
 .modal-body {
@@ -761,7 +1165,7 @@ body:has(.modal-overlay.active) {
 .item-pedido-info h4 {
   font-size: 0.95rem;
   margin: 0;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .item-pedido-info p {
@@ -789,15 +1193,26 @@ body:has(.modal-overlay.active) {
 }
 
 .modal-footer {
-  padding: 16px 20px;
-  border-top: 1px solid #e2e8f0;
-  background: #f8fafc;
+  padding: 18px 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-main-alt);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 .modal-total-info {
   display: flex;
   justify-content: space-between;
-  font-size: 1.1rem;
+  align-items: center;
+  font-size: 1.05rem;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: 10px 18px;
+}
+
+.modal-total-info strong {
+  color: var(--navy);
+  font-size: 1.2rem;
 }
 
 .modal-footer .btn-whatsapp {
@@ -836,7 +1251,7 @@ body:has(.modal-overlay.active) {
 }
 
 .modal-trust-box strong {
-  color: #10b981;
+  color: #16A34A;
 }
 
 /* BOTÓN DE ENTREGA INMEDIATA EN BARRAS HORIZONTALES */
@@ -844,48 +1259,31 @@ body:has(.modal-overlay.active) {
 .btn-categoria.btn-inmediato:hover,
 .btn-categoria.btn-inmediato:focus,
 .btn-categoria.btn-inmediato.active {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
+  background: linear-gradient(135deg, #16A34A, #15803D) !important;
   color: #ffffff !important;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 2px 10px rgba(22, 163, 74, 0.45);
+  animation: pulse-btn 2.4s ease-in-out infinite;
   transition: filter 0.2s ease, transform 0.1s ease;
 }
 
 .btn-categoria.btn-inmediato:hover {
-  filter: brightness(0.9);
-}
-
-/* BOTÓN DESTACADO EN LA SIDEBAR LATERAL */
-.sidebar-item.item-destacado,
-.sidebar-item.item-destacado:hover,
-.sidebar-item.item-destacado:focus,
-.sidebar-item.item-destacado.active {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
-  color: #ffffff !important;
-  border-color: #059669 !important;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
-  transition: filter 0.2s ease, transform 0.1s ease;
-}
-
-.sidebar-item.item-destacado:hover {
-  filter: brightness(0.9);
-}
+  filter: brightness(0.92);
 }
 
 @keyframes pulse-btn {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+  0% { box-shadow: 0 2px 10px rgba(22, 163, 74, 0.45); }
+  50% { box-shadow: 0 2px 18px rgba(22, 163, 74, 0.75); }
+  100% { box-shadow: 0 2px 10px rgba(22, 163, 74, 0.45); }
 }
 
 .seccion-stock-destacado {
-  background: #0f172a;
+  background: var(--text-main);
   color: #ffffff;
   padding: 24px 20px;
   border-radius: 16px;
   margin-bottom: 24px;
-  border: 1px solid #1e293b;
+  border: 1px solid var(--navy-dark);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   width: 100%;
 }
@@ -896,7 +1294,7 @@ body:has(.modal-overlay.active) {
 }
 
 .badge-flash {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
+  background: linear-gradient(135deg, #16A34A, #15803D) !important;
   color: #ffffff;
   padding: 4px 12px;
   font-weight: 800;
@@ -923,7 +1321,7 @@ body:has(.modal-overlay.active) {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: #22c55e;
+  background: #16A34A;
   color: #000000;
   font-weight: 800;
   font-size: 0.7rem;
@@ -934,9 +1332,9 @@ body:has(.modal-overlay.active) {
 }
 
 .banner-encargo {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
+  background: linear-gradient(135deg, var(--navy-dark), var(--text-main));
   border: 1px solid #334155;
-  border-left: 5px solid #4f46e5;
+  border-left: 5px solid var(--gold);
   border-radius: 12px;
   padding: 14px 18px;
   margin-bottom: 20px;
@@ -958,6 +1356,442 @@ body:has(.modal-overlay.active) {
   line-height: 1.4;
 }
 
+/* ==========================================================================
+   11. TESTIMONIOS
+   ========================================================================== */
+.seccion-testimonios {
+  margin: 32px 0 16px;
+  padding-top: 24px;
+  border-top: 2px dashed var(--border-color);
+}
+
+.testimonios-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.testimonios-header h2 {
+  font-size: 1.8rem;
+  color: var(--navy);
+}
+
+.resumen-calificacion {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.estrellas-resumen {
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.texto-resumen {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.grid-testimonios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card-testimonio {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-testimonio:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Foto principal de la reseña: ahora es lo primero que se ve en la
+   tarjeta, grande y protagonista (antes era una miniatura pequeña al
+   final). Relación 3:4 (más alta que ancha) porque las fotos de camisetas
+   colgadas o puestas suelen ser verticales; un recorte cuadrado o
+   apaisado les corta los hombros o el logo. Si el cliente compartió más
+   de una foto, las demás quedan como miniaturas debajo del comentario
+   (ver .imagenes-testimonio). */
+.testimonio-foto {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #f1f5f9;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.testimonio-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.testimonio-foto:hover img {
+  transform: scale(1.04);
+}
+
+.testimonio-foto-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(9, 14, 29, 0.72);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+}
+
+.testimonio-cuerpo {
+  padding: 16px;
+  border-left: 4px solid var(--gold);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cuando la reseña no trae fotos, el cuerpo ocupa toda la tarjeta y
+   conserva el borde dorado a la izquierda como antes. */
+.card-testimonio:not(:has(.testimonio-foto)) .testimonio-cuerpo {
+  border-radius: var(--radius-md);
+}
+
+.estrellas-testimonio {
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.comentario-testimonio {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  font-style: italic;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.autor-testimonio {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.producto-testimonio {
+  font-size: 0.75rem;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* Fotos adicionales (a partir de la segunda) que el cliente compartió
+   junto a su reseña: quedan como miniaturas debajo del comentario. La
+   primera foto ya se muestra grande arriba, en .testimonio-foto. */
+.imagenes-testimonio {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.imagenes-testimonio img {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  transition: transform 0.15s;
+}
+
+.imagenes-testimonio img:hover {
+  transform: scale(1.05);
+  border-color: var(--gold);
+}
+
+.testimonio-vacio {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 24px 16px;
+  color: var(--text-muted);
+}
+
+.testimonio-vacio p {
+  margin-bottom: 14px;
+}
+
+.testimonio-cta {
+  grid-column: 1/-1;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.btn-dejar-resena {
+  display: inline-block;
+  background: var(--navy);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.btn-dejar-resena:hover {
+  background: var(--navy-dark);
+}
+
+/* ==========================================================================
+   12. FOOTER
+   ========================================================================== */
+.footer-tienda {
+  /* Mismo tono que el header, el sidebar y la barra flotante del carrito,
+     para que las zonas oscuras del sitio se lean como una sola familia de
+     color en vez de tonos oscuros ligeramente distintos (punto 8: armonía). */
+  background: var(--navy);
+  color: #E7E1CF;
+  margin-top: 32px;
+  /* El padding-bottom extra (antes vivía como espacio en blanco reservado
+     en el body) hace que el fondo oscuro del footer siga hasta donde llega
+     la barra flotante del carrito, en vez de dejar ver el fondo claro de
+     la página entre los dos (punto 5 del rediseño). Si cambias la altura
+     de .barra-carrito, ajusta este valor para que coincida. */
+  padding: 32px 20px calc(16px + 96px);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.footer-col h3 {
+  color: #ffffff;
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.footer-col h4 {
+  color: var(--gold);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+}
+
+.footer-col p, .footer-col li {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #C9C2AC;
+}
+
+.footer-lista-confianza {
+  list-style: none;
+}
+
+.footer-col a {
+  color: #E7E1CF;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-col a:hover {
+  color: var(--gold);
+}
+
+.footer-nota {
+  font-size: 0.78rem;
+  color: #9A927C;
+  margin-top: 4px;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 24px auto 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--navy-light);
+  text-align: center;
+  font-size: 0.78rem;
+  color: #9A927C;
+}
+
+/* ==========================================================================
+   13. MODAL DE VISTA RÁPIDA DE PRODUCTO (galería grande + personalización)
+   ========================================================================== */
+/* Un único modal reemplaza lo que antes eran dos pasos separados (ampliar
+   foto y luego personalizar): ahora la foto en grande y el panel de
+   pedido conviven en la misma ventana, uno al lado del otro en pantallas
+   anchas y apilados en celular. Ver abrirVistaProducto() en script.js. */
+.modal-vista-producto {
+  max-width: 960px;
+  width: 100%;
+}
+
+.vista-producto-layout {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.vista-galeria {
+  flex: 1 1 52%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--navy-dark);
+}
+
+.vista-galeria-principal {
+  position: relative;
+  flex-grow: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.vista-galeria-principal img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.badge-inmediato-vista {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--success);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.7rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.vista-galeria-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(9, 14, 29, 0.55);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s, transform 0.15s;
+  z-index: 3;
+}
+
+.vista-galeria-nav:hover {
+  background: rgba(9, 14, 29, 0.8);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.vista-galeria-nav.prev { left: 10px; }
+.vista-galeria-nav.next { right: 10px; }
+
+.vista-galeria-miniaturas {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  overflow-x: auto;
+  background: var(--navy-dark);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.vista-galeria-miniaturas img {
+  width: 46px;
+  height: 46px;
+  border-radius: 7px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.55;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.vista-galeria-miniaturas img.active,
+.vista-galeria-miniaturas img:hover {
+  border-color: var(--gold);
+  opacity: 1;
+}
+
+.vista-opciones {
+  flex: 1 1 48%;
+  min-width: 0;
+  padding: 18px 20px;
+  overflow-y: auto;
+  border-left: 1px solid var(--border-color);
+}
+
+.vista-opciones-titulo {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.vista-opciones-precio {
+  display: inline-block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--navy);
+  background: var(--bg-main-alt);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 16px;
+}
+
+@media (max-width: 720px) {
+  .vista-producto-layout {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .vista-galeria-principal {
+    height: 62vw;
+    max-height: 320px;
+  }
+  .vista-opciones {
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    overflow-y: visible;
+  }
+}
+
 @media (max-width: 480px) {
   .wpp-btn, a.wpp-btn {
     bottom: 80px !important;
@@ -965,4 +1799,240 @@ body:has(.modal-overlay.active) {
     width: 48px !important;
     height: 48px !important;
   }
+}
+/* ==========================================================================
+   14. BOTÓN FLOTANTE DE REDES SOCIALES (junto al de WhatsApp)
+   ========================================================================== */
+/* Usa la misma idea visual que el botón de WhatsApp para que se lea como
+   parte de la misma familia de "acciones flotantes", pero con la marca de
+   Instagram. Ver CONFIG.redesSociales en script.js para cambiar el enlace. */
+.social-btn, a.social-btn {
+  position: fixed !important;
+  bottom: 145px !important;
+  right: 16px !important;
+  z-index: 10000 !important;
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.2s ease !important;
+}
+
+.social-btn:hover {
+  transform: scale(1.08) !important;
+}
+
+.social-btn svg {
+  width: 26px !important;
+  height: 26px !important;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+}
+
+@media (max-width: 480px) {
+  .social-btn, a.social-btn {
+    bottom: 138px !important;
+    right: 14px !important;
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
+/* ==========================================================================
+   15. VISOR DE FOTOS GENÉRICO (fotos de reseñas de clientes)
+   ========================================================================== */
+/* Visor simple de una sola imagen a la vez, para ampliar las fotos que los
+   clientes comparten en sus reseñas. Es intencionalmente más simple que el
+   modal de producto porque aquí no hay nada que personalizar ni comprar. */
+.visor-foto-overlay {
+  background: rgba(10, 13, 20, 0.94);
+}
+
+.visor-foto-contenido {
+  background: transparent;
+  box-shadow: none;
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visor-foto-contenido img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.btn-cerrar-visor {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: rgba(255,255,255,0.1);
+  color: #ffffff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.btn-cerrar-visor:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ==========================================================================
+   16. SECCIÓN DE CONFIANZA ("CÓMO COMPRAR CON NOSOTROS")
+   ========================================================================== */
+.seccion-confianza {
+  margin: 8px 0 28px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 22px 20px;
+}
+
+.confianza-titulo {
+  font-size: 1.6rem;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.confianza-pasos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.paso-confianza {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.paso-confianza .paso-numero {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  font-weight: 800;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paso-confianza h3 {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 3px;
+}
+
+.paso-confianza p {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   17. PREGUNTAS FRECUENTES (ACORDEÓN)
+   ========================================================================== */
+.seccion-faq {
+  margin: 8px 0 32px;
+}
+
+.faq-titulo {
+  font-size: 1.6rem;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.faq-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.faq-pregunta {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 14px 16px;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.faq-pregunta .faq-icono {
+  flex-shrink: 0;
+  color: var(--gold);
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.faq-item.active .faq-pregunta .faq-icono {
+  transform: rotate(45deg);
+}
+
+.faq-respuesta {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.faq-item.active .faq-respuesta {
+  max-height: 240px;
+}
+
+.faq-respuesta p {
+  padding: 0 16px 16px;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   18. INSIGNIAS DE CONFIANZA EN EL FOOTER
+   ========================================================================== */
+.footer-insignias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.footer-insignia {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  color: #E7E1CF;
 }
