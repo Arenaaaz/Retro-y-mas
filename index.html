@@ -26,7 +26,7 @@
        archivo en el lugar equivocado). Ver la nota "FAVICON" en GUIA-DE-CAMBIOS.md
        si después de publicar el sitio el ícono sigue sin verse. -->
   <link rel="icon" type="image/png" href="/img/logo.png?v=2">
-  <link rel="shortcut icon" type="image/png" href="/img/logo.png">
+  <link rel="shortcut icon" type="image/png" href="/img/logo.png?v=2">
   <link rel="apple-touch-icon" href="/img/logo.png?v=2">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -326,11 +326,14 @@
       <div class="vista-producto-layout">
         <!-- Columna izquierda: foto grande + miniaturas + flechas -->
         <div class="vista-galeria">
-          <div class="vista-galeria-principal">
+          <div class="vista-galeria-principal" id="vista-galeria-principal">
             <span id="vista-badge-inmediato" class="badge-inmediato-vista" style="display:none;">⚡ Entrega Inmediata</span>
             <button class="vista-galeria-nav prev" onclick="cambiarImagenVista(-1)" aria-label="Foto anterior">‹</button>
             <img id="vista-img-principal" src="" alt="">
             <button class="vista-galeria-nav next" onclick="cambiarImagenVista(1)" aria-label="Foto siguiente">›</button>
+            <!-- Puntos indicadores: reemplazan a las miniaturas solo en
+                 celular (ver CSS), donde dan más espacio a la foto. -->
+            <div id="vista-dots" class="vista-galeria-dots"></div>
           </div>
           <div id="vista-miniaturas" class="vista-galeria-miniaturas"></div>
         </div>

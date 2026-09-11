@@ -928,6 +928,14 @@ body:has(.modal-overlay.active) {
   margin: 0 auto;
   box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.28);
   z-index: 100;
+  transition: transform 0.28s ease;
+}
+
+/* Se activa por JS mientras el cliente sigue bajando para ver más prendas
+   (script.js, sección "BARRA DE CARRITO: OCULTAR AL BAJAR..."). Se desliza
+   fuera de la pantalla en vez de desaparecer de golpe. */
+.barra-carrito.barra-carrito-oculta {
+  transform: translateY(150%);
 }
 
 /* En pantallas anchas, "despegamos" la barra de los bordes para que se
@@ -1752,6 +1760,33 @@ body:has(.modal-overlay.active) {
   opacity: 1;
 }
 
+/* Puntos indicadores de foto: ocultos por defecto (en pantallas grandes
+   se usan las miniaturas de abajo); se activan solo en celular, ver media
+   query más abajo. */
+.vista-galeria-dots {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  gap: 6px;
+  z-index: 3;
+}
+
+.vista-galeria-dots .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  transition: background 0.15s, transform 0.15s;
+}
+
+.vista-galeria-dots .dot.active {
+  background: var(--gold);
+  transform: scale(1.25);
+}
+
 .vista-opciones {
   flex: 1 1 48%;
   min-width: 0;
@@ -1782,13 +1817,26 @@ body:has(.modal-overlay.active) {
     overflow-y: auto;
   }
   .vista-galeria-principal {
-    height: 62vw;
-    max-height: 320px;
+    /* Antes: 62vw / máx 320px. Con las miniaturas ocultas en celular, la
+       foto puede crecer bastante más y seguir dejando espacio cómodo para
+       el panel de personalización debajo. */
+    height: 88vw;
+    max-height: 480px;
   }
   .vista-opciones {
     border-left: none;
     border-top: 1px solid var(--border-color);
     overflow-y: visible;
+  }
+  /* En celular quitamos la fila de miniaturas para darle todo el ancho a
+     la foto; los puntos de abajo cumplen el mismo rol de mostrar cuántas
+     fotos hay y en cuál vas, y además se puede pasar de foto deslizando
+     con el dedo (ver gestos táctiles en script.js). */
+  .vista-galeria-miniaturas {
+    display: none;
+  }
+  .vista-galeria-dots {
+    display: flex;
   }
 }
 
@@ -1798,6 +1846,80 @@ body:has(.modal-overlay.active) {
     right: 14px !important;
     width: 48px !important;
     height: 48px !important;
+  }
+}
+
+/* ==========================================================================
+   13B. CATÁLOGO EN 2 COLUMNAS PARA CELULARES PEQUEÑOS (iPhone SE a 15 Pro Max)
+   ========================================================================== */
+/* Antes el grid solo mostraba 1 tarjeta por fila en celular (minmax 240px),
+   así que entre una tarjeta grande y la barra flotante del carrito casi no
+   quedaba catálogo visible sin hacer scroll. Aquí forzamos 2 columnas y
+   compactamos textos/paddings para que cada tarjeta siga siendo legible en
+   ~170-190px de ancho. */
+@media (max-width: 560px) {
+  .main-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .grid-productos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .info-container {
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .titulo-producto {
+    font-size: 0.82rem;
+    margin-bottom: 0;
+    line-height: 1.25;
+  }
+
+  /* Se oculta para dejar espacio a lo esencial (foto, título y precio);
+     la descripción completa sigue visible al abrir la tarjeta. */
+  .descripcion-producto {
+    display: none;
+  }
+
+  .dorsal-destacado {
+    font-size: 0.68rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .precio-producto {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .btn-agregar {
+    padding: 9px 6px;
+    font-size: 0.72rem;
+  }
+
+  .badge-inmediato-card {
+    font-size: 0.6rem;
+    padding: 3px 6px;
+    top: 6px;
+    left: 6px;
+  }
+
+  /* Antes las ocultábamos para ahorrar espacio, pero tapaban la única
+     forma de ver las demás fotos sin entrar al modal. Las dejamos, solo
+     más chicas y con menos separación para que las 3-4 miniaturas quepan
+     en el ancho angosto de una tarjeta de 2 columnas. */
+  .miniaturas-container {
+    padding: 6px;
+    gap: 5px;
+  }
+
+  .miniatura {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
   }
 }
 /* ==========================================================================

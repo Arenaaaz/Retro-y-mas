@@ -358,6 +358,7 @@ function abrirVistaProducto(idProducto) {
 
   renderizarImagenVista();
   renderizarMiniaturasVista();
+  renderizarDotsVista();
 
   // Evaluar si la prenda permite estampado (solo Camisetas)
   const esCamiseta = !prod.tipoPrenda || prod.tipoPrenda.toLowerCase() === 'camisetas';
@@ -490,11 +491,29 @@ function renderizarMiniaturasVista() {
   `).join('');
 }
 
+/**
+ * Dibuja los puntos indicadores de foto que reemplazan a las miniaturas en
+ * celular (ver CSS: .vista-galeria-dots solo se muestra en esa pantalla).
+ * Cada punto también es clicable para saltar directo a esa foto.
+ */
+function renderizarDotsVista() {
+  const cont = document.getElementById("vista-dots");
+  if (!cont) return;
+  if (vistaImagenesActuales.length < 2) {
+    cont.innerHTML = '';
+    return;
+  }
+  cont.innerHTML = vistaImagenesActuales.map((_, idx) => `
+    <span class="dot ${idx === vistaIndiceActual ? 'active' : ''}" onclick="irAImagenVista(${idx})" role="button" aria-label="Ir a foto ${idx + 1}"></span>
+  `).join('');
+}
+
 /** Salta directamente a una foto específica dentro del modal (clic en miniatura). */
 function irAImagenVista(idx) {
   vistaIndiceActual = idx;
   renderizarImagenVista();
   renderizarMiniaturasVista();
+  renderizarDotsVista();
 }
 
 /**
@@ -508,6 +527,7 @@ function cambiarImagenVista(delta) {
   vistaIndiceActual = (vistaIndiceActual + delta + totalImagenes) % totalImagenes;
   renderizarImagenVista();
   renderizarMiniaturasVista();
+  renderizarDotsVista();
 }
 
 /**
@@ -562,6 +582,67 @@ function cerrarModalOpciones() {
   vistaImagenesActuales = [];
 }
 
+// ==========================================================================
+// BARRA DE CARRITO: OCULTAR AL BAJAR, MOSTRAR AL SUBIR
+// ==========================================================================
+// La barra flotante de "Total acumulado" tapaba catálogo al navegar en
+// celulares pequeños. Ahora se desliza fuera de pantalla mientras el
+// cliente baja buscando más prendas, y reaparece apenas sube un poco o
+// agrega algo al pedido (mostrarBarraCarritoTemporal, llamada desde
+// confirmarAgregarAlCarrito más abajo).
+let ultimoScrollYBarraCarrito = window.scrollY;
+let barraCarritoOculta = false;
+const UMBRAL_SCROLL_BARRA = 12; // px mínimos para reaccionar; evita parpadeos con scrolls muy pequeños
+
+function actualizarVisibilidadBarraCarrito() {
+  const barra = document.querySelector(".barra-carrito");
+  if (!barra) return;
+
+  const scrollActual = window.scrollY;
+  const diferencia = scrollActual - ultimoScrollYBarraCarrito;
+
+  if (scrollActual < 80) {
+    // Cerca del tope de la página siempre se muestra.
+    barra.classList.remove("barra-carrito-oculta");
+    barraCarritoOculta = false;
+  } else if (diferencia > UMBRAL_SCROLL_BARRA && !barraCarritoOculta) {
+    // Bajando: se oculta para dejar ver más prendas.
+    barra.classList.add("barra-carrito-oculta");
+    barraCarritoOculta = true;
+  } else if (diferencia < -UMBRAL_SCROLL_BARRA && barraCarritoOculta) {
+    // Subiendo: se vuelve a mostrar.
+    barra.classList.remove("barra-carrito-oculta");
+    barraCarritoOculta = false;
+  }
+
+  ultimoScrollYBarraCarrito = scrollActual;
+}
+
+let scrollTickingBarraCarrito = false;
+window.addEventListener("scroll", () => {
+  if (!scrollTickingBarraCarrito) {
+    window.requestAnimationFrame(() => {
+      actualizarVisibilidadBarraCarrito();
+      scrollTickingBarraCarrito = false;
+    });
+    scrollTickingBarraCarrito = true;
+  }
+}, { passive: true });
+
+/**
+ * Muestra la barra del carrito de inmediato, aunque el cliente esté en
+ * medio de un scroll hacia abajo (por ejemplo, justo después de agregar
+ * una prenda al pedido). Si sigue bajando para ver más prendas, la barra
+ * se vuelve a ocultar sola con el listener de scroll de arriba.
+ */
+function mostrarBarraCarritoTemporal() {
+  const barra = document.querySelector(".barra-carrito");
+  if (!barra) return;
+  barra.classList.remove("barra-carrito-oculta");
+  barraCarritoOculta = false;
+  ultimoScrollYBarraCarrito = window.scrollY;
+}
+
 /**
  * Toma las opciones elegidas por el cliente, calcula el precio final y
  * agrega el producto al carrito. Cada línea del carrito recibe un
@@ -600,6 +681,7 @@ function confirmarAgregarAlCarrito() {
 
   actualizarCarrito();
   cerrarModalOpciones();
+  mostrarBarraCarritoTemporal();
 }
 
 document.addEventListener("keydown", (e) => {
@@ -609,6 +691,38 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") cambiarImagenVista(-1);
   if (e.key === "ArrowRight") cambiarImagenVista(1);
 });
+
+/**
+ * Permite pasar de foto en la galería del modal deslizando el dedo hacia
+ * la izquierda o la derecha (swipe), pensado sobre todo para celular ahora
+ * que ahí la foto ocupa mucho más espacio. Solo reacciona a gestos
+ * mayormente horizontales, para no interferir con el scroll vertical de la
+ * página cuando alguien desliza en diagonal.
+ */
+(() => {
+  const galeriaPrincipal = document.getElementById("vista-galeria-principal");
+  if (!galeriaPrincipal) return;
+
+  const UMBRAL_SWIPE = 40; // px mínimos para contar como deslizar, no un simple toque
+  let inicioX = 0;
+  let inicioY = 0;
+
+  galeriaPrincipal.addEventListener("touchstart", (e) => {
+    inicioX = e.touches[0].clientX;
+    inicioY = e.touches[0].clientY;
+  }, { passive: true });
+
+  galeriaPrincipal.addEventListener("touchend", (e) => {
+    const finX = e.changedTouches[0].clientX;
+    const finY = e.changedTouches[0].clientY;
+    const deltaX = finX - inicioX;
+    const deltaY = finY - inicioY;
+
+    if (Math.abs(deltaX) > UMBRAL_SWIPE && Math.abs(deltaX) > Math.abs(deltaY)) {
+      cambiarImagenVista(deltaX < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+})();
 
 // ==========================================================================
 // 8. FILTROS Y BÚSQUEDA
