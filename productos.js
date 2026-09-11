@@ -1195,7 +1195,7 @@ const ENTRENAMIENTO = [
     tipoPrenda: "Entrenamiento",
     categoria: "Actual",
     entregaInmediata: false,
-    precio: 180000,
+    precio: 150000,
     descripcion: "Buzo de entrenamiento Cruzeiro.",
     imagenes: ["img/TrainCruzeiro23.jpeg","img/TrainCruzeiro23-1.jpeg", "img/TrainCruzeiro23-2.jpeg"],
     tallas: ["S", "M", "L", "XL"]
@@ -1206,7 +1206,7 @@ const ENTRENAMIENTO = [
     tipoPrenda: "Entrenamiento",
     categoria: "Actual",
     entregaInmediata: false,
-    precio: 180000,
+    precio: 150000,
     descripcion: "Buzo de entrenamiento Flamengo.",
     imagenes: ["img/TrainFlamengo26.jpg","img/TrainFlamengo26-1.jpg"],
     tallas: ["S", "M", "L", "XL"]
@@ -1217,7 +1217,7 @@ const ENTRENAMIENTO = [
     tipoPrenda: "Entrenamiento",
     categoria: "Actual",
     entregaInmediata: false,
-    precio: 180000,
+    precio: 150000,
     descripcion: "Buzo de entrenamiento Sao Paulo.",
     imagenes: ["img/TrainSaoP23.jpeg","img/TrainSaoP23-1.jpeg", "img/TrainSaoP23-2.jpeg", "img/TrainSaoP23-3.jpeg"],
     tallas: ["S", "M", "L", "XL"]
@@ -1228,7 +1228,7 @@ const ENTRENAMIENTO = [
     tipoPrenda: "Entrenamiento",
     categoria: "Actual",
     entregaInmediata: false,
-    precio: 180000,
+    precio: 150000,
     descripcion: "Buzo de entrenamiento Brasil.",
     imagenes: ["img/TrainBrasil22.jpeg","img/TrainBrasil22-1.jpeg", "img/TrainBrasil22-2.jpeg"],
     tallas: ["S", "M", "L", "XL"]
@@ -1239,7 +1239,7 @@ const ENTRENAMIENTO = [
     tipoPrenda: "Entrenamiento",
     categoria: "Actual",
     entregaInmediata: false,
-    precio: 180000,
+    precio: 150000,
     descripcion: "Chaqueta de entrenamiento PSG.",
     imagenes: ["img/JacketPsg01.jpeg","img/JacketPsg01-1.jpeg", "img/JacketPsg01-2.jpeg"],
   }
@@ -1250,15 +1250,15 @@ const ENTRENAMIENTO = [
 const CORTAVIENTOS = [
   {
     id: "COR-01",
-    nombre: "Cortavientos PSG Negro 2025",
+    nombre: "Cortavientos PSG Negro 23/24",
     tipoPrenda: "Cortavientos",
     categoria: "Actual",
     entregaInmediata: false,
     dorsalInmediato: "Sin dorsal",
     tallasInmediatas: ["M", "L"],
-    precio: 160000,
+    precio: 150000,
     descripcion: "Cortavientos impermeable con capota del PSG.",
-    imagenes: ["img/CortavientosPsg.jpg"],
+    imagenes: ["img/WindB-Psg.jpeg","img/WindB-Psg-1.jpeg","img/WindB-Psg-2-jpeg"],
     tallas: ["S", "M", "L", "XL"]
   }
 ];

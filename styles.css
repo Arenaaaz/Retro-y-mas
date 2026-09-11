@@ -222,6 +222,24 @@ body:has(.modal-overlay.active) {
   display: flex;
   gap: 10px;
   align-items: stretch;
+  overflow: hidden;
+  transition: max-height 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+  max-height: 80px;
+  opacity: 1;
+}
+
+/* Se activa por JS (ver "BARRA SUPERIOR: COMPACTAR AL HACER SCROLL" en
+   script.js) apenas el cliente deja el tope de la página: se esconde el
+   botón de secciones/reseñas y el buscador se achica (más abajo), pero la
+   fila de categorías (Todos, Entrega Inmediata, Retro...) se mantiene
+   siempre visible y del mismo tamaño para no perder el acceso rápido a
+   los filtros. Es un colapso suave, no un "desaparece toda la barra". */
+.categorias-nav.compacta .top-nav-bar {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  pointer-events: none;
 }
 
 .top-nav-bar .btn-menu-sidebar-full {
@@ -536,6 +554,11 @@ body:has(.modal-overlay.active) {
   max-width: 1200px;
   margin: 0 auto;
   padding: 12px 16px 4px 16px;
+  transition: padding 0.25s ease;
+}
+
+.categorias-nav.compacta .busqueda-container {
+  padding: 6px 16px 4px 16px;
 }
 
 #input-busqueda {
@@ -546,7 +569,12 @@ body:has(.modal-overlay.active) {
   background: #f8fafc;
   font-size: 0.9rem;
   outline: none;
-  transition: all 0.2s;
+  transition: all 0.2s, padding 0.2s ease, font-size 0.2s ease;
+}
+
+.categorias-nav.compacta #input-busqueda {
+  padding: 6px 12px;
+  font-size: 0.82rem;
 }
 
 #input-busqueda:focus {

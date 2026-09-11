@@ -78,6 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     ejecutarFiltroCombinado();
   }
+
+  actualizarNavCompacta(); // por si la página carga ya con scroll (ej. #entrega-inmediata)
 });
 
 // ==========================================================================
@@ -583,13 +585,54 @@ function cerrarModalOpciones() {
 }
 
 // ==========================================================================
-// BARRA DE CARRITO: OCULTAR AL BAJAR, MOSTRAR AL SUBIR
+// BARRAS QUE REACCIONAN AL SCROLL (arriba y abajo)
 // ==========================================================================
-// La barra flotante de "Total acumulado" tapaba catálogo al navegar en
-// celulares pequeños. Ahora se desliza fuera de pantalla mientras el
-// cliente baja buscando más prendas, y reaparece apenas sube un poco o
-// agrega algo al pedido (mostrarBarraCarritoTemporal, llamada desde
-// confirmarAgregarAlCarrito más abajo).
+// 1) Barra superior (botón de secciones + buscador + categorías): se queda
+//    SIEMPRE visible y pegada arriba (no se desliza ni desaparece; eso se
+//    sentía brusco). En vez de eso, apenas el cliente deja el tope de la
+//    página se "compacta": se esconde el botón de Ver secciones/Reseñas y
+//    el buscador se hace más chico. La fila de categorías (Todos, Entrega
+//    Inmediata, Retro...) no cambia nunca de tamaño ni se oculta, para
+//    mantener siempre a mano el filtro más usado.
+// 2) Barra flotante de "Total acumulado" (abajo): esta sí se oculta al
+//    bajar buscando más prendas y reaparece al subir un poco, o de
+//    inmediato al agregar algo al pedido (mostrarBarraCarritoTemporal,
+//    llamada desde confirmarAgregarAlCarrito más abajo).
+
+const UMBRAL_NAV_COMPACTA = 60; // px de scroll desde donde la barra superior empieza a poder compactarse
+const UMBRAL_SCROLL_NAV = 12; // px mínimos de scroll hacia arriba para volver a expandirla
+let ultimoScrollYNav = window.scrollY;
+let navCompacta = false;
+
+/**
+ * Compacta la barra superior al bajar, y la vuelve a expandir con solo
+ * subir un poco el scroll (no hace falta llegar hasta el tope de la
+ * página) o al llegar cerca del tope, que siempre la muestra completa.
+ */
+function actualizarNavCompacta() {
+  const nav = document.querySelector(".categorias-nav");
+  if (!nav) return;
+
+  const scrollActual = window.scrollY;
+  const diferencia = scrollActual - ultimoScrollYNav;
+
+  if (scrollActual < UMBRAL_NAV_COMPACTA) {
+    // Cerca del tope de la página siempre se muestra completa.
+    nav.classList.remove("compacta");
+    navCompacta = false;
+  } else if (diferencia > UMBRAL_SCROLL_NAV && !navCompacta) {
+    // Bajando: se compacta para dejar ver más prendas.
+    nav.classList.add("compacta");
+    navCompacta = true;
+  } else if (diferencia < -UMBRAL_SCROLL_NAV && navCompacta) {
+    // Subiendo, aunque sea un poco: se vuelve a expandir.
+    nav.classList.remove("compacta");
+    navCompacta = false;
+  }
+
+  ultimoScrollYNav = scrollActual;
+}
+
 let ultimoScrollYBarraCarrito = window.scrollY;
 let barraCarritoOculta = false;
 const UMBRAL_SCROLL_BARRA = 12; // px mínimos para reaccionar; evita parpadeos con scrolls muy pequeños
@@ -618,14 +661,15 @@ function actualizarVisibilidadBarraCarrito() {
   ultimoScrollYBarraCarrito = scrollActual;
 }
 
-let scrollTickingBarraCarrito = false;
+let scrollTickingBarras = false;
 window.addEventListener("scroll", () => {
-  if (!scrollTickingBarraCarrito) {
+  if (!scrollTickingBarras) {
     window.requestAnimationFrame(() => {
+      actualizarNavCompacta();
       actualizarVisibilidadBarraCarrito();
-      scrollTickingBarraCarrito = false;
+      scrollTickingBarras = false;
     });
-    scrollTickingBarraCarrito = true;
+    scrollTickingBarras = true;
   }
 }, { passive: true });
 
@@ -1017,7 +1061,7 @@ function cerrarVisorFoto() {
 const FAQS = [
   {
     pregunta: "¿Cómo sé qué talla pedir?",
-    respuesta: "Todas las prendas manejan tallas S, M, L y XL. Si tienes dudas sobre cuál te queda mejor, escríbenos por WhatsApp antes de pedir y te ayudamos a elegir según tu contextura."
+    respuesta: "Todas las prendas manejan tallas S, M, L y XL. Si tienes dudas sobre cuál te queda mejor puedes contactarnos con los botones interactivos y te compartiremos la guía de tallas que manejan nuestras prendas."
   },
   {
     pregunta: "¿Cuánto tarda el envío?",
@@ -1029,7 +1073,7 @@ const FAQS = [
   },
   {
     pregunta: "¿Puedo pedir la camiseta con el nombre y número que yo quiera?",
-    respuesta: "Sí, en la mayoría de camisetas puedes escribir el nombre y número que prefieras al personalizar tu pedido, sin costo adicional."
+    respuesta: "Sí, en todas nuestras camisetas puedes escribir el nombre y número que prefieras al personalizar tu pedido, sin costo adicional."
   },
   {
     pregunta: "¿Qué pasa si la talla no me queda?",

@@ -38,7 +38,7 @@ const TESTIMONIOS = [
     nombre: "Tomas A.",
     ciudad: "Medellin",
     calificacion: 5,
-    comentario: "La calidad está increible; me sorprendió lo bien logrados que están los estampados. Muchas gracias!",
+    comentario: "La calidad está increible y me sorprendió lo bien logrados que están los estampados. Muchas gracias!",
     producto: "AC Milan 2006 - Bordado de Champions League",
     imagenes: ["img/resena1.jpeg"]
   }
