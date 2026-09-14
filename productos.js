@@ -44,6 +44,30 @@
 //   textoBordado: "Bordado Final Moscow 2008"
 // }
 //
+// SI UN EQUIPO TIENE VARIAS VERSIONES (Local, Visitante, Alternativa...):
+// agrega cada versión como un producto separado de siempre, pero ponles a
+// TODAS el mismo campo "grupo" (usa el nombre del equipo + temporada, sin
+// la palabra "Local"/"Visitante"/etc.). Eso logra dos cosas automáticas:
+// 1) En el catálogo, todas las versiones de ese grupo se muestran juntas,
+//    sin importar en qué orden las hayas agregado al archivo.
+// 2) Dentro del modal de una versión aparece un aviso "También disponible"
+//    con link directo a las otras versiones del mismo grupo.
+// Si un producto no tiene varias versiones, simplemente no le pongas
+// "grupo" (como la mayoría del catálogo hoy).
+//
+// {
+//   id: "CAM-45",
+//   nombre: "Real Madrid 2026/2027 Local",
+//   grupo: "Real Madrid 26/27",   // <- mismo texto en las dos
+//   ...
+// },
+// {
+//   id: "CAM-46",
+//   nombre: "Real Madrid 2026/2027 Visitante",
+//   grupo: "Real Madrid 26/27",   // <- mismo texto en las dos
+//   ...
+// }
+//
 // TIPOS DE PRENDA REGISTRADOS EN EL MENÚ LATERAL (sidebar en index.html):
 // "Camisetas", "Pantalonetas", "Entrenamiento" y "Cortavientos". Si algún
 // día agregas un tipoPrenda distinto a estos cuatro, también debes crear
@@ -55,7 +79,8 @@
 const CAMISETAS = [
   {
     id: "CAM-01",
-    nombre: "AC Milan 06/07",
+    nombre: "AC Milan 06/07 Local",
+    grupo: "AC Milan 06/07", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: true,
@@ -96,6 +121,7 @@ const CAMISETAS = [
   {
     id: "CAM-03",
     nombre: "Brasil 2002 Local",
+    grupo: "Brasil 2002", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -132,6 +158,7 @@ const CAMISETAS = [
   {
     id: "CAM-05",
     nombre: "AC Milan 23/24 Edicion Beige",
+    grupo: "AC Milan 23/24", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -143,6 +170,7 @@ const CAMISETAS = [
   {
     id: "CAM-06",
     nombre: "AC Milan 23/24 Edicion Oscura",
+    grupo: "AC Milan 23/24", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -207,7 +235,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-11",
-    nombre: "Barcelona 2008/2009 Local",
+    nombre: "Barcelona 08/09 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -230,7 +258,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-12",
-    nombre: "Barcelona 2005/2006 Local",
+    nombre: "Barcelona 05/06 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -253,7 +281,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-13",
-    nombre: "Barcelona Edicion especial Travis Scott 2025/2026",
+    nombre: "Barcelona Edicion especial Travis Scott 25/26",
     tipoPrenda: "Camisetas",
     categoria: "Ediciones Especiales",
     entregaInmediata: false,
@@ -264,7 +292,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-14",
-    nombre: "Barcelona Edicion especial 2025/2026",
+    nombre: "Barcelona Edicion especial 25/26",
     tipoPrenda: "Camisetas",
     categoria: "Ediciones Especiales",
     entregaInmediata: false,
@@ -275,7 +303,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-15",
-    nombre: "Bayern Munich 2017/2018 Local",
+    nombre: "Bayern Munich 17/18 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -286,7 +314,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-16",
-    nombre: "Bayern Munich 2024/2025 Local",
+    nombre: "Bayern Munich 24/25 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -309,6 +337,7 @@ const CAMISETAS = [
   {
     id: "CAM-18",
     nombre: "Brasil 2002 Alternativa azul",
+    grupo: "Brasil 2002", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -319,7 +348,8 @@ const CAMISETAS = [
   },
   {
     id: "CAM-19",
-    nombre: "Brasil 2010",
+    nombre: "Brasil 2010 Local",
+    grupo: "Brasil 2010", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -331,6 +361,7 @@ const CAMISETAS = [
   {
     id: "CAM-20",
     nombre: "Brasil 2010 Alternativa azul",
+    grupo: "Brasil 2010", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -341,7 +372,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-21",
-    nombre: "Chelsea 2026/2027 Local",
+    nombre: "Chelsea 26/27 Local",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -352,7 +383,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-22",
-    nombre: "Chelsea 2011/2012 Local Edicion Champions League",
+    nombre: "Chelsea 11/12 Local Edicion Champions League",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -422,7 +453,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-26",
-    nombre: "Inter de Milan 2025/2026 Local",
+    nombre: "Inter de Milan 25/26 Local",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -433,7 +464,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-27",
-    nombre: "Inter de Milan 2004/2005 Local",
+    nombre: "Inter de Milan 04/05 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -444,7 +475,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-28",
-    nombre: "Inter de Milan 2001/2002 Local",
+    nombre: "Inter de Milan 01/02 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -455,7 +486,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-29",
-    nombre: "Inter de Milan 2011/2012 Local",
+    nombre: "Inter de Milan 11/12 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -477,7 +508,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-31",
-    nombre: "Juventus 2004/2005 Local",
+    nombre: "Juventus 04/05 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -488,7 +519,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-32",
-    nombre: "Juventus 2019/2020 Local",
+    nombre: "Juventus 19/20 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -552,7 +583,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-36",
-    nombre: "Portugal 2023 Edicion Especial ",
+    nombre: "Portugal 2023 Edicion Especial",
     tipoPrenda: "Camisetas",
     categoria: "Ediciones Especiales",
     entregaInmediata: false,
@@ -563,7 +594,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-37",
-    nombre: "Paris Saint Germain 2021/2022 Local",
+    nombre: "Paris Saint Germain 21/22 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -580,7 +611,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-38",
-    nombre: "Paris Saint Germain 2024/2025 Cuarta equipacion",
+    nombre: "Paris Saint Germain 24/25 Cuarta equipacion",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -597,7 +628,8 @@ const CAMISETAS = [
   },
   {
     id: "CAM-39",
-    nombre: "Real Madrid 2022/2023 Visitante",
+    nombre: "Real Madrid 22/23 Visitante",
+    grupo: "Real Madrid 22/23", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -608,7 +640,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-40",
-    nombre: "Real Madrid 2025/2026 Visitante",
+    nombre: "Real Madrid 25/26 Visitante",
     tipoPrenda: "Camisetas",
     categoria: "Ediciones Especiales",
     entregaInmediata: false,
@@ -619,7 +651,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-41",
-    nombre: "Real Madrid 2012/2013 Visitante",
+    nombre: "Real Madrid 12/13 Visitante",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -636,15 +668,15 @@ const CAMISETAS = [
   },
   {
     id: "CAM-42",
-    nombre: "Real Madrid 2006/2007",
+    nombre: "Real Madrid 06/07 Local",
+    grupo: "Real Madrid 06/07",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
     precio: 100000,
-    descripcion: "Camiseta retro Real Madrid temporada 2006/2007.",
-    imagenes: ["img/Real06.jpeg", "img/Real06-1.jpeg", "img/Real06-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
-    variantes: {
+    descripcion: "Camiseta local de Real Madrid 06/07",
+    imagenes: ["img/Real06-Local.jpg", "img/Real06-Local-1.jpg"],
+    variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
         { tipo: "Manga Larga", adicional: 10000 }
@@ -653,7 +685,8 @@ const CAMISETAS = [
   },
   {
     id: "CAM-43",
-    nombre: "Real Madrid 2017/2018",
+    nombre: "Real Madrid 17/18 Local",
+    grupo: "Real Madrid 17/18", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: true,
@@ -676,7 +709,8 @@ const CAMISETAS = [
   },
   {
     id: "CAM-44",
-    nombre: "Real Madrid 2017/2018 Visitante",
+    nombre: "Real Madrid 17/18 Visitante",
+    grupo: "Real Madrid 17/18", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -693,7 +727,8 @@ const CAMISETAS = [
   },
   {
     id: "CAM-45",
-    nombre: "Real Madrid 2026/2027 Local",
+    nombre: "Real Madrid 26/27 Local",
+    grupo: "Real Madrid 26/27", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -710,7 +745,8 @@ const CAMISETAS = [
   },
   {
     id: "CAM-46",
-    nombre: "Real Madrid 2026/2027 Visitante",
+    nombre: "Real Madrid 26/27 Visitante",
+    grupo: "Real Madrid 26/27", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -727,7 +763,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-47",
-    nombre: "Sporting 2003/2004 Local",
+    nombre: "Sporting 03/04 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -810,7 +846,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-54",
-    nombre: "Barcelona 2010/2011 Local",
+    nombre: "Barcelona 10/11 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: true,
@@ -835,7 +871,7 @@ const CAMISETAS = [
   },
   {
     id: "CAM-55",
-    nombre: "AC Milan 2009/2010 Local",
+    nombre: "AC Milan 09/10 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -857,6 +893,7 @@ const CAMISETAS = [
   {
     id: "CAM-56",
     nombre: "AC Milan 06/07 Visitante",
+    grupo: "AC Milan 06/07", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -901,6 +938,7 @@ const CAMISETAS = [
   {
     id: "CAM-58",
     nombre: "Manchester City 25/26 Local",
+    grupo: "Manchester City 25/26", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -943,6 +981,7 @@ const CAMISETAS = [
   {
     id: "CAM-60",
     nombre: "Manchester City 25/26 Alternativa",
+    grupo: "Manchester City 25/26", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -1009,7 +1048,7 @@ const CAMISETAS = [
     id: "CAM-65",
     nombre: "Inglaterra 2004 Local",
     tipoPrenda: "Camisetas",
-    categoria: "Actual",
+    categoria: "Retro",
     entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta local Inglaterra temporada 2004.",
@@ -1019,6 +1058,7 @@ const CAMISETAS = [
   {
     id: "CAM-66",
     nombre: "AC Milan 26/27 Visitante",
+    grupo: "AC Milan 26/27",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -1029,7 +1069,8 @@ const CAMISETAS = [
   }, 
   {
     id: "CAM-67",
-    nombre: "AC Milan 25/26 Local",
+    nombre: "AC Milan 26/27 Local",
+    grupo: "AC Milan 26/27",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -1088,11 +1129,12 @@ const CAMISETAS = [
   {
     id: "CAM-71",
     nombre: "Real Madrid 22/23 Local",
+    grupo: "Real Madrid 22/23", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
     precio: 100000,
-    descripcion: "Camiseta local de Real Madrid 22/23 local",
+    descripcion: "Camiseta local de Real Madrid 22/23",
     imagenes: ["img/Real22-Local.jpeg", "img/Real22-Local-1.jpeg", "img/Real22-Local-2.jpeg"],
     tallas: ["S", "M", "L", "XL"],
     variantes: {
@@ -1113,7 +1155,7 @@ const CAMISETAS = [
     categoria: "Retro",
     entregaInmediata: false,
     precio: 100000,
-    descripcion: "Camiseta local de Real Madrid 22/23 local",
+    descripcion: "Camiseta local de Real Madrid 22/23",
     imagenes: ["img/Real23.jpg", "img/Real23-1.jpg", "img/Real23-2.jpg"],
     tallas: ["S", "M", "L", "XL"],
     variantes: {
@@ -1136,7 +1178,7 @@ const CAMISETAS = [
     categoria: "Retro",
     entregaInmediata: false,
     precio: 100000,
-    descripcion: "Camiseta local de Real Madrid 22/23 local",
+    descripcion: "Camiseta local de Real Madrid 22/23",
     imagenes: ["img/Real21.jpeg", "img/Real21-1.jpeg", "img/Real21-2.jpeg"],
     tallas: ["S", "M", "L", "XL"],
     variantes: {
@@ -1151,7 +1193,108 @@ const CAMISETAS = [
     },
     tieneOpcionBordado: true,
     textoBordado: "Final Paris 2022"
-  }
+  },
+  {
+    id: "CAM-74",
+    nombre: "Real Madrid 11/12 Local",
+    grupo: "Real Madrid 11/12",
+    tipoPrenda: "Camisetas",
+    categoria:  "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Real Madrid 11/12  - Nota: La prenda está disponible en manga larga y corta",
+    imagenes: ["img/Real11.jpg", "img/Real11-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes:{
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-75",
+    nombre: "Real Madrid 11/12 Visitante",
+    grupo: "Real Madrid 11/12",
+    tipoPrenda: "Camisetas",
+    categoria:  "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta visitante de Real Madrid 11/12",
+    imagenes: ["img/Real11-Visitante.jpg", "img/Real11-Visitante-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes:{
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-76",
+    nombre: "Real Madrid 11/12 Alternativa",
+    grupo: "Real Madrid 11/12",
+    tipoPrenda: "Camisetas",
+    categoria:  "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta alternativa de Real Madrid 11/12",
+    imagenes: ["img/Real11-Alternativa.jpg", "img/Real11-Alternativa-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes:{
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-77",
+    nombre: "Real Madrid 06/07 VIsitante",
+    tipoPrenda: "Camisetas",
+    grupo: "Real Madrid 06/07",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Real Madrid temporada 2006/2007.",
+    imagenes: ["img/Real06.jpeg", "img/Real06-1.jpeg", "img/Real06-2.jpeg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-78",
+    nombre: "Real Madrid 06/07 Alternativa",
+    grupo: "Real Madrid 06/07",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta alternativa de Real Madrid 06/07",
+    imagenes: ["img/Real06-Alternativa.jpg", "img/Real06-Alternativa-1.jpg", "img/Real06-Alternativa-2.jpg", "img/Real06-Alternativa-3.jpg"],
+    variantes:{
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
 ];
 
 // 🩳 PANTALONETAS

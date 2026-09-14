@@ -391,8 +391,28 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
     return;
   }
 
+  // Prioridad 1: entrega inmediata, SIEMPRE por prenda individual (no por
+  // grupo) — así una versión sin stock nunca "arrastra" hacia arriba, ni
+  // esconde, a otra que sí tiene, y el cliente ve de una todas las prendas
+  // realmente disponibles ahora mismo.
+  // Prioridad 2 (dentro de cada uno de esos dos bloques): las versiones
+  // del mismo equipo (campo "grupo" en productos.js) se muestran juntas,
+  // sin importar en qué orden se agregaron al archivo.
+  const primerIndicePorClave = new Map();
+  productos.forEach((p, idx) => {
+    const clave = p.grupo || p.id;
+    if (!primerIndicePorClave.has(clave)) primerIndicePorClave.set(clave, idx);
+  });
+
   const productosOrdenados = [...productos].sort((a, b) => {
-    return (b.entregaInmediata === true ? 1 : 0) - (a.entregaInmediata === true ? 1 : 0);
+    const inmediataA = a.entregaInmediata === true;
+    const inmediataB = b.entregaInmediata === true;
+    if (inmediataA !== inmediataB) return inmediataA ? -1 : 1;
+
+    const claveA = a.grupo || a.id;
+    const claveB = b.grupo || b.id;
+    if (claveA !== claveB) return primerIndicePorClave.get(claveA) - primerIndicePorClave.get(claveB);
+    return 0; // mismo grupo: conservan su orden original entre sí
   });
 
   contenedor.innerHTML = productosOrdenados.map(prod => {
@@ -514,6 +534,23 @@ function abrirVistaProducto(idProducto) {
         <p>Talla: <strong>${prod.tallasInmediatas ? prod.tallasInmediatas.join(', ') : 'L'}</strong> | Dorsal: <strong>${prod.dorsalInmediato || 'Sin estampado especificado'}</strong></p>
       </div>
     ` : ''}
+
+    ${(() => {
+      if (!prod.grupo) return '';
+      const otrasVersiones = PRODUCTOS.filter(p => p.grupo === prod.grupo && p.id !== prod.id);
+      if (otrasVersiones.length === 0) return '';
+      return `
+        <div class="aviso-otras-versiones">
+          <span>También disponible:</span>
+          <div class="chips-otras-versiones">
+            ${otrasVersiones.map(p => {
+              const etiqueta = p.nombre.replace(prod.grupo, '').trim() || p.nombre;
+              return `<button type="button" class="chip-otra-version" onclick="abrirVistaProducto('${p.id}')">${etiqueta}${p.entregaInmediata ? ' ⚡' : ''}</button>`;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    })()}
 
     <!-- 1. SELECCIÓN DE TALLA -->
     ${prod.tallas && prod.tallas.length > 0 ? `
@@ -1066,7 +1103,9 @@ function filtrarCategoria(categoria, elemento) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/** Se ejecuta con cada tecla escrita en el buscador; delega en ejecutarFiltroCombinado. */
+/** Se ejecuta con cada tecla escrita en el buscador; delega en ejecutarFiltroCombinado
+ * y sube la página para que los resultados queden a la vista (si el cliente
+ * ya había bajado bastante, antes se quedaba viendo la parte de abajo). */
 function filtrarPorBusqueda() {
   ejecutarFiltroCombinado();
   window.scrollTo({ top: 0, behavior: 'smooth' });
