@@ -45,6 +45,11 @@
 
 html {
   scroll-behavior: smooth;
+  /* Evita que el navegador "compense" solo el scroll cuando la barra
+     superior cambia de tamaño al compactarse/expandirse (scroll anchoring).
+     Sin esto, ese ajuste automático se detecta como un scroll más y puede
+     generar un ciclo de compactar/expandir muy rápido. */
+  overflow-anchor: none;
 }
 
 body {
@@ -833,8 +838,27 @@ body:has(.modal-overlay.active) {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-main);
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
   margin-bottom: 8px;
+}
+
+.link-guia-tallas {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--navy);
+  text-decoration: underline;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.link-guia-tallas:hover {
+  color: var(--gold-hover);
 }
 
 .chips-wrapper {
@@ -1138,6 +1162,35 @@ body:has(.modal-overlay.active) {
   font-size: 1.15rem;
   font-weight: 700;
   margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modal-header-acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-compartir-producto {
+  background: #f1f5f9;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.btn-compartir-producto:hover {
+  background: #e2e8f0;
 }
 
 .btn-cerrar-modal {
@@ -1670,6 +1723,17 @@ body:has(.modal-overlay.active) {
   text-align: center;
   font-size: 0.78rem;
   color: #9A927C;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-aviso-datos {
+  font-size: 0.72rem;
+  color: #7d765f;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.4;
 }
 
 /* ==========================================================================
@@ -2185,4 +2249,120 @@ body:has(.modal-overlay.active) {
   padding: 6px 10px;
   font-size: 0.75rem;
   color: #E7E1CF;
+}
+
+.footer-metodos-titulo {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #E7E1CF;
+  margin: 16px 0 8px;
+}
+
+/* ==========================================================================
+   19. GUÍA DE TALLAS
+   ========================================================================== */
+.seccion-guia-tallas {
+  margin: 8px 0 32px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guia-tallas-titulo {
+  font-size: 1.6rem;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.guia-tallas-intro {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.guia-tallas-bloque {
+  margin-bottom: 24px;
+}
+
+.guia-tallas-bloque h3 {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Con hasta 8 columnas (talla + 7 tallas), en celular no cabe todo el ancho;
+   se deja deslizar horizontalmente en vez de achicar el texto hasta hacerlo
+   ilegible. */
+.guia-tallas-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.tabla-tallas {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.tabla-tallas th,
+.tabla-tallas td {
+  padding: 10px 14px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tabla-tallas thead th {
+  background: var(--navy);
+  color: white;
+  font-weight: 700;
+}
+
+.tabla-tallas tbody th {
+  text-align: left;
+  background: #f8fafc;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.tabla-tallas tbody tr:last-child th,
+.tabla-tallas tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.guia-tallas-nota {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   20. TOAST (avisos cortos flotantes, ej. "Enlace copiado")
+   ========================================================================== */
+.toast-mensaje {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--navy);
+  color: white;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 5000;
+}
+
+.toast-mensaje.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }

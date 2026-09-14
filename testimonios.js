@@ -41,5 +41,21 @@ const TESTIMONIOS = [
     comentario: "La calidad está increible y me sorprendió lo bien logrados que están los estampados. Muchas gracias!",
     producto: "AC Milan 2006 - Bordado de Champions League",
     imagenes: ["img/resena1.jpeg"]
+  },
+  {
+    nombre: "Santiago V.",
+    ciudad: "Medellin",
+    calificacion: 5,
+    comentario: "Muy recomendado, camiseta de alta calidad, con excelente diseño y acabados. Se siente cómoda, resistente y perfecta tanto para jugar como para coleccionar. Entrega a tiempo",
+    producto: "Argentina 2006",
+    imagenes: ["img/resena2.jpg"]
+  },
+  {
+    nombre: "Santiago V.",
+    ciudad: "Medellin",
+    calificacion: 5,
+    comentario: "Calidad de los estampados y bordados brutal, calidad perfecta. Muy buena atencion",
+    producto: "AC Milan 2006 - Manga larga - Bordado de Champions League",
+    imagenes: ["img/resena3.jpg"]
   }
 ];

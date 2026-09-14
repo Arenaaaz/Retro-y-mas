@@ -1015,6 +1015,142 @@ const CAMISETAS = [
     descripcion: "Camiseta local Inglaterra temporada 2004.",
     imagenes: ["img/Inglaterra04.jpg", "img/Inglaterra04-1.jpg", "img/Inglaterra04-2.jpg"],
     tallas: ["S", "M", "L", "XL"]
+  },
+  {
+    id: "CAM-66",
+    nombre: "AC Milan 26/27 Visitante",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta Visitante AC Milan temporada 2026/2027",
+    imagenes: ["img/AcMilan26-Visitante.jpg", "img/AcMilan26-Visitante-1.jpg"],
+    tallas: ["S", "M", "L", "XL"]
+  }, 
+  {
+    id: "CAM-67",
+    nombre: "AC Milan 25/26 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta Local AC Milan temporada 2025/2026 ",
+    imagenes: ["img/AcMilan25.jpg", "img/AcMilan25-1.jpg", "img/AcMilan25-2.jpg"],
+    tallas: ["S", "M", "L", "XL"]   
+  },
+  {
+    id: "CAM-68",
+    nombre: "Portugal 2004 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Portugal temporada 2004",
+    imagenes: ["img/Portugal04.jpeg","img/Portugal04-1.jpeg","img/Portugal04-2.jpeg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes:
+    {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-69",
+    nombre: "Brasil 2004 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Brasil temporada 2004 - Nota: La prenda está disponible en manga larga y corta",
+    imagenes: ["img/Brasil04.jpg", "img/Brasil04-2.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes:
+    {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-70",
+    nombre: "Argentina 2024 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Argentina 2024",
+    imagenes: ["img/Argentina24.jpg", "img/Argentina24-1.jpg", "img/Argentina24-2.jpg"],
+    tallas: ["S", "M", "L", "XL"]
+  },
+  {
+    id: "CAM-71",
+    nombre: "Real Madrid 22/23 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Real Madrid 22/23 local",
+    imagenes: ["img/Real22-Local.jpeg", "img/Real22-Local-1.jpeg", "img/Real22-Local-2.jpeg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-72",
+    nombre: "Real Madrid 23/24 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Real Madrid 22/23 local",
+    imagenes: ["img/Real23.jpg", "img/Real23-1.jpg", "img/Real23-2.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 15000 }
+      ]
+    },
+    tieneOpcionBordado: true,
+    textoBordado: "Final London 2024"
+  },
+  {
+    id: "CAM-73",
+    nombre: "Real Madrid 21/22 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Real Madrid 22/23 local",
+    imagenes: ["img/Real21.jpeg", "img/Real21-1.jpeg", "img/Real21-2.jpeg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 15000 }
+      ]
+    },
+    tieneOpcionBordado: true,
+    textoBordado: "Final Paris 2022"
   }
 ];
 

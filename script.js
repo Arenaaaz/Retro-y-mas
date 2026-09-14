@@ -36,6 +36,131 @@ const CONFIG = {
 };
 
 // ==========================================================================
+// 1B. ENLACES COMPARTIBLES Y TÍTULOS POR SECCIÓN
+// ==========================================================================
+// Permiten que compartir el link de una prenda puntual, o de una sección
+// como "Pantalonetas", lleve a quien lo abra directo a esa vista (en vez de
+// siempre caer en la portada), y que la pestaña del navegador muestre un
+// título acorde en cada caso. Todo pasa por la URL (?producto=ID o
+// ?tipo=Camisetas) sin recargar la página ni crear archivos nuevos, así que
+// no hay nada adicional que mantener.
+const TITULO_BASE = document.title;
+const DESCRIPCION_BASE = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+
+const INFO_TIPO_PRENDA = {
+  'Camisetas': {
+    titulo: `Camisetas Retro de Fútbol | ${CONFIG.nombreTienda}`,
+    descripcion: 'Camisetas retro de fútbol de selecciones y clubes históricos, personalizadas con dorsal y número.'
+  },
+  'Pantalonetas': {
+    titulo: `Pantalonetas de Fútbol | ${CONFIG.nombreTienda}`,
+    descripcion: 'Pantalonetas retro y de entrenamiento a juego con la camiseta de tu equipo favorito.'
+  },
+  'Entrenamiento': {
+    titulo: `Buzos y Ropa de Entrenamiento | ${CONFIG.nombreTienda}`,
+    descripcion: 'Buzos y prendas de entrenamiento de equipos de fútbol, ideales para el día a día.'
+  },
+  'Cortavientos': {
+    titulo: `Cortavientos de Fútbol | ${CONFIG.nombreTienda}`,
+    descripcion: 'Cortavientos impermeables de tu equipo favorito, ideales para la lluvia y el frío.'
+  }
+};
+
+/** Cambia el título de la pestaña y la meta description (para SEO y para que
+ * el link se vea bien si alguien lo comparte). */
+function actualizarMetaPagina(titulo, descripcion) {
+  document.title = titulo || TITULO_BASE;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', descripcion || DESCRIPCION_BASE);
+}
+
+/** Pone en la URL (sin recargar la página) qué tipo de prenda se está viendo. */
+function actualizarURLTipo(tipo) {
+  const url = new URL(window.location.href);
+  url.searchParams.set('tipo', tipo);
+  url.searchParams.delete('producto');
+  history.pushState({ tipo }, '', url);
+  const info = INFO_TIPO_PRENDA[tipo];
+  actualizarMetaPagina(info?.titulo, info?.descripcion);
+}
+
+/** Pone en la URL (sin recargar la página) qué producto se está viendo, para
+ * que el link de la barra de direcciones se pueda copiar y compartir tal
+ * cual y abra ese producto directamente. Si la URL ya traía ese mismo
+ * producto (ej. se llegó por un link compartido), reemplaza en vez de
+ * apilar una entrada duplicada en el historial. */
+function actualizarURLProducto(prod) {
+  const url = new URL(window.location.href);
+  const yaEstabaEsteProducto = url.searchParams.get('producto') === String(prod.id);
+  url.searchParams.set('producto', prod.id);
+  if (yaEstabaEsteProducto) {
+    history.replaceState({ producto: prod.id }, '', url);
+  } else {
+    history.pushState({ producto: prod.id }, '', url);
+  }
+  actualizarMetaPagina(`${prod.nombre} | ${CONFIG.nombreTienda}`, prod.descripcion || DESCRIPCION_BASE);
+}
+
+/** Quita "producto" o "tipo" de la URL al cerrar el modal o al volver a ver
+ * todo el catálogo, y restaura el título original de la página. */
+function limpiarURLProducto() {
+  const url = new URL(window.location.href);
+  if (!url.searchParams.has('producto')) return; // nada que limpiar
+  url.searchParams.delete('producto');
+  history.replaceState(null, '', url);
+  actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
+}
+
+/**
+ * Botón 🔗 del modal de producto. En celular usa el panel nativo de
+ * compartir de WhatsApp/Instagram/etc. (navigator.share); en computador,
+ * donde ese panel no existe, copia el link al portapapeles y avisa con un
+ * toast. El link apunta a la URL actual (ya trae ?producto=ID desde
+ * actualizarURLProducto, que se llama al abrir el modal).
+ */
+async function compartirProducto() {
+  if (!productoSeleccionadoTemp) return;
+  const url = window.location.href;
+  const titulo = `${productoSeleccionadoTemp.nombre} — ${CONFIG.nombreTienda}`;
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: titulo, url });
+    } catch (err) {
+      // El usuario cerró el panel de compartir sin elegir nada; no es un error real.
+    }
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(url);
+    mostrarToast("🔗 Enlace copiado");
+  } catch (err) {
+    mostrarToast("No se pudo copiar el enlace");
+  }
+}
+
+let timeoutToast = null;
+
+/** Muestra un mensaje corto flotante que desaparece solo (ej. "Enlace copiado"). */
+function mostrarToast(mensaje) {
+  let toast = document.getElementById("toast-mensaje");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "toast-mensaje";
+    toast.className = "toast-mensaje";
+    document.body.appendChild(toast);
+  }
+  toast.textContent = mensaje;
+  toast.classList.add("visible");
+
+  clearTimeout(timeoutToast);
+  timeoutToast = setTimeout(() => {
+    toast.classList.remove("visible");
+  }, 2200);
+}
+
+// ==========================================================================
 // 2. VARIABLES GLOBALES
 // ==========================================================================
 let carrito = [];
@@ -73,10 +198,26 @@ document.addEventListener("DOMContentLoaded", () => {
     btnSocial.href = CONFIG.redesSociales.instagram;
   }
 
+  const parametrosURL = new URLSearchParams(window.location.search);
+  const idProductoURL = parametrosURL.get('producto');
+  const tipoURL = parametrosURL.get('tipo');
+
   if (window.location.hash === "#entrega-inmediata") {
     filtrarCategoria("entrega-inmediata");
+  } else if (tipoURL && INFO_TIPO_PRENDA[tipoURL]) {
+    // Alguien entró por un link tipo ?tipo=Pantalonetas (ej. compartido o
+    // desde el sidebar); el "false" evita reescribir la URL que ya está bien.
+    filtrarTipoPrenda(tipoURL, null, false);
+    actualizarMetaPagina(INFO_TIPO_PRENDA[tipoURL].titulo, INFO_TIPO_PRENDA[tipoURL].descripcion);
   } else {
     ejecutarFiltroCombinado();
+  }
+
+  // Si además la URL trae ?producto=ID (ej. un link directo a una prenda
+  // puntual compartido por WhatsApp), se abre ese producto de una vez.
+  if (idProductoURL) {
+    const prod = PRODUCTOS.find(p => String(p.id) === String(idProductoURL));
+    if (prod) abrirVistaProducto(prod.id);
   }
 
   actualizarNavCompacta(); // por si la página carga ya con scroll (ej. #entrega-inmediata)
@@ -377,7 +518,10 @@ function abrirVistaProducto(idProducto) {
     <!-- 1. SELECCIÓN DE TALLA -->
     ${prod.tallas && prod.tallas.length > 0 ? `
       <div class="selector-chip-container">
-        <label>📏 Talla</label>
+        <label>
+          📏 Talla
+          ${esCamiseta ? '<button type="button" class="link-guia-tallas" onclick="verGuiaTallas()">¿Cómo saber qué talla soy?</button>' : ''}
+        </label>
         <div class="chips-wrapper">
           ${prod.tallas.map((t, idx) => {
             const esStock = prod.entregaInmediata && prod.tallasInmediatas?.includes(t);
@@ -470,6 +614,7 @@ function abrirVistaProducto(idProducto) {
 
   document.body.style.overflow = "hidden";
   document.getElementById("modal-opciones-producto").classList.add("active");
+  actualizarURLProducto(prod);
 }
 
 /** Dibuja la foto actual (según vistaIndiceActual) en el panel izquierdo del modal. */
@@ -582,6 +727,21 @@ function cerrarModalOpciones() {
   document.body.style.overflow = "";
   productoSeleccionadoTemp = null;
   vistaImagenesActuales = [];
+  limpiarURLProducto();
+}
+
+/**
+ * Se llama desde el link "Ver guía de tallas" dentro del modal de
+ * personalización. El modal tapa toda la página mientras está abierto, así
+ * que primero hay que cerrarlo y solo después hacer scroll a la sección
+ * (si se hace al tiempo, el navegador no tiene una página visible a la
+ * cual moverse).
+ */
+function verGuiaTallas() {
+  cerrarModalOpciones();
+  setTimeout(() => {
+    document.getElementById("guia-tallas")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 250);
 }
 
 // ==========================================================================
@@ -601,8 +761,10 @@ function cerrarModalOpciones() {
 
 const UMBRAL_NAV_COMPACTA = 60; // px de scroll desde donde la barra superior empieza a poder compactarse
 const UMBRAL_SCROLL_NAV = 12; // px mínimos de scroll hacia arriba para volver a expandirla
+const PAUSA_TRAS_CAMBIO_NAV = 320; // ms; un poco más que la transición CSS (0.25s)
 let ultimoScrollYNav = window.scrollY;
 let navCompacta = false;
+let navEnPausa = false; // true mientras la barra está animándose, para no reaccionar a scrolls que ella misma provoca
 
 /**
  * Compacta la barra superior al bajar, y la vuelve a expandir con solo
@@ -610,27 +772,43 @@ let navCompacta = false;
  * página) o al llegar cerca del tope, que siempre la muestra completa.
  */
 function actualizarNavCompacta() {
+  if (navEnPausa) return;
+
   const nav = document.querySelector(".categorias-nav");
   if (!nav) return;
 
   const scrollActual = window.scrollY;
   const diferencia = scrollActual - ultimoScrollYNav;
+  let cambio = false;
 
   if (scrollActual < UMBRAL_NAV_COMPACTA) {
     // Cerca del tope de la página siempre se muestra completa.
+    if (navCompacta) cambio = true;
     nav.classList.remove("compacta");
     navCompacta = false;
   } else if (diferencia > UMBRAL_SCROLL_NAV && !navCompacta) {
     // Bajando: se compacta para dejar ver más prendas.
     nav.classList.add("compacta");
     navCompacta = true;
+    cambio = true;
   } else if (diferencia < -UMBRAL_SCROLL_NAV && navCompacta) {
     // Subiendo, aunque sea un poco: se vuelve a expandir.
     nav.classList.remove("compacta");
     navCompacta = false;
+    cambio = true;
   }
 
   ultimoScrollYNav = scrollActual;
+
+  if (cambio) {
+    // Mientras dura la transición ignoramos el scroll, y al terminar
+    // resincronizamos la referencia con la posición real ya asentada.
+    navEnPausa = true;
+    setTimeout(() => {
+      navEnPausa = false;
+      ultimoScrollYNav = window.scrollY;
+    }, PAUSA_TRAS_CAMBIO_NAV);
+  }
 }
 
 let ultimoScrollYBarraCarrito = window.scrollY;
@@ -737,6 +915,23 @@ document.addEventListener("keydown", (e) => {
 });
 
 /**
+ * Al usar el botón "atrás" del navegador estando en el link de un producto
+ * (?producto=ID), en vez de salir del sitio de una simplemente se cierra el
+ * modal — es el comportamiento que la gente espera de un link compartido.
+ */
+window.addEventListener("popstate", () => {
+  const modalVista = document.getElementById("modal-opciones-producto");
+  const tieneProductoEnURL = new URL(window.location.href).searchParams.has('producto');
+  if (modalVista?.classList.contains("active") && !tieneProductoEnURL) {
+    document.getElementById("modal-opciones-producto").classList.remove("active");
+    document.body.style.overflow = "";
+    productoSeleccionadoTemp = null;
+    vistaImagenesActuales = [];
+    actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
+  }
+});
+
+/**
  * Permite pasar de foto en la galería del modal deslizando el dedo hacia
  * la izquierda o la derecha (swipe), pensado sobre todo para celular ahora
  * que ahí la foto ocupa mucho más espacio. Solo reacciona a gestos
@@ -781,7 +976,13 @@ document.addEventListener("keydown", (e) => {
  * @param {HTMLElement} [elemento] - botón sobre el que se hizo clic, si vino
  *   de la barra horizontal (cuando viene del sidebar no se pasa).
  */
-function filtrarTipoPrenda(tipo, elemento) {
+/**
+ * Filtra el catálogo por tipo de prenda (Camisetas, Pantalonetas,
+ * Entrenamiento, Cortavientos). `actualizarUrl` se pone en false solo
+ * cuando la propia carga de la página ya trae ese tipo en la URL
+ * (?tipo=Pantalonetas) y no hace falta volver a escribirla.
+ */
+function filtrarTipoPrenda(tipo, elemento, actualizarUrl = true) {
   tipoPrendaActual = tipo;
   categoriaActual = 'todos';
 
@@ -804,6 +1005,8 @@ function filtrarTipoPrenda(tipo, elemento) {
   if (seccionCatalogo) seccionCatalogo.style.display = "block";
 
   ejecutarFiltroCombinado();
+
+  if (actualizarUrl) actualizarURLTipo(tipo);
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -866,6 +1069,7 @@ function filtrarCategoria(categoria, elemento) {
 /** Se ejecuta con cada tecla escrita en el buscador; delega en ejecutarFiltroCombinado. */
 function filtrarPorBusqueda() {
   ejecutarFiltroCombinado();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /**
@@ -1061,7 +1265,7 @@ function cerrarVisorFoto() {
 const FAQS = [
   {
     pregunta: "¿Cómo sé qué talla pedir?",
-    respuesta: "Todas las prendas manejan tallas S, M, L y XL. Si tienes dudas sobre cuál te queda mejor puedes contactarnos con los botones interactivos y te compartiremos la guía de tallas que manejan nuestras prendas."
+    respuesta: "Todas las prendas manejan tallas S, M, L y XL. Si tienes dudas sobre cuál te queda mejor, escríbenos por WhatsApp antes de pedir y te ayudamos a elegir según tu contextura."
   },
   {
     pregunta: "¿Cuánto tarda el envío?",
@@ -1073,7 +1277,7 @@ const FAQS = [
   },
   {
     pregunta: "¿Puedo pedir la camiseta con el nombre y número que yo quiera?",
-    respuesta: "Sí, en todas nuestras camisetas puedes escribir el nombre y número que prefieras al personalizar tu pedido, sin costo adicional."
+    respuesta: "Sí, en la mayoría de camisetas puedes escribir el nombre y número que prefieras al personalizar tu pedido, sin costo adicional."
   },
   {
     pregunta: "¿Qué pasa si la talla no me queda?",

@@ -12,7 +12,7 @@
 
   <!-- Open Graph (vista previa al compartir en WhatsApp/Instagram/Facebook) -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Retro y Más | Camisetas Retro de Fútbol">
+  <meta property="og:title" content="Retro y Más | Camisetas retro de futbol">
   <meta property="og:description" content="Donde encuentras las camisetas retro de mejor calidad. Personalizadas con dorsal y envíos a toda Colombia.">
   <meta property="og:image" content="/img/logo.png">
   <meta property="og:locale" content="es_CO">
@@ -137,26 +137,26 @@
         <button class="btn-cerrar-modal" onclick="toggleSidebar()">&times;</button>
       </div>
       <div class="sidebar-body">
-        <button class="sidebar-item active" onclick="filtrarTipoPrenda('Camisetas', this); toggleSidebar();">
+        <a class="sidebar-item active" href="?tipo=Camisetas" onclick="event.preventDefault(); filtrarTipoPrenda('Camisetas', this); toggleSidebar();">
           <span class="sidebar-item-icono">👕</span>
           <span class="sidebar-item-texto">Camisetas de Fútbol</span>
           <span class="sidebar-item-flecha">›</span>
-        </button>
-        <button class="sidebar-item" onclick="filtrarTipoPrenda('Pantalonetas', this); toggleSidebar();">
+        </a>
+        <a class="sidebar-item" href="?tipo=Pantalonetas" onclick="event.preventDefault(); filtrarTipoPrenda('Pantalonetas', this); toggleSidebar();">
           <span class="sidebar-item-icono">🩳</span>
           <span class="sidebar-item-texto">Pantalonetas</span>
           <span class="sidebar-item-flecha">›</span>
-        </button>
-        <button class="sidebar-item" onclick="filtrarTipoPrenda('Entrenamiento', this); toggleSidebar();">
+        </a>
+        <a class="sidebar-item" href="?tipo=Entrenamiento" onclick="event.preventDefault(); filtrarTipoPrenda('Entrenamiento', this); toggleSidebar();">
           <span class="sidebar-item-icono">🧥</span>
           <span class="sidebar-item-texto">Buzos y Entrenamiento</span>
           <span class="sidebar-item-flecha">›</span>
-        </button>
-        <button class="sidebar-item" onclick="filtrarTipoPrenda('Cortavientos', this); toggleSidebar();">
+        </a>
+        <a class="sidebar-item" href="?tipo=Cortavientos" onclick="event.preventDefault(); filtrarTipoPrenda('Cortavientos', this); toggleSidebar();">
           <span class="sidebar-item-icono">🧵</span>
           <span class="sidebar-item-texto">Cortavientos</span>
           <span class="sidebar-item-flecha">›</span>
-        </button>
+        </a>
 
         <div class="sidebar-divisor"><span>Acceso rápido</span></div>
 
@@ -261,6 +261,47 @@
         <!-- Se genera dinámicamente desde script.js (arreglo FAQS) -->
       </div>
     </section>
+
+    <!-- GUÍA DE TALLAS (camisetas) -->
+    <!-- El link "📏 Ver guía de tallas" dentro del modal de personalización
+         (solo en Camisetas) trae al cliente aquí con verGuiaTallas() en
+         script.js, que cierra el modal y hace scroll suave hasta acá. -->
+    <section id="guia-tallas" class="seccion-guia-tallas" aria-labelledby="guia-tallas-titulo">
+      <h2 id="guia-tallas-titulo" class="guia-tallas-titulo">Guía de tallas — Camisetas</h2>
+      <p class="guia-tallas-intro">Todas las medidas están en centímetros. Elige la tabla según la versión de la camiseta que estés viendo.</p>
+
+      <div class="guia-tallas-bloque">
+        <h3>Versión Fan (Actual) y Retro</h3>
+        <div class="guia-tallas-scroll">
+          <table class="tabla-tallas">
+            <thead>
+              <tr><th></th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th><th>3XL</th><th>4XL</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>Alto (cm)</th><td>69 - 71</td><td>71 - 73</td><td>73 - 75</td><td>75 - 78</td><td>78 - 81</td><td>81 - 83</td><td>83 - 85</td></tr>
+              <tr><th>Ancho (cm)</th><td>53 - 55</td><td>55 - 57</td><td>57 - 58</td><td>58 - 60</td><td>60 - 62</td><td>62 - 64</td><td>64 - 65</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="guia-tallas-bloque">
+        <h3>Versión Jugador (Actual) </h3>
+        <div class="guia-tallas-scroll">
+          <table class="tabla-tallas">
+            <thead>
+              <tr><th></th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th><th>3XL</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>Alto (cm)</th><td>67 - 69</td><td>69 - 71</td><td>71 - 73</td><td>73 - 76</td><td>76 - 78</td><td>78 - 79</td></tr>
+              <tr><th>Ancho (cm)</th><td>49 - 51</td><td>51 - 53</td><td>53 - 55</td><td>55 - 57</td><td>57 - 60</td><td>60 - 63</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="guia-tallas-nota">¿Dudas sobre cuál talla te queda mejor? Escríbenos tus medidas por WhatsApp y te ayudamos a elegir.</p>
+    </section>
   </main>
 
   <!-- Pie de Página -->
@@ -282,6 +323,13 @@
           <span class="footer-insignia">🔒 Pago contra confirmación</span>
           <span class="footer-insignia">📦 Guía de rastreo incluida</span>
         </div>
+
+        <p class="footer-metodos-titulo">Métodos de pago</p>
+        <div class="footer-insignias">
+          <span class="footer-insignia">📲 Nequi</span>
+          <span class="footer-insignia">🏦 Transferencia Bancolombia</span>
+          <span class="footer-insignia">💵 Efectivo / Contraentrega</span>
+        </div>
       </div>
 
       <div class="footer-col">
@@ -293,6 +341,7 @@
     </div>
     <div class="footer-bottom">
       <span id="footer-anio">© Retro y más</span>
+      <span class="footer-aviso-datos">Tus datos (nombre, teléfono, dirección) solo se usan para procesar y coordinar tu pedido; no se comparten con terceros.</span>
     </div>
   </footer>
 
@@ -320,7 +369,10 @@
     <div class="modal-contenido modal-vista-producto">
       <div class="modal-header">
         <h2 id="modal-opt-titulo">Personalizar Producto</h2>
-        <button class="btn-cerrar-modal" onclick="cerrarModalOpciones()">&times;</button>
+        <div class="modal-header-acciones">
+          <button class="btn-compartir-producto" onclick="compartirProducto()" aria-label="Compartir este producto" title="Compartir">🔗</button>
+          <button class="btn-cerrar-modal" onclick="cerrarModalOpciones()">&times;</button>
+        </div>
       </div>
 
       <div class="vista-producto-layout">
