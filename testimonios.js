@@ -57,5 +57,13 @@ const TESTIMONIOS = [
     comentario: "Calidad de los estampados y bordados brutal, calidad perfecta. Muy buena atencion",
     producto: "AC Milan 2006 - Manga larga - Bordado de Champions League",
     imagenes: ["img/resena3.jpg"]
+  },
+  {
+    nombre: "Emmanuel P.",
+    ciudad: "Medellin",
+    calificacion: 5,
+    comentario: "Excelente calidad, muy detallado. El diseño me gustó mucho.",
+    producto: "Brasil 2002",
+    imagenes: ["img/resena4.jpg"]
   }
 ];

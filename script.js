@@ -1103,12 +1103,25 @@ function filtrarCategoria(categoria, elemento) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+let yaSubioPorBusqueda = false;
+
 /** Se ejecuta con cada tecla escrita en el buscador; delega en ejecutarFiltroCombinado
- * y sube la página para que los resultados queden a la vista (si el cliente
- * ya había bajado bastante, antes se quedaba viendo la parte de abajo). */
+ * y sube la página SOLO la primera vez que se empieza a escribir (si se
+ * hiciera en cada tecla, en celular choca con el navegador tratando de
+ * mantener visible el campo por encima del teclado, y la pantalla "brinca"
+ * con cada letra). */
 function filtrarPorBusqueda() {
   ejecutarFiltroCombinado();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const input = document.getElementById('input-busqueda');
+  const tieneTexto = input && input.value.trim() !== '';
+
+  if (tieneTexto && !yaSubioPorBusqueda) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    yaSubioPorBusqueda = true;
+  } else if (!tieneTexto) {
+    yaSubioPorBusqueda = false; // se borró la búsqueda: la próxima vez vuelve a subir una vez
+  }
 }
 
 /**
