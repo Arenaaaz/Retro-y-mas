@@ -111,6 +111,63 @@ function limpiarURLProducto() {
   actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
 }
 
+// ==========================================================================
+// 1C. VISTA DE RESEÑAS COMO "PÁGINA" APARTE
+// ==========================================================================
+// No es un archivo .html nuevo (eso obligaría a mantener el header, sidebar,
+// footer y modales duplicados en dos archivos) — es la misma página, pero
+// intercambiando qué se ve, con su propia URL (?vista=resenas) para que se
+// pueda compartir o guardar en favoritos igual que si fuera una página real.
+
+const INFO_VISTA_RESENAS = {
+  titulo: `Reseñas de clientes | ${CONFIG.nombreTienda}`,
+  descripcion: 'Lo que dicen nuestros clientes sobre las camisetas retro de fútbol de Retro y más.'
+};
+
+/** Muestra la sección completa de reseñas como si fuera una página aparte,
+ * ocultando el catálogo mientras tanto. `actualizarUrl` se pone en false
+ * solo cuando la propia carga de la página ya trae ?vista=resenas. */
+function irAResenas(actualizarUrl = true) {
+  document.getElementById("seccion-entrega-inmediata")?.style.setProperty("display", "none");
+  document.getElementById("seccion-catalogo-general")?.style.setProperty("display", "none");
+  document.querySelector(".banner-encargo")?.style.setProperty("display", "none");
+  document.getElementById("seccion-testimonios")?.style.setProperty("display", "block");
+
+  if (actualizarUrl) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('vista', 'resenas');
+    url.searchParams.delete('tipo');
+    url.searchParams.delete('producto');
+    history.pushState({ vista: 'resenas' }, '', url);
+  }
+  actualizarMetaPagina(INFO_VISTA_RESENAS.titulo, INFO_VISTA_RESENAS.descripcion);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/** Vuelve del "página" de reseñas al catálogo normal, restaurando
+ * exactamente lo que se estaba viendo antes de entrar a reseñas (incluida
+ * la sección especial de "Entrega Inmediata" si esa era la que estaba
+ * activa) — categoriaActual no se toca al entrar a reseñas, así que todavía
+ * guarda ese dato. */
+function volverAlCatalogo() {
+  document.getElementById("seccion-testimonios")?.style.setProperty("display", "none");
+  document.querySelector(".banner-encargo")?.style.setProperty("display", "block");
+
+  const url = new URL(window.location.href);
+  url.searchParams.delete('vista');
+  history.pushState(null, '', url);
+  actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (categoriaActual === 'entrega-inmediata') {
+    filtrarCategoria('entrega-inmediata'); // muestra de nuevo esa sección especial y oculta el catálogo general
+  } else {
+    document.getElementById("seccion-entrega-inmediata")?.style.setProperty("display", "none");
+    document.getElementById("seccion-catalogo-general")?.style.setProperty("display", "block");
+    ejecutarFiltroCombinado();
+  }
+}
+
 /**
  * Botón 🔗 del modal de producto. En celular usa el panel nativo de
  * compartir de WhatsApp/Instagram/etc. (navigator.share); en computador,
@@ -201,8 +258,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const parametrosURL = new URLSearchParams(window.location.search);
   const idProductoURL = parametrosURL.get('producto');
   const tipoURL = parametrosURL.get('tipo');
+  const vistaURL = parametrosURL.get('vista');
 
-  if (window.location.hash === "#entrega-inmediata") {
+  if (vistaURL === 'resenas') {
+    // Alguien entró por un link directo a las reseñas (?vista=resenas);
+    // el "false" evita reescribir la URL que ya está bien.
+    irAResenas(false);
+  } else if (window.location.hash === "#entrega-inmediata") {
     filtrarCategoria("entrega-inmediata");
   } else if (tipoURL && INFO_TIPO_PRENDA[tipoURL]) {
     // Alguien entró por un link tipo ?tipo=Pantalonetas (ej. compartido o
@@ -210,7 +272,10 @@ document.addEventListener("DOMContentLoaded", () => {
     filtrarTipoPrenda(tipoURL, null, false);
     actualizarMetaPagina(INFO_TIPO_PRENDA[tipoURL].titulo, INFO_TIPO_PRENDA[tipoURL].descripcion);
   } else {
-    ejecutarFiltroCombinado();
+    // Por defecto, la página arranca en "Todos" — se ve el catálogo
+    // general completo, no la caja oscura de Entrega Inmediata (esa
+    // solo aparece si el cliente toca ese chip a propósito).
+    filtrarCategoria("todos");
   }
 
   // Si además la URL trae ?producto=ID (ej. un link directo a una prenda
@@ -297,7 +362,7 @@ function renderizarTestimonios() {
     // acceso predecible aunque el contenido cambie.
     if (barraSuperior) {
       barraSuperior.innerHTML = `
-        <a href="#seccion-testimonios">
+        <a href="?vista=resenas" onclick="event.preventDefault(); irAResenas();">
           ⭐ Sé el primero en dejarnos tu opinión — Ver reseñas
         </a>
       `;
@@ -311,6 +376,7 @@ function renderizarTestimonios() {
         </a>
       </div>
     `;
+    renderizarBannerResenas(listaTestimonios);
     return;
   }
 
@@ -322,7 +388,7 @@ function renderizarTestimonios() {
 
   if (barraSuperior) {
     barraSuperior.innerHTML = `
-      <a href="#seccion-testimonios">
+      <a href="?vista=resenas" onclick="event.preventDefault(); irAResenas();">
         <span class="estrellas-mini">${generarEstrellas(promedio)}</span>
         ${promedio.toFixed(1)} de 5 · ${listaTestimonios.length} reseña${listaTestimonios.length === 1 ? '' : 's'} — Ver opiniones
       </a>
@@ -366,6 +432,52 @@ function renderizarTestimonios() {
         📝 Danos tu opinión
       </a>
     </div>
+  `;
+
+  renderizarBannerResenas(listaTestimonios);
+}
+
+/**
+ * Dibuja el banner compacto de reseñas: fotos apiladas (decorativas) +
+ * calificación + un solo botón "Ver todas". Reemplaza a la fila de
+ * "historias" tipo Instagram, que no se adaptaba bien a pantallas chicas y
+ * no quedaba claro qué eran — esto siempre ocupa el mismo alto sin
+ * importar cuántas reseñas haya ni el ancho de pantalla.
+ */
+function renderizarBannerResenas(listaTestimonios) {
+  const contenedor = document.getElementById("banner-resenas");
+  if (!contenedor) return;
+
+  if (!listaTestimonios || listaTestimonios.length === 0) {
+    contenedor.innerHTML = `
+      <a href="?vista=resenas" class="banner-resenas-link" onclick="event.preventDefault(); irAResenas();">
+        <span class="banner-resenas-texto">⭐ Sé el primero en dejarnos tu opinión</span>
+        <span class="banner-resenas-boton">Ver reseñas →</span>
+      </a>
+    `;
+    return;
+  }
+
+  const promedio = listaTestimonios.reduce((sum, t) => sum + (Number(t.calificacion) || 0), 0) / listaTestimonios.length;
+
+  // Hasta 4 fotos apiladas, con iniciales para quien no mandó foto.
+  const fotos = listaTestimonios.slice(0, 4).map(t => {
+    if (t.imagenes && t.imagenes.length > 0) {
+      return `<span class="banner-resenas-avatar"><img src="${t.imagenes[0]}" alt="Foto de ${t.nombre}"></span>`;
+    }
+    const iniciales = t.nombre.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
+    return `<span class="banner-resenas-avatar banner-resenas-avatar-iniciales">${iniciales}</span>`;
+  }).join('');
+
+  contenedor.innerHTML = `
+    <a href="?vista=resenas" class="banner-resenas-link" onclick="event.preventDefault(); irAResenas();">
+      <span class="banner-resenas-fotos">${fotos}</span>
+      <span class="banner-resenas-texto">
+        <span class="estrellas-mini">${generarEstrellas(promedio)}</span>
+        ${promedio.toFixed(1)} · Lo que dicen nuestros clientes
+      </span>
+      <span class="banner-resenas-boton">Ver todas las reseñas →</span>
+    </a>
   `;
 }
 
@@ -965,6 +1077,28 @@ window.addEventListener("popstate", () => {
     productoSeleccionadoTemp = null;
     vistaImagenesActuales = [];
     actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
+  }
+
+  // Si estaba en la vista de reseñas y con "atrás" ya no queda ?vista=resenas
+  // en la URL, hay que volver a mostrar el catálogo (sin volver a empujar
+  // otra entrada al historial, por eso no se llama volverAlCatalogo()).
+  const estaEnVistaResenas = document.getElementById("seccion-testimonios")?.style.display === "block";
+  const tieneVistaResenasEnURL = new URL(window.location.href).searchParams.get('vista') === 'resenas';
+  if (estaEnVistaResenas && !tieneVistaResenasEnURL) {
+    document.getElementById("seccion-testimonios").style.display = "none";
+    document.querySelector(".banner-encargo")?.style.setProperty("display", "block");
+    actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
+
+    if (categoriaActual === 'entrega-inmediata') {
+      filtrarCategoria('entrega-inmediata');
+    } else {
+      document.getElementById("seccion-entrega-inmediata")?.style.setProperty("display", "none");
+      document.getElementById("seccion-catalogo-general")?.style.setProperty("display", "block");
+      ejecutarFiltroCombinado();
+    }
+  } else if (!estaEnVistaResenas && tieneVistaResenasEnURL) {
+    // Caso inverso: con "adelante" se vuelve a entrar a la vista de reseñas.
+    irAResenas(false);
   }
 });
 

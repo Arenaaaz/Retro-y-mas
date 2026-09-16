@@ -335,13 +335,6 @@ body:has(.modal-overlay.active) {
   transform: scale(0.99);
 }
 
-.tipos-prenda-wrapper {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
 /* SIDEBAR LATERAL DESLIZABLE */
 .sidebar-overlay {
   position: fixed;
@@ -2404,4 +2397,128 @@ body:has(.modal-overlay.active) {
 .toast-mensaje.visible {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+
+/* ==========================================================================
+   21. BANNER DE RESEÑAS (fotos apiladas + calificación + botón)
+   ========================================================================== */
+/* Reemplaza a la fila de "historias" tipo Instagram: es un solo bloque
+   flexible (nunca una fila con scroll horizontal ni burbujas sueltas), así
+   que se adapta solo a cualquier ancho de pantalla sin necesitar reglas
+   especiales por dispositivo. */
+.banner-resenas {
+  margin-bottom: 20px;
+}
+
+.banner-resenas-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.banner-resenas-link:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-md);
+}
+
+.banner-resenas-fotos {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.banner-resenas-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-left: -12px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--border-color);
+}
+
+.banner-resenas-avatar:first-child {
+  margin-left: 0;
+}
+
+.banner-resenas-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.banner-resenas-avatar-iniciales {
+  background: var(--navy);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.banner-resenas-texto {
+  flex: 1;
+  min-width: 160px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.banner-resenas-boton {
+  flex-shrink: 0;
+  background: var(--navy);
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 9px 16px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+/* En pantallas angostas, si no alcanza el ancho para las tres partes en una
+   sola fila, el botón pasa a ocupar su propia fila completa en vez de
+   apretarse o desbordar. */
+@media (max-width: 420px) {
+  .banner-resenas-link {
+    justify-content: center;
+    text-align: center;
+  }
+  .banner-resenas-boton {
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
+  }
+}
+
+/* Botón para volver al catálogo desde la página de reseñas: con forma de
+   botón real (borde, relleno) para que sea obvio que es una acción, no
+   solo un texto suelto. */
+.btn-volver-catalogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.btn-volver-catalogo:hover {
+  background: var(--navy);
+  color: white;
 }

@@ -108,7 +108,7 @@
         </span>
       </button>
       <!-- Acceso directo y permanente a las reseñas, sin importar si ya hay o no -->
-      <a href="#seccion-testimonios" class="btn-ver-resenas-nav">
+      <a href="?vista=resenas" class="btn-ver-resenas-nav" onclick="event.preventDefault(); irAResenas();">
         <span class="icono-estrella-nav">★</span>
         <span>Reseñas</span>
       </a>
@@ -165,7 +165,7 @@
           <span class="sidebar-item-texto">Entrega Inmediata<small>Disponible hoy en Medellín</small></span>
           <span class="sidebar-item-flecha">›</span>
         </button>
-        <a href="#seccion-testimonios" class="sidebar-item" onclick="toggleSidebar();">
+        <a href="?vista=resenas" class="sidebar-item" onclick="event.preventDefault(); toggleSidebar(); irAResenas();">
           <span class="sidebar-item-icono">⭐</span>
           <span class="sidebar-item-texto">Reseñas de Clientes<small>Mira lo que dicen de nosotros</small></span>
           <span class="sidebar-item-flecha">›</span>
@@ -179,6 +179,14 @@
 
   <!-- Principal -->
   <main class="main-container">
+    <!-- BANNER DE RESEÑAS -->
+    <!-- Franja compacta y siempre visible arriba, sin importar cuántas
+         reseñas haya ni el ancho de pantalla: fotos apiladas (decorativas,
+         no clicables) + calificación + un solo botón claro. Se dibuja desde
+         script.js (renderizarBannerResenas) leyendo TESTIMONIOS; el botón
+         lleva a la página de reseñas completa (irAResenas(), en script.js). -->
+    <section id="banner-resenas" class="banner-resenas" aria-label="Reseñas de clientes"></section>
+
     <!-- BANNER PEDIDO POR ENCARGO -->
     <div class="banner-encargo">
       <div class="banner-encargo-contenido">
@@ -209,7 +217,11 @@
     </section>
 
     <!-- SECCIÓN DE TESTIMONIOS / RESEÑAS -->
-    <section id="seccion-testimonios" class="seccion-testimonios">
+    <!-- Oculta por defecto: solo se muestra como "página" aparte al entrar
+         por el botón de Reseñas o por el link ?vista=resenas (irAResenas()
+         en script.js), para no alargar la portada con todas las reseñas. -->
+    <section id="seccion-testimonios" class="seccion-testimonios" style="display: none;">
+      <button type="button" class="btn-volver-catalogo" onclick="volverAlCatalogo()">← Volver al catálogo</button>
       <div class="testimonios-header">
         <h2>Lo que dicen nuestros clientes</h2>
         <div id="resumen-calificacion" class="resumen-calificacion"></div>
@@ -268,10 +280,10 @@
          script.js, que cierra el modal y hace scroll suave hasta acá. -->
     <section id="guia-tallas" class="seccion-guia-tallas" aria-labelledby="guia-tallas-titulo">
       <h2 id="guia-tallas-titulo" class="guia-tallas-titulo">Guía de tallas — Camisetas</h2>
-      <p class="guia-tallas-intro">Todas las medidas están en centímetros. Elige la tabla según la versión de la camiseta que estés viendo.</p>
+      <p class="guia-tallas-intro">Todas las medidas están en centímetros. Las camisetas <strong>Retro</strong> solo vienen en versión Fan; las camisetas <strong>Actuales</strong> vienen en dos versiones, Fan y Jugador. Usa la tabla según cuál te corresponda.</p>
 
       <div class="guia-tallas-bloque">
-        <h3>Versión Fan (Actual) y Retro</h3>
+        <h3>Versión Fan — Retro y Actual</h3>
         <div class="guia-tallas-scroll">
           <table class="tabla-tallas">
             <thead>
@@ -286,7 +298,7 @@
       </div>
 
       <div class="guia-tallas-bloque">
-        <h3>Versión Jugador (Actual) </h3>
+        <h3>Versión Jugador — Solo Actual</h3>
         <div class="guia-tallas-scroll">
           <table class="tabla-tallas">
             <thead>

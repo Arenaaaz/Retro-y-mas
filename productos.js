@@ -83,9 +83,7 @@ const CAMISETAS = [
     grupo: "AC Milan 06/07", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
-    entregaInmediata: true,
-    dorsalInmediato: "Kaká 22",
-    tallasInmediatas: ["L"],
+    entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta retro AC Milan versión local temporada 2006/2007.",
     imagenes: ["img/AcMilan06.jpeg", "img/AcMilan06-1.jpeg", "img/AcMilan06-2.jpeg"],
@@ -687,7 +685,9 @@ const CAMISETAS = [
     grupo: "Real Madrid 17/18", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
     tipoPrenda: "Camisetas",
     categoria: "Retro",
-    entregaInmediata: false,
+    entregaInmediata: true,
+    dorsalInmediato: "Ronaldo 7 - Manga larga + parches",
+    tallasInmediatas: ["L"],
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2017/2018.",
     imagenes: ["img/Real17.jpeg", "img/Real17-1.jpeg", "img/Real17-2.jpeg"],
