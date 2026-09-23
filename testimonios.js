@@ -70,8 +70,16 @@ const TESTIMONIOS = [
     nombre: "Sebastian R",
     ciudad: "Bogotá",
     calificacion: 5,
-    comentario: "Muy buena la calidad, me gustaron los acabados y los estampados. Excelente todo!",
+    comentario: "Muy buena la calidad, me gustaron los acabados y los estampados. Envío muy seguro y tratos excelentes. Perfecto todo!",
     producto: "Bayern Munich 17/18",
     imagenes: ["img/resena5.jpg"]
+  },
+  {
+    nombre: "Emmanuel P.",
+    ciudad: "Medellin",
+    calificacion: 5,
+    comentario: "Calidad increible y la prenda muy exclusiva. Se notan muy bien los detalles y la tela es perfecta para vestir o jugar.",
+    producto: "AC Milan 2006 Local",
+    imagenes: ["img/resena6.jpg"]
   }
 ];

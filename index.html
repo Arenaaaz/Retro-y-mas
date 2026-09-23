@@ -8,9 +8,8 @@
   <meta name="description" content="Camisetas retro de fútbol de selecciones y clubes históricos. Personalización con dorsal, tallas S a XL. Entrega inmediata en Medellín y envíos a toda Colombia.">
   <meta name="keywords" content="camisetas retro, camisetas de futbol vintage, camisetas retro Medellin, camisetas retro Colombia">
   <link rel="canonical" href="https://www.retroymas.com/">
-  <!-- TODO Sebastian: reemplaza la URL de arriba por el dominio real cuando lo tengas -->
 
-  <!-- Open Graph (vista previa al compartir en WhatsApp/Instagram/Facebook) -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Retro y Más | Camisetas retro de futbol">
   <meta property="og:description" content="Donde encuentras las camisetas retro de mejor calidad. Personalizadas con dorsal y envíos a toda Colombia.">
@@ -18,16 +17,9 @@
   <meta property="og:locale" content="es_CO">
 
   <meta name="theme-color" content="#111827">
-  <!-- Favicon: usamos ruta ABSOLUTA (empieza con "/") en vez de relativa,
-       que es la causa más común de que el ícono no aparezca en la pestaña
-       cuando el sitio queda publicado (con una ruta relativa, si el
-       navegador visita cualquier URL que no sea exactamente la raíz, por
-       ejemplo con una barra "/" al final o una subpágina, puede pedir el
-       archivo en el lugar equivocado). Ver la nota "FAVICON" en GUIA-DE-CAMBIOS.md
-       si después de publicar el sitio el ícono sigue sin verse. -->
-  <link rel="icon" type="image/png" href="/img/logo.png?v=2">
-  <link rel="shortcut icon" type="image/png" href="/img/logo.png?v=2">
-  <link rel="apple-touch-icon" href="/img/logo.png?v=2">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="shortcut icon" type="image/png" href="img/logo.png">
+  <link rel="apple-touch-icon" href="img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,10 +27,6 @@
 
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Datos estructurados para buscadores (ayuda a que Google entienda que
-       esto es una tienda real, con forma de contacto y ubicación). -->
-  <!-- TODO Sebastian: cuando tengas el dominio real y (si aplica) una
-       dirección física, actualiza "url" y agrega "address" aquí abajo. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -80,7 +68,7 @@
     <span>📦 <strong>Envíos por encargo:</strong> ¡GRATIS a partir de 3 unidades! (15 a 20 días hábiles). Envíos inmediatos en Medellín varían según la dirección.</span>
   </div>
 
-  <!-- Barra de resumen de reseñas: se llena sola en cuanto haya reseñas reales -->
+  <!-- Barra de resumen de reseñas -->
   <div id="barra-resenas" class="barra-resenas"></div>
 
   <!-- Encabezado -->
@@ -99,7 +87,6 @@
   <!-- Barra de Navegación con Botón Ancho Completo -->
   <nav class="categorias-nav">
     <div class="top-nav-bar">
-      <!-- Botón Menú Lateral / Sidebar Ancho Completo -->
       <button class="btn-menu-sidebar-full" onclick="toggleSidebar()">
         <span class="icono-menu">☰</span>
         <span>
@@ -107,7 +94,6 @@
           <small>Camisetas · Pantalonetas · Buzos</small>
         </span>
       </button>
-      <!-- Acceso directo y permanente a las reseñas, sin importar si ya hay o no -->
       <a href="?vista=resenas" class="btn-ver-resenas-nav" onclick="event.preventDefault(); irAResenas();">
         <span class="icono-estrella-nav">★</span>
         <span>Reseñas</span>
@@ -119,7 +105,7 @@
     </div>
 
     <div class="categorias-container" id="contenedor-categorias">
-      <!-- Se genera dinámicamente según el tipo de prenda activo -->
+      <!-- Se genera dinámicamente -->
     </div>
   </nav>
 
@@ -180,11 +166,6 @@
   <!-- Principal -->
   <main class="main-container">
     <!-- BANNER DE RESEÑAS -->
-    <!-- Franja compacta y siempre visible arriba, sin importar cuántas
-         reseñas haya ni el ancho de pantalla: fotos apiladas (decorativas,
-         no clicables) + calificación + un solo botón claro. Se dibuja desde
-         script.js (renderizarBannerResenas) leyendo TESTIMONIOS; el botón
-         lleva a la página de reseñas completa (irAResenas(), en script.js). -->
     <section id="banner-resenas" class="banner-resenas" aria-label="Reseñas de clientes"></section>
 
     <!-- BANNER PEDIDO POR ENCARGO -->
@@ -199,7 +180,6 @@
     <section id="seccion-entrega-inmediata" class="seccion-stock-destacado" style="display: none;">
       <div class="banner-stock">
         <span class="badge-flash">⚡ DISPONIBLE HOY MISMO</span>
-        <!-- 👈 Le agregamos el id="titulo-stock-dinamico" -->
         <h2 id="titulo-stock-dinamico">Camisetas para Entrega Inmediata</h2>
         <p>¡Despacho inmediato o domicilio el mismo día sin esperar importación!</p>
       </div>
@@ -217,9 +197,6 @@
     </section>
 
     <!-- SECCIÓN DE TESTIMONIOS / RESEÑAS -->
-    <!-- Oculta por defecto: solo se muestra como "página" aparte al entrar
-         por el botón de Reseñas o por el link ?vista=resenas (irAResenas()
-         en script.js), para no alargar la portada con todas las reseñas. -->
     <section id="seccion-testimonios" class="seccion-testimonios" style="display: none;">
       <button type="button" class="btn-volver-catalogo" onclick="volverAlCatalogo()">← Volver al catálogo</button>
       <div class="testimonios-header">
@@ -227,11 +204,11 @@
         <div id="resumen-calificacion" class="resumen-calificacion"></div>
       </div>
       <div class="grid-testimonios" id="contenedor-testimonios">
-        <!-- Se renderiza dinámicamente desde script.js usando testimonios.js -->
+        <!-- Se renderiza dinámicamente desde script.js -->
       </div>
     </section>
 
-    <!-- SECCIÓN DE CONFIANZA: qué pasa después de que pides por WhatsApp -->
+    <!-- SECCIÓN DE CONFIANZA -->
     <section class="seccion-confianza" aria-labelledby="confianza-titulo">
       <h2 id="confianza-titulo" class="confianza-titulo">Cómo funciona tu compra</h2>
       <div class="confianza-pasos">
@@ -270,14 +247,11 @@
     <section class="seccion-faq" aria-labelledby="faq-titulo">
       <h2 id="faq-titulo" class="faq-titulo">Preguntas frecuentes</h2>
       <div id="contenedor-faq">
-        <!-- Se genera dinámicamente desde script.js (arreglo FAQS) -->
+        <!-- Se genera dinámicamente desde script.js -->
       </div>
     </section>
 
-    <!-- GUÍA DE TALLAS (camisetas) -->
-    <!-- El link "📏 Ver guía de tallas" dentro del modal de personalización
-         (solo en Camisetas) trae al cliente aquí con verGuiaTallas() en
-         script.js, que cierra el modal y hace scroll suave hasta acá. -->
+    <!-- GUÍA DE TALLAS -->
     <section id="guia-tallas" class="seccion-guia-tallas" aria-labelledby="guia-tallas-titulo">
       <h2 id="guia-tallas-titulo" class="guia-tallas-titulo">Guía de tallas — Camisetas</h2>
       <p class="guia-tallas-intro">Todas las medidas están en centímetros. Las camisetas <strong>Retro</strong> solo vienen en versión Fan; las camisetas <strong>Actuales</strong> vienen en dos versiones, Fan y Jugador. Usa la tabla según cuál te corresponda.</p>
@@ -347,7 +321,6 @@
       <div class="footer-col">
         <h4>Contacto</h4>
         <p><a href="https://wa.me/573013276930" target="_blank" rel="noopener">📱 WhatsApp: 301 327 6930</a></p>
-        <!-- TODO Sebastian: agrega aquí tu Instagram/Facebook cuando los tengas -->
         <p class="footer-nota">Escríbenos y te respondemos lo antes posible.</p>
       </div>
     </div>
@@ -374,9 +347,7 @@
     </div>
   </div>
 
-  <!-- Modal de Vista Rápida de Producto: foto en grande a la izquierda +
-       panel de personalización y pedido a la derecha (una sola ventana,
-       ver abrirVistaProducto() en script.js) -->
+  <!-- Modal de Vista Rápida de Producto -->
   <div id="modal-opciones-producto" class="modal-overlay">
     <div class="modal-contenido modal-vista-producto">
       <div class="modal-header">
@@ -388,26 +359,22 @@
       </div>
 
       <div class="vista-producto-layout">
-        <!-- Columna izquierda: foto grande + miniaturas + flechas -->
         <div class="vista-galeria">
           <div class="vista-galeria-principal" id="vista-galeria-principal">
             <span id="vista-badge-inmediato" class="badge-inmediato-vista" style="display:none;">⚡ Entrega Inmediata</span>
             <button class="vista-galeria-nav prev" onclick="cambiarImagenVista(-1)" aria-label="Foto anterior">‹</button>
             <img id="vista-img-principal" src="" alt="">
             <button class="vista-galeria-nav next" onclick="cambiarImagenVista(1)" aria-label="Foto siguiente">›</button>
-            <!-- Puntos indicadores: reemplazan a las miniaturas solo en
-                 celular (ver CSS), donde dan más espacio a la foto. -->
             <div id="vista-dots" class="vista-galeria-dots"></div>
           </div>
           <div id="vista-miniaturas" class="vista-galeria-miniaturas"></div>
         </div>
 
-        <!-- Columna derecha: talla, estampado, variantes y precio -->
         <div class="vista-opciones">
           <h3 id="vista-opt-nombre" class="vista-opciones-titulo"></h3>
           <div id="vista-opt-precio" class="vista-opciones-precio"></div>
           <div id="modal-opt-body">
-            <!-- Contenido generado dinámicamente desde JS -->
+            <!-- Contenido generado dinámicamente -->
           </div>
         </div>
       </div>
@@ -438,14 +405,18 @@
       
       <div class="modal-footer">
         <div class="modal-total-info">
-          <span>Total:</span>
+          <span>Subtotal:</span>
           <strong id="modal-total-precio">$ 0 COP</strong>
         </div>
         
+        <!-- Cuadro informativo de Modalidades de Pedido -->
         <div class="modal-trust-box">
-          <p>🚚 <strong>Envíos:</strong> 15-20 días hábiles (Importaciones) | 24-48 horas (Entrega Inmediata).</p>
-          <p>🔒 <strong>Compra Segura:</strong> Confirmación de disponibilidad, talla y guía de rastreo por WhatsApp.</p>
+          <p style="margin-bottom: 6px; font-weight: 700; color: #ffffff;">📋 Condiciones de Envío y Domicilio:</p>
+          <p>⚡ <strong>Entrega Inmediata:</strong> Envíos en Medellín con pago del domicilio contraentrega.</p>
+          <p>📦 <strong>Pedidos por Encargo (15-20 días):</strong> Envío GRATIS llevando 3 o más prendas. Para 1 o 2 prendas aplica tarifa nacional de $15.000 COP.</p>
+          <p style="margin-top: 6px; font-size: 0.78rem; color: #9aa3b5;">🔹 <em>Envíos nacionales por encargo: Pago del 100% anticipado. En Medellín por encargo: Anticipo del 50% y saldo contraentrega.</em></p>
         </div>
+
         <button class="btn-whatsapp btn-confirmar" onclick="if(typeof fbq !== 'undefined'){ fbq('track', 'Lead'); } enviarWhatsApp();">
           Confirmar y Enviar a WhatsApp
         </button>
@@ -453,8 +424,7 @@
     </div>
   </div>
 
-  <!-- Visor simple para ampliar las fotos que los clientes suben en sus
-       reseñas (no tiene opciones de compra, solo muestra la imagen) -->
+  <!-- Visor de Fotos de Reseñas -->
   <div id="modal-foto-resena" class="modal-overlay visor-foto-overlay" onclick="cerrarVisorFoto()">
     <button class="btn-cerrar-visor" onclick="event.stopPropagation(); cerrarVisorFoto()" aria-label="Cerrar">&times;</button>
     <div class="visor-foto-contenido" onclick="event.stopPropagation()">
@@ -462,10 +432,7 @@
     </div>
   </div>
 
-  <!-- Botón Flotante de Instagram / Redes Sociales -->
-  <!-- El enlace real vive en CONFIG.redesSociales.instagram (script.js),
-       que sobrescribe este href al cargar la página. Si cambias de cuenta,
-       actualiza el valor ahí (no aquí). -->
+  <!-- Botón Flotante de Instagram -->
   <a href="https://www.instagram.com/retroymas_/" id="btn-social-flotante" class="social-btn" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
     <svg viewBox="0 0 448 512" aria-hidden="true">
       <path fill="#ffffff" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>

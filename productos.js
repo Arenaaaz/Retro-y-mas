@@ -1,86 +1,13 @@
 // ==========================================================================
 // CATÁLOGO DE PRODUCTOS
 // ==========================================================================
-// Este archivo es la ÚNICA fuente de datos de todo el catálogo. No contiene
-// lógica: solo arreglos de objetos "producto". script.js lee estos datos
-// para dibujar las tarjetas, el modal de personalización y los filtros.
-//
-// -----------------------------------------------------------------------
-// CÓMO AGREGAR UN PRODUCTO NUEVO (cópialo y pégalo dentro del arreglo que
-// corresponda a su tipo de prenda — CAMISETAS, PANTALONETAS, ENTRENAMIENTO
-// o CORTAVIENTOS — y ajusta los campos):
-//
-// {
-//   id: "CAM-99",                 // único en todo el catálogo, no lo repitas
-//   nombre: "Nombre visible del producto",
-//   tipoPrenda: "Camisetas",      // debe coincidir EXACTO con una de las
-//                                 // secciones del menú lateral (ver más
-//                                 // abajo "TIPOS DE PRENDA REGISTRADOS")
-//   categoria: "Retro",           // agrupa los botones de filtro superiores;
-//                                 // usa el mismo texto en varios productos
-//                                 // para que caigan en el mismo botón
-//   entregaInmediata: false,      // true = aparece en la sección "Entrega
-//                                 // Inmediata" y arriba del catálogo
-//   dorsalInmediato: "Messi 10",  // opcional, solo tiene sentido si
-//                                 // entregaInmediata es true
-//   tallasInmediatas: ["M"],      // opcional, tallas que SÍ hay en stock ya
-//   precio: 100000,               // número entero en pesos, sin puntos ni $
-//   descripcion: "Frase corta que describe la prenda.",
-//   imagenes: ["img/foto1.jpg", "img/foto2.jpg"], // la primera es la
-//                                 // portada de la tarjeta; agrega las que
-//                                 // quieras, todas quedan navegables
-//   tallas: ["S", "M", "L", "XL"],
-//   variantes: {                  // opcional, agrega costo extra
-//     manga: [
-//       { tipo: "Manga Corta", adicional: 0 },
-//       { tipo: "Manga Larga", adicional: 10000 }
-//     ],
-//     parches: [
-//       { tipo: "Sin parches", adicional: 0 },
-//       { tipo: "Parches Champions", adicional: 10000 }
-//     ]
-//   },
-//   tieneOpcionBordado: true,               // opcional, casilla sin costo
-//   textoBordado: "Bordado Final Moscow 2008"
-// }
-//
-// SI UN EQUIPO TIENE VARIAS VERSIONES (Local, Visitante, Alternativa...):
-// agrega cada versión como un producto separado de siempre, pero ponles a
-// TODAS el mismo campo "grupo" (usa el nombre del equipo + temporada, sin
-// la palabra "Local"/"Visitante"/etc.). Eso logra dos cosas automáticas:
-// 1) En el catálogo, todas las versiones de ese grupo se muestran juntas,
-//    sin importar en qué orden las hayas agregado al archivo.
-// 2) Dentro del modal de una versión aparece un aviso "También disponible"
-//    con link directo a las otras versiones del mismo grupo.
-// Si un producto no tiene varias versiones, simplemente no le pongas
-// "grupo" (como la mayoría del catálogo hoy).
-//
-// {
-//   id: "CAM-45",
-//   nombre: "Real Madrid 2026/2027 Local",
-//   grupo: "Real Madrid 26/27",   // <- mismo texto en las dos
-//   ...
-// },
-// {
-//   id: "CAM-46",
-//   nombre: "Real Madrid 2026/2027 Visitante",
-//   grupo: "Real Madrid 26/27",   // <- mismo texto en las dos
-//   ...
-// }
-//
-// TIPOS DE PRENDA REGISTRADOS EN EL MENÚ LATERAL (sidebar en index.html):
-// "Camisetas", "Pantalonetas", "Entrenamiento" y "Cortavientos". Si algún
-// día agregas un tipoPrenda distinto a estos cuatro, también debes crear
-// su botón en el <aside id="sidebar-secciones"> de index.html o esos
-// productos quedarán invisibles para el cliente (nadie podrá filtrarlos).
-// -----------------------------------------------------------------------
 
 // 👕 CAMISETAS DE FÚTBOL
 const CAMISETAS = [
   {
     id: "CAM-01",
     nombre: "AC Milan 06/07 Local",
-    grupo: "AC Milan 06/07", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "AC Milan 06/07",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -119,7 +46,7 @@ const CAMISETAS = [
   {
     id: "CAM-03",
     nombre: "Brasil 2002 Local",
-    grupo: "Brasil 2002", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Brasil 2002",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -154,7 +81,7 @@ const CAMISETAS = [
   {
     id: "CAM-05",
     nombre: "AC Milan 23/24 Edicion Beige",
-    grupo: "AC Milan 23/24", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "AC Milan 23/24",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -166,7 +93,7 @@ const CAMISETAS = [
   {
     id: "CAM-06",
     nombre: "AC Milan 23/24 Edicion Oscura",
-    grupo: "AC Milan 23/24", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "AC Milan 23/24",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -333,7 +260,7 @@ const CAMISETAS = [
   {
     id: "CAM-18",
     nombre: "Brasil 2002 Alternativa azul",
-    grupo: "Brasil 2002", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Brasil 2002",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -345,7 +272,7 @@ const CAMISETAS = [
   {
     id: "CAM-19",
     nombre: "Brasil 2010 Local",
-    grupo: "Brasil 2010", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Brasil 2010",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -357,7 +284,7 @@ const CAMISETAS = [
   {
     id: "CAM-20",
     nombre: "Brasil 2010 Alternativa azul",
-    grupo: "Brasil 2010", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Brasil 2010",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -625,7 +552,7 @@ const CAMISETAS = [
   {
     id: "CAM-39",
     nombre: "Real Madrid 22/23 Visitante",
-    grupo: "Real Madrid 22/23", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Real Madrid 22/23",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -682,7 +609,7 @@ const CAMISETAS = [
   {
     id: "CAM-43",
     nombre: "Real Madrid 17/18 Local",
-    grupo: "Real Madrid 17/18", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Real Madrid 17/18",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: true,
@@ -706,7 +633,7 @@ const CAMISETAS = [
   {
     id: "CAM-44",
     nombre: "Real Madrid 17/18 Visitante",
-    grupo: "Real Madrid 17/18", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Real Madrid 17/18",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -724,7 +651,7 @@ const CAMISETAS = [
   {
     id: "CAM-45",
     nombre: "Real Madrid 26/27 Local",
-    grupo: "Real Madrid 26/27", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Real Madrid 26/27",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -742,7 +669,7 @@ const CAMISETAS = [
   {
     id: "CAM-46",
     nombre: "Real Madrid 26/27 Visitante",
-    grupo: "Real Madrid 26/27", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Real Madrid 26/27",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -889,7 +816,7 @@ const CAMISETAS = [
   {
     id: "CAM-56",
     nombre: "AC Milan 06/07 Visitante",
-    grupo: "AC Milan 06/07", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "AC Milan 06/07",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -934,7 +861,7 @@ const CAMISETAS = [
   {
     id: "CAM-58",
     nombre: "Manchester City 25/26 Local",
-    grupo: "Manchester City 25/26", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Manchester City 25/26",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -977,7 +904,7 @@ const CAMISETAS = [
   {
     id: "CAM-60",
     nombre: "Manchester City 25/26 Alternativa",
-    grupo: "Manchester City 25/26", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Manchester City 25/26",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -1125,7 +1052,7 @@ const CAMISETAS = [
   {
     id: "CAM-71",
     nombre: "Real Madrid 22/23 Local",
-    grupo: "Real Madrid 22/23", // Distintas versiones del mismo equipo/temporada; ver "También disponible" en el modal
+    grupo: "Real Madrid 22/23",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -1311,6 +1238,17 @@ const CAMISETAS = [
         { tipo: "Parches Champions / Liga", adicional: 15000 }
       ]
     }
+  },
+  {
+    id: "CAM-80",
+    nombre: "Boca 02/03 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Boca Juniors 02/03",
+    imagenes: ["img/Boca02.jpg", "img/Boca02-1.jpg", "img/Boca02-2.jpg"]
+
   }
 ];
 
@@ -1481,7 +1419,7 @@ const PANTALONETAS = [
     imagenes: ["img/ShortBrasil26-Alternativa.jpg", "img/ShortBrasil26-Alternativa-1.jpg"],
     tallas: ["S", "M", "L", "XL"]
   }
-]
+];
 
 // 🧥 ENTRENAMIENTO
 const ENTRENAMIENTO = [
@@ -1539,7 +1477,6 @@ const ENTRENAMIENTO = [
     descripcion: "Chaqueta de entrenamiento PSG.",
     imagenes: ["img/JacketPsg01.jpeg","img/JacketPsg01-1.jpeg", "img/JacketPsg01-2.jpeg"],
   }
-
 ];
 
 // 💨 CORTAVIENTOS
@@ -1559,13 +1496,6 @@ const CORTAVIENTOS = [
   }
 ];
 
-// ==========================================================================
-// UNIFICACIÓN EN LA VARIABLE GLOBAL PRODUCTOS
-// ==========================================================================
-// script.js y el resto del sitio SOLO leen este arreglo unificado; nunca
-// referencian CAMISETAS, PANTALONETAS, etc. por separado. Si agregas una
-// categoría de prenda completamente nueva (ej. "Balones"), crea su propio
-// arreglo arriba con el mismo formato y súmalo aquí abajo con "...".
 const PRODUCTOS = [
   ...CAMISETAS,
   ...PANTALONETAS,
