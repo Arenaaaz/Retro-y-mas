@@ -1291,6 +1291,27 @@ const CAMISETAS = [
       ]
     }
   },
+  {
+    id: "CAM-79",
+    nombre: "Barcelona 26/27 Local",
+    grupo: "Barcelona 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta local de Barcelona temporada 26/27",
+    imagenes: ["img/Barcelona26.jpg", "img/Barcelona26-1.jpg"],
+    variantes:{
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 },
+      ],
+      parches:[
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 15000 }
+      ]
+    }
+  }
 ];
 
 // 🩳 PANTALONETAS

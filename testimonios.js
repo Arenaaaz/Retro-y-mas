@@ -65,5 +65,13 @@ const TESTIMONIOS = [
     comentario: "Excelente calidad, muy detallado. El diseño me gustó mucho.",
     producto: "Brasil 2002",
     imagenes: ["img/resena4.jpg"]
+  },
+  {
+    nombre: "Sebastian R",
+    ciudad: "Bogotá",
+    calificacion: 5,
+    comentario: "Muy buena la calidad, me gustaron los acabados y los estampados. Excelente todo!",
+    producto: "Bayern Munich 17/18",
+    imagenes: ["img/resena5.jpg"]
   }
 ];
