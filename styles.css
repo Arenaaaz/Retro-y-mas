@@ -106,6 +106,10 @@ body:has(.modal-overlay.active) {
   touch-action: none;
 }
 
+body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
+  display: none !important;
+}
+
 .barra-resenas:empty {
   display: none;
 }
@@ -1221,6 +1225,7 @@ input:focus-visible,
   z-index: 1000;
   padding: 16px;
   backdrop-filter: blur(4px);
+  touch-action: pan-y;
 }
 
 .modal-overlay.active {
@@ -1239,6 +1244,8 @@ input:focus-visible,
   overflow: hidden;
   position: relative;
   overscroll-behavior: contain !important;
+  min-height: 0;
+  touch-action: pan-y;
   animation: modalEntrada 0.22s ease-out;
 }
 
@@ -1319,6 +1326,8 @@ input:focus-visible,
   padding-right: 12px;
   overflow-y: auto !important;
   flex-grow: 1;
+  min-height: 0;
+  touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain !important;
 }
@@ -1408,6 +1417,26 @@ input:focus-visible,
   justify-content: center;
   margin-top: 10px;
   box-sizing: border-box;
+}
+
+/* El resumen puede crecer por las opciones de pago; se desplaza completo
+   para que la lista de productos no quede comprimida entre el encabezado y
+   el pie del modal. */
+#modal-pedido .modal-contenido {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#modal-pedido .modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #ffffff;
+}
+
+#modal-pedido .modal-body {
+  flex: 0 0 auto;
+  overflow: visible !important;
 }
 
 /* ==========================================================================

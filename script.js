@@ -1703,7 +1703,7 @@ function cerrarVisorFoto() {
 const FAQS = [
   {
     pregunta: "¿Cómo sé qué talla pedir?",
-    respuesta: "Todas las prendas manejan tallas S, M, L y XL. Si tienes dudas sobre cuál te queda mejor, escríbenos por WhatsApp antes de pedir y te ayudamos a elegir según tu contextura."
+    respuesta: "La guía de tallas se encuentra más abajo en esta página. Si aún tienes alguna duda, escríbenos usando el botón de WhatsApp y te ayudaremos a elegir la talla adecuada."
   },
   {
     pregunta: "¿Cuánto tarda el envío?",
