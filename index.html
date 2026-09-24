@@ -25,9 +25,9 @@
        ejemplo con una barra "/" al final o una subpágina, puede pedir el
        archivo en el lugar equivocado). Ver la nota "FAVICON" en GUIA-DE-CAMBIOS.md
        si después de publicar el sitio el ícono sigue sin verse. -->
-  <link rel="icon" type="image/png" href="/img/logo.png?v=2">
-  <link rel="shortcut icon" type="image/png" href="/img/logo.png?v=2">
-  <link rel="apple-touch-icon" href="/img/logo.png?v=2">
+  <link rel="icon" type="image/png" href="/img/logo.png">
+  <link rel="shortcut icon" type="image/png" href="/img/logo.png">
+  <link rel="apple-touch-icon" href="/img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,7 +77,7 @@
 <body>
   <!-- Banner Superior con info de envíos -->
   <div class="shipping-banner">
-    <span>📦 <strong>Envíos por encargo:</strong> ¡GRATIS a partir de 3 unidades! (15 a 20 días hábiles). Envíos inmediatos en Medellín varían según la dirección.</span>
+    <span>📦 <strong>Envíos por encargo:</strong> ¡GRATIS a partir de 3 prendas! (15 a 20 días hábiles). Envíos inmediatos en Medellín varían según la dirección.</span>
   </div>
 
   <!-- Barra de resumen de reseñas: se llena sola en cuanto haya reseñas reales -->
@@ -377,7 +377,7 @@
   <!-- Modal de Vista Rápida de Producto: foto en grande a la izquierda +
        panel de personalización y pedido a la derecha (una sola ventana,
        ver abrirVistaProducto() en script.js) -->
-  <div id="modal-opciones-producto" class="modal-overlay">
+  <div id="modal-opciones-producto" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-opt-titulo">
     <div class="modal-contenido modal-vista-producto">
       <div class="modal-header">
         <h2 id="modal-opt-titulo">Personalizar Producto</h2>
@@ -425,7 +425,7 @@
   </div>
 
   <!-- Modal de Revisión de Pedido / Carrito -->
-  <div id="modal-pedido" class="modal-overlay">
+  <div id="modal-pedido" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Resumen del pedido">
     <div class="modal-contenido">
       <div class="modal-header">
         <h2>Resumen de tu Pedido</h2>
@@ -437,8 +437,8 @@
       </div>
       
       <div class="modal-footer">
-        <!-- Se dibuja desde script.js (actualizarBannerPedido): envío
-             nacional incluido si hay menos de 3 camisetas y nada de
+           <!-- Se dibuja desde script.js (actualizarBannerPedido): envío
+             nacional incluido si hay menos de 3 prendas y nada de
              Entrega Inmediata, o el aviso de contraentrega en Medellín si
              sí hay Entrega Inmediata en el pedido. -->
         <div id="banner-envio-pedido" class="banner-envio-pedido"></div>
@@ -454,12 +454,12 @@
         <div id="selector-forma-encargo" class="selector-forma-encargo" style="display: none;">
           <p class="selector-forma-titulo">Tu pedido incluye prendas por encargo. Elige cómo prefieres pagarlo:</p>
           <label class="opcion-forma-encargo">
-            <input type="radio" name="forma-encargo" value="100" onchange="formaEncargoSeleccionada = this.value;">
-            <span><strong>Pago 100% anticipado</strong> — llega a la puerta de tu casa, envíos nacionales a toda Colombia.</span>
+            <input type="radio" name="forma-encargo" value="100" onchange="seleccionarFormaEncargo(this.value);">
+            <span><strong>Pago total anticipado</strong><small>Gestionamos el envío con transportadora hasta la dirección indicada.</small></span>
           </label>
           <label class="opcion-forma-encargo">
-            <input type="radio" name="forma-encargo" value="50" onchange="formaEncargoSeleccionada = this.value;">
-            <span><strong>Anticipo del 50%</strong> — llega a la puerta de tu casa, pagas el domiciliario aparte. Solo dentro de Medellín.</span>
+            <input type="radio" name="forma-encargo" value="50" onchange="seleccionarFormaEncargo(this.value);">
+            <span><strong>Anticipo del 50%</strong><small>Cuando la prenda llegue a Medellín te enviaremos una foto y confirmaremos los datos de quien recibe. El saldo y el domicilio se pagan contraentrega.</small></span>
           </label>
         </div>
 
@@ -474,9 +474,58 @@
     </div>
   </div>
 
+  <!-- Modal de datos para envíos con pago total anticipado -->
+  <div id="modal-datos-envio" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="titulo-datos-envio" onclick="if(event.target === this) cerrarModalDatosEnvio();">
+    <div class="modal-contenido modal-datos-envio">
+      <div class="modal-header">
+        <div>
+          <span class="modal-kicker">Pago total anticipado</span>
+          <h2 id="titulo-datos-envio">Datos de entrega</h2>
+        </div>
+        <button class="btn-cerrar-modal" onclick="cerrarModalDatosEnvio()" aria-label="Cerrar">&times;</button>
+      </div>
+
+      <form id="form-datos-envio" class="form-datos-envio" onsubmit="event.preventDefault(); guardarDatosEnvio();">
+        <p class="form-datos-intro">Usaremos esta información únicamente para coordinar tu envío con la transportadora.</p>
+
+        <div class="form-datos-grid">
+          <label class="campo-dato-envio campo-dato-pais">
+            <span>País</span>
+            <input type="text" name="pais" value="Colombia" required minlength="2" maxlength="50" autocomplete="country-name">
+          </label>
+          <label class="campo-dato-envio">
+            <span>Departamento</span>
+            <input type="text" name="departamento" required minlength="2" maxlength="60" autocomplete="address-level1">
+          </label>
+          <label class="campo-dato-envio">
+            <span>Ciudad</span>
+            <input type="text" name="ciudad" required minlength="2" maxlength="60" autocomplete="address-level2">
+          </label>
+          <label class="campo-dato-envio campo-dato-direccion">
+            <span>Dirección específica</span>
+            <input type="text" name="direccion" placeholder="Calle, carrera, número y complemento" required minlength="5" maxlength="140" autocomplete="street-address">
+          </label>
+          <label class="campo-dato-envio">
+            <span>Teléfono</span>
+            <input type="tel" name="telefono" required minlength="7" maxlength="20" pattern="[0-9+() -]{7,20}" autocomplete="tel" inputmode="tel">
+          </label>
+          <label class="campo-dato-envio">
+            <span>Nombre y apellido</span>
+            <input type="text" name="nombre" required minlength="3" maxlength="80" pattern="[A-Za-zÀ-ÿ .'-]{3,80}" autocomplete="name">
+          </label>
+        </div>
+
+        <div class="form-datos-acciones">
+          <button type="button" class="btn-secundario-modal" onclick="cerrarModalDatosEnvio()">Volver</button>
+          <button type="submit" class="btn-whatsapp btn-guardar-envio">Guardar datos</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Visor simple para ampliar las fotos que los clientes suben en sus
        reseñas (no tiene opciones de compra, solo muestra la imagen) -->
-  <div id="modal-foto-resena" class="modal-overlay visor-foto-overlay" onclick="cerrarVisorFoto()">
+  <div id="modal-foto-resena" class="modal-overlay visor-foto-overlay" role="dialog" aria-modal="true" aria-label="Fotografía de reseña" onclick="cerrarVisorFoto()">
     <button class="btn-cerrar-visor" onclick="event.stopPropagation(); cerrarVisorFoto()" aria-label="Cerrar">&times;</button>
     <div class="visor-foto-contenido" onclick="event.stopPropagation()">
       <img id="visor-foto-img" src="" alt="Foto de reseña de cliente">
@@ -494,7 +543,7 @@
   </a>
 
   <!-- Botón Flotante de WhatsApp -->
-  <a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" onclick="fbq('track', 'Contact');">
+  <a href="https://wa.me/573013276930?text=Hola,%20quiero%20más%20información%20sobre%20las%20camisetas" class="wpp-btn" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" onclick="if(typeof fbq === 'function'){ fbq('track', 'Contact'); }">
     <svg viewBox="0 0 32 32" width="28" height="28" fill="#ffffff" aria-hidden="true">
       <path d="M16.01 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.615 4.56 1.694 6.475L2.667 29.333l6.99-1.833a13.27 13.27 0 0 0 6.353 1.62h.006c7.363 0 13.333-5.97 13.333-13.333S23.373 2.667 16.01 2.667zm7.797 18.973c-.328.923-1.63 1.69-2.66 1.913-.708.15-1.633.27-4.744-1.02-3.984-1.65-6.55-5.68-6.75-5.943-.192-.263-1.617-2.153-1.617-4.107 0-1.953 1.024-2.913 1.388-3.313.328-.36.716-.45.955-.45.24 0 .478.003.687.013.22.01.516-.083.807.617.328.79 1.115 2.72 1.213 2.92.098.2.163.433.033.697-.13.263-.196.43-.39.66-.196.23-.41.51-.586.687-.196.196-.4.408-.172.798.229.39 1.017 1.678 2.183 2.72 1.5 1.34 2.766 1.755 3.156 1.953.39.196.62.163.848-.098.229-.263.98-1.143 1.243-1.535.262-.393.523-.328.882-.196.36.13 2.29 1.08 2.683 1.277.393.196.653.294.75.457.098.163.098.943-.23 1.865z"/>
     </svg>

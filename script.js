@@ -34,11 +34,11 @@ const CONFIG = {
     instagram: "https://www.instagram.com/retroymas_/"
   },
   // TODO: ajusta este valor al costo real de tu envío nacional.
-  // Se suma solo cuando el pedido tiene menos de 3 camisetas Y no incluye
+  // Se suma solo cuando el pedido tiene menos de 3 prendas Y no incluye
   // ninguna prenda de Entrega Inmediata (esas se manejan aparte, por
   // domiciliario en Medellín — ver actualizarBannerPedido en este archivo).
   costoEnvio: 15000,
-  minimoCamisetasSinEnvio: 3
+  minimoPrendasSinEnvio: 3
 };
 
 // ==========================================================================
@@ -230,6 +230,7 @@ let carrito = [];
 let total = 0;
 let costoEnvioAplicado = 0; // se recalcula en cada actualizarCarrito(); ver actualizarBannerPedido()
 let formaEncargoSeleccionada = ''; // '100' o '50'; ver selector "Forma de pedido" en modal-pedido
+let datosEnvio = null;
 let tipoPrendaActual = 'Camisetas';
 let categoriaActual = 'todos';
 
@@ -502,6 +503,73 @@ function renderizarBannerResenas(listaTestimonios) {
  *   filtrada; esta función no vuelve a filtrar nada).
  * @param {string} idContenedor - id del elemento donde se inserta el grid.
  */
+/** Normaliza la disponibilidad inmediata nueva y la estructura antigua. */
+function obtenerDisponibilidadInmediata(prod) {
+  const disponibilidad = prod.prendaInmediata || {};
+  const comoLista = valor => {
+    if (!valor) return [];
+    return Array.isArray(valor) ? valor : [valor];
+  };
+
+  return {
+    manga: disponibilidad.manga || '',
+    parches: disponibilidad.parches || '',
+    bordados: disponibilidad.bordados || disponibilidad.bordado || '',
+    tallas: comoLista(disponibilidad.tallas || prod.tallasInmediatas),
+    dorsales: comoLista(disponibilidad.dorsales || disponibilidad.dorsal || prod.dorsalInmediato)
+  };
+}
+
+function coincideDisponibilidad(valorOpcion, valorDisponible) {
+  if (!valorOpcion || !valorDisponible) return false;
+
+  const normalizar = valor => valor.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+  const opcion = normalizar(valorOpcion);
+  const disponible = normalizar(valorDisponible);
+
+  if (disponible.startsWith('sin ')) return opcion === disponible;
+  return !opcion.startsWith('sin ') && (opcion === disponible || opcion.includes(disponible));
+}
+
+function combinacionEsEntregaInmediata(prod, opciones = opcionesSeleccionadas) {
+  if (!prod.entregaInmediata) return false;
+
+  const disponibilidad = obtenerDisponibilidadInmediata(prod);
+  const dorsalSeleccionado = opciones.nombreNumero || 'Sin dorsal';
+
+  return (disponibilidad.tallas.length === 0 || disponibilidad.tallas.includes(opciones.talla)) &&
+    (!disponibilidad.manga || coincideDisponibilidad(opciones.manga, disponibilidad.manga)) &&
+    (!disponibilidad.parches || coincideDisponibilidad(opciones.parches, disponibilidad.parches)) &&
+    (disponibilidad.dorsales.length === 0 || disponibilidad.dorsales.some(dorsal => coincideDisponibilidad(dorsalSeleccionado, dorsal)));
+}
+
+function escaparHTML(valor) {
+  return String(valor ?? '').replace(/[&<>"']/g, caracter => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  }[caracter]));
+}
+
+function renderizarDorsalInmediato(prod) {
+  if (!prod.entregaInmediata) return '';
+
+  const dorsales = obtenerDisponibilidadInmediata(prod).dorsales;
+  if (dorsales.length === 0) return '';
+
+  return `
+    <div class="dorsal-stock-card" aria-label="Dorsal disponible para entrega inmediata">
+      <span class="dorsal-stock-icon">⚡</span>
+      <span class="dorsal-stock-texto">
+        <small>Dorsal en stock</small>
+        <strong>${dorsales.join(', ')}</strong>
+      </span>
+    </div>
+  `;
+}
+
 function renderizarProductos(productos, idContenedor = "contenedor-productos") {
   const contenedor = document.getElementById(idContenedor);
   if (!contenedor) return;
@@ -536,6 +604,7 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
   });
 
   contenedor.innerHTML = productosOrdenados.map(prod => {
+    const dorsalInmediato = renderizarDorsalInmediato(prod);
     return `
     <div class="card-producto">
       ${prod.entregaInmediata ? `<span class="badge-inmediato-card">⚡ Entrega Inmediata</span>` : ''}
@@ -562,11 +631,7 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
         <div>
           <h3 class="titulo-producto">${prod.nombre}</h3>
 
-          ${(prod.entregaInmediata && prod.dorsalInmediato) ? `
-            <p class="dorsal-destacado" style="color: #22c55e; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px;">
-              👕 Dorsal disponible: ${prod.dorsalInmediato}
-            </p>
-          ` : ''}
+          ${dorsalInmediato}
 
           ${prod.descripcion ? `<p class="descripcion-producto">${prod.descripcion}</p>` : ''}
           <div class="precio-producto">$ ${prod.precio.toLocaleString('es-CO')} COP</div>
@@ -630,16 +695,27 @@ function abrirVistaProducto(idProducto) {
   // talla del arreglo por defecto — así el cliente ve de una el pedido
   // exacto que se puede despachar ya mismo, sin tener que adivinar cuál
   // combinación es la que está disponible.
-  const tallaInmediataDefault = (prod.entregaInmediata && prod.tallasInmediatas?.length) ? prod.tallasInmediatas[0] : null;
-  const dorsalInmediatoValido = (prod.entregaInmediata && prod.dorsalInmediato && !/^sin\b/i.test(prod.dorsalInmediato.trim()))
-    ? prod.dorsalInmediato
+  const disponibilidadInmediata = obtenerDisponibilidadInmediata(prod);
+  const tallaInmediataDefault = (prod.entregaInmediata && disponibilidadInmediata.tallas.length) ? disponibilidadInmediata.tallas[0] : null;
+  const dorsalDisponible = disponibilidadInmediata.dorsales.find(dorsal => !/^sin\b/i.test(dorsal.trim()));
+  const dorsalInmediatoValido = prod.entregaInmediata && dorsalDisponible
+    ? dorsalDisponible
     : '';
+  const mangaInmediataDefault = prod.variantes?.manga?.find(manga =>
+    coincideDisponibilidad(manga.tipo, disponibilidadInmediata.manga)
+  )?.tipo;
+  const parchesInmediatosDefault = prod.variantes?.parches?.find(parches =>
+    coincideDisponibilidad(parches.tipo, disponibilidadInmediata.parches)
+  )?.tipo;
+  const bordadoInmediatoDefault = prod.tieneOpcionBordado && disponibilidadInmediata.bordados && !/^sin\b/i.test(disponibilidadInmediata.bordados)
+    ? (prod.textoBordado || disponibilidadInmediata.bordados)
+    : 'Sin bordado';
 
   opcionesSeleccionadas = {
     talla: tallaInmediataDefault || (prod.tallas ? prod.tallas[0] : ''),
-    manga: prod.variantes?.manga ? prod.variantes.manga[0].tipo : '',
-    parches: prod.variantes?.parches ? prod.variantes.parches[0].tipo : '',
-    bordadoConmemorativo: prod.tieneOpcionBordado ? 'Sin bordado' : '',
+    manga: mangaInmediataDefault || (prod.variantes?.manga ? prod.variantes.manga[0].tipo : ''),
+    parches: parchesInmediatosDefault || (prod.variantes?.parches ? prod.variantes.parches[0].tipo : ''),
+    bordadoConmemorativo: prod.tieneOpcionBordado ? bordadoInmediatoDefault : '',
     nombreNumero: dorsalInmediatoValido
   };
 
@@ -690,12 +766,12 @@ function abrirVistaProducto(idProducto) {
         </label>
         <div class="chips-wrapper">
           ${prod.tallas.map((t, idx) => {
-            const esStock = prod.entregaInmediata && prod.tallasInmediatas?.includes(t);
+            const esStock = prod.entregaInmediata && disponibilidadInmediata.tallas.includes(t);
             return `
               <button type="button"
-                      class="chip-opcion ${t === opcionesSeleccionadas.talla ? 'active' : ''} ${esStock ? 'chip-inmediato' : ''}"
+                  class="chip-opcion ${t === opcionesSeleccionadas.talla ? 'active' : ''} ${esStock ? 'chip-inmediato' : ''} ${prod.entregaInmediata && !esStock ? 'chip-encargo' : ''}"
                       onclick="cambiarOpcionModal('talla', '${t}', this)">
-                ${t} ${esStock ? '⚡ (Entrega Inmediata)' : ''}
+                ${t} ${esStock ? '⚡ (Entrega Inmediata)' : prod.entregaInmediata ? '📦 (Por encargo)' : ''}
               </button>
             `;
           }).join('')}
@@ -710,7 +786,10 @@ function abrirVistaProducto(idProducto) {
         <input type="text"
                id="input-nombre-numero"
                placeholder="Ej: MESSI 10 o Juan 7"
-               value="${opcionesSeleccionadas.nombreNumero}"
+               value="${escaparHTML(opcionesSeleccionadas.nombreNumero)}"
+               maxlength="40"
+               pattern="[A-Za-zÀ-ÿ0-9 .-]{1,40}"
+               ${prod.entregaInmediata && combinacionEsEntregaInmediata(prod) ? 'readonly' : ''}
                oninput="opcionesSeleccionadas.nombreNumero = this.value">
         <small style="color: #64748b; font-size: 0.75rem; display: block; margin-top: 4px;">
           Déjalo en blanco si prefieres la prenda sin estampado.
@@ -724,11 +803,16 @@ function abrirVistaProducto(idProducto) {
         <label>👕 Tipo de Manga</label>
         <div class="chips-wrapper">
           ${prod.variantes.manga.map((m, idx) => `
+            ${(() => {
+              const esStock = prod.entregaInmediata && coincideDisponibilidad(m.tipo, disponibilidadInmediata.manga);
+              return `
             <button type="button"
-                    class="chip-opcion ${idx === 0 ? 'active' : ''}"
+                  class="chip-opcion ${m.tipo === opcionesSeleccionadas.manga ? 'active' : ''} ${esStock ? 'chip-inmediato' : ''} ${prod.entregaInmediata && disponibilidadInmediata.manga && !esStock ? 'chip-encargo' : ''}"
                     onclick="cambiarOpcionModal('manga', '${m.tipo}', this)">
-              ${m.tipo} ${m.adicional > 0 ? `(+$${m.adicional.toLocaleString('es-CO')})` : ''}
+                ${m.tipo} ${esStock ? '⚡' : prod.entregaInmediata && disponibilidadInmediata.manga ? '📦' : ''} ${m.adicional > 0 ? `(+$${m.adicional.toLocaleString('es-CO')})` : ''}
             </button>
+              `;
+            })()}
           `).join('')}
         </div>
       </div>
@@ -740,11 +824,16 @@ function abrirVistaProducto(idProducto) {
         <label>🛡️ Parches / Escudos</label>
         <div class="chips-wrapper">
           ${prod.variantes.parches.map((p, idx) => `
+            ${(() => {
+              const esStock = prod.entregaInmediata && coincideDisponibilidad(p.tipo, disponibilidadInmediata.parches);
+              return `
             <button type="button"
-                    class="chip-opcion ${idx === 0 ? 'active' : ''}"
+                  class="chip-opcion ${p.tipo === opcionesSeleccionadas.parches ? 'active' : ''} ${esStock ? 'chip-inmediato' : ''} ${prod.entregaInmediata && disponibilidadInmediata.parches && !esStock ? 'chip-encargo' : ''}"
                     onclick="cambiarOpcionModal('parches', '${p.tipo}', this)">
-              ${p.tipo} ${p.adicional > 0 ? `(+$${p.adicional.toLocaleString('es-CO')})` : ''}
+                ${p.tipo} ${esStock ? '⚡' : prod.entregaInmediata && disponibilidadInmediata.parches ? '📦' : ''} ${p.adicional > 0 ? `(+$${p.adicional.toLocaleString('es-CO')})` : ''}
             </button>
+              `;
+            })()}
           `).join('')}
         </div>
       </div>
@@ -756,14 +845,14 @@ function abrirVistaProducto(idProducto) {
         <label>🏆 Incluir ${prod.textoBordado || 'Bordado de la Final'} (Sin costo extra)</label>
         <div class="chips-wrapper">
           <button type="button"
-                  class="chip-opcion active"
+              class="chip-opcion ${opcionesSeleccionadas.bordadoConmemorativo === 'Sin bordado' ? 'active' : ''} ${prod.entregaInmediata && disponibilidadInmediata.bordados === 'Sin bordado' ? 'chip-inmediato' : ''}"
                   onclick="cambiarOpcionModal('bordadoConmemorativo', 'Sin bordado', this)">
-            Sin bordado
+            Sin bordado ${prod.entregaInmediata && disponibilidadInmediata.bordados === 'Sin bordado' ? '⚡' : ''}
           </button>
           <button type="button"
-                  class="chip-opcion"
+              class="chip-opcion ${opcionesSeleccionadas.bordadoConmemorativo !== 'Sin bordado' ? 'active' : ''} ${prod.entregaInmediata && disponibilidadInmediata.bordados !== 'Sin bordado' && disponibilidadInmediata.bordados ? 'chip-inmediato' : ''}"
                   onclick="cambiarOpcionModal('bordadoConmemorativo', '${prod.textoBordado || 'Con Bordado de la Final'}', this)">
-            Con Bordado Final ⚽
+            Con Bordado Final ⚽ ${prod.entregaInmediata && disponibilidadInmediata.bordados !== 'Sin bordado' && disponibilidadInmediata.bordados ? '⚡' : ''}
           </button>
         </div>
       </div>
@@ -857,6 +946,18 @@ function cambiarOpcionModal(tipo, valor, elemento) {
     padre.querySelectorAll('.chip-opcion').forEach(btn => btn.classList.remove('active'));
   }
   elemento.classList.add('active');
+
+  const inputDorsal = document.getElementById('input-nombre-numero');
+  if (inputDorsal && productoSeleccionadoTemp?.entregaInmediata) {
+    const esInmediata = combinacionEsEntregaInmediata(productoSeleccionadoTemp);
+    inputDorsal.readOnly = esInmediata;
+    if (esInmediata) {
+      const dorsalStock = obtenerDisponibilidadInmediata(productoSeleccionadoTemp).dorsales
+        .find(dorsal => !/^sin\b/i.test(dorsal.trim())) || '';
+      inputDorsal.value = dorsalStock;
+      opcionesSeleccionadas.nombreNumero = dorsalStock;
+    }
+  }
 
   actualizarPrecioModal();
 }
@@ -1041,6 +1142,11 @@ function mostrarBarraCarritoTemporal() {
 function confirmarAgregarAlCarrito() {
   if (!productoSeleccionadoTemp) return;
 
+  if (!opcionesSeleccionadas.talla) {
+    alert('Selecciona una talla antes de agregar la prenda.');
+    return;
+  }
+
   let precioFinal = productoSeleccionadoTemp.precio;
 
   if (opcionesSeleccionadas.manga && productoSeleccionadoTemp.variantes?.manga) {
@@ -1054,6 +1160,7 @@ function confirmarAgregarAlCarrito() {
   }
 
   const dorsalIngresado = document.getElementById("input-nombre-numero")?.value.trim() || '';
+  const esEntregaInmediata = combinacionEsEntregaInmediata(productoSeleccionadoTemp);
 
   carrito.push({
     itemUniqueId: Date.now() + Math.random(),
@@ -1066,7 +1173,7 @@ function confirmarAgregarAlCarrito() {
     parches: opcionesSeleccionadas.parches,
     bordadoConmemorativo: opcionesSeleccionadas.bordadoConmemorativo,
     dorsalPersonalizado: dorsalIngresado,
-    entregaInmediata: productoSeleccionadoTemp.entregaInmediata || false
+    entregaInmediata: esEntregaInmediata
   });
 
   actualizarCarrito();
@@ -1339,10 +1446,10 @@ function actualizarCarrito() {
  *   domiciliario en Medellín, pagado contraentrega (su valor varía según
  *   la zona) — nunca se suma un monto fijo al total por esto.
  * - Si NO hay ninguna de Entrega Inmediata (todo es "por encargo") y el
- *   pedido tiene menos de CONFIG.minimoCamisetasSinEnvio camisetas: se
+ *   pedido tiene menos de CONFIG.minimoPrendasSinEnvio prendas: se
  *   suma CONFIG.costoEnvio al total, y además se muestra el selector de
  *   "Forma de pedido" (100% anticipado o 50% de anticipo).
- * - Si hay 3 o más camisetas y nada de Entrega Inmediata: envío nacional
+ * - Si hay 3 o más prendas y nada de Entrega Inmediata: envío nacional
  *   incluido, sin costo adicional, pero el selector de forma de pedido
  *   sigue apareciendo (sigue siendo un pedido por encargo).
  */
@@ -1354,33 +1461,68 @@ function actualizarBannerPedido() {
   if (carrito.length === 0) {
     banner.innerHTML = '';
     costoEnvioAplicado = 0;
+    datosEnvio = null;
+    formaEncargoSeleccionada = '';
+    document.querySelectorAll('input[name="forma-encargo"]').forEach(input => {
+      input.checked = false;
+    });
     if (selectorForma) selectorForma.style.display = 'none';
     return;
   }
 
   const hayEntregaInmediata = carrito.some(item => item.entregaInmediata);
   const hayPorEncargo = carrito.some(item => !item.entregaInmediata);
-  const cantidadCamisetas = carrito.filter(item => item.tipoPrenda === 'Camisetas').length;
+  const cantidadPrendas = carrito.length;
 
   if (hayEntregaInmediata) {
     costoEnvioAplicado = 0;
     banner.innerHTML = `
       <p class="banner-envio-texto">🛵 <strong>Pago contraentrega en Medellín:</strong> el valor del domicilio depende de la zona (solo aplica dentro de Medellín).</p>
     `;
-  } else if (cantidadCamisetas < CONFIG.minimoCamisetasSinEnvio) {
+  } else if (cantidadPrendas < CONFIG.minimoPrendasSinEnvio) {
     costoEnvioAplicado = CONFIG.costoEnvio;
     banner.innerHTML = `
-      <p class="banner-envio-texto">🚚 <strong>Envío nacional:</strong> se incluyen $${CONFIG.costoEnvio.toLocaleString('es-CO')} COP en el total (pedidos de ${CONFIG.minimoCamisetasSinEnvio} o más camisetas no pagan envío).</p>
+      <p class="banner-envio-texto">🚚 <strong>Envío nacional:</strong> se incluyen $${CONFIG.costoEnvio.toLocaleString('es-CO')} COP en el total (pedidos de ${CONFIG.minimoPrendasSinEnvio} o más prendas no pagan envío).</p>
     `;
   } else {
     costoEnvioAplicado = 0;
     banner.innerHTML = `
-      <p class="banner-envio-texto">🚚 <strong>Envío nacional incluido</strong> — tu pedido ya califica por tener ${CONFIG.minimoCamisetasSinEnvio} o más camisetas.</p>
+      <p class="banner-envio-texto">🚚 <strong>Envío nacional incluido</strong> — tu pedido ya califica por tener ${CONFIG.minimoPrendasSinEnvio} o más prendas.</p>
     `;
   }
 
   if (selectorForma) selectorForma.style.display = hayPorEncargo ? 'block' : 'none';
   if (!hayPorEncargo) formaEncargoSeleccionada = ''; // ya no aplica; evita que quede una selección vieja pegada
+}
+
+function seleccionarFormaEncargo(valor) {
+  formaEncargoSeleccionada = valor;
+  if (valor === '100') abrirModalDatosEnvio();
+}
+
+function abrirModalDatosEnvio() {
+  const formulario = document.getElementById('form-datos-envio');
+  if (formulario && datosEnvio) {
+    Object.entries(datosEnvio).forEach(([campo, valor]) => {
+      const input = formulario.elements[campo];
+      if (input) input.value = valor;
+    });
+  }
+
+  document.getElementById('modal-datos-envio')?.classList.add('active');
+}
+
+function cerrarModalDatosEnvio() {
+  document.getElementById('modal-datos-envio')?.classList.remove('active');
+}
+
+function guardarDatosEnvio() {
+  const formulario = document.getElementById('form-datos-envio');
+  if (!formulario || !formulario.reportValidity()) return;
+
+  datosEnvio = Object.fromEntries(new FormData(formulario).entries());
+  cerrarModalDatosEnvio();
+  mostrarToast('Datos de envío guardados');
 }
 
 /** Abre el modal que resume el pedido actual (carrito) y bloquea el scroll de fondo. */
@@ -1415,7 +1557,7 @@ function renderizarModalPedido() {
   contenedor.innerHTML = carrito.map(item => {
     let opcionesElegidas = [];
     if (item.talla) opcionesElegidas.push(`Talla: ${item.talla}`);
-    if (item.dorsalPersonalizado) opcionesElegidas.push(`Dorsal: ${item.dorsalPersonalizado}`);
+    if (item.dorsalPersonalizado) opcionesElegidas.push(`Dorsal: ${escaparHTML(item.dorsalPersonalizado)}`);
     if (item.manga) opcionesElegidas.push(item.manga);
     if (item.parches && item.parches !== "Sin parches") opcionesElegidas.push(item.parches);
     if (item.bordadoConmemorativo && item.bordadoConmemorativo !== "Sin bordado") {
@@ -1425,7 +1567,7 @@ function renderizarModalPedido() {
     return `
     <div class="item-pedido-row">
       <div class="item-pedido-info">
-        <h4>${item.nombre} ${item.entregaInmediata ? '<span style="color:#22c55e; font-size:0.75rem;">(⚡ Entrega Inmediata)</span>' : ''}</h4>
+        <h4>${escaparHTML(item.nombre)} ${item.entregaInmediata ? '<span class="etiqueta-entrega-inmediata">(⚡ Entrega Inmediata)</span>' : ''}</h4>
         <p>${opcionesElegidas.join(' | ')} - <strong>$ ${item.precio.toLocaleString('es-CO')} COP</strong></p>
       </div>
       <div class="item-pedido-acciones">
@@ -1453,6 +1595,12 @@ function enviarWhatsApp() {
   const hayPorEncargo = carrito.some(item => !item.entregaInmediata);
   if (hayPorEncargo && !formaEncargoSeleccionada) {
     alert("Tu pedido incluye prendas por encargo: por favor elige una forma de pedido (100% anticipado o 50% de anticipo) antes de continuar.");
+    return;
+  }
+
+  if (hayPorEncargo && formaEncargoSeleccionada === '100' && !datosEnvio) {
+    alert("Para el pago total anticipado necesitamos los datos de envío.");
+    abrirModalDatosEnvio();
     return;
   }
 
@@ -1484,15 +1632,26 @@ function enviarWhatsApp() {
   } else if (costoEnvioAplicado > 0) {
     mensaje += `\n🚚 Envío nacional incluido: $${costoEnvioAplicado.toLocaleString('es-CO')} COP`;
   } else if (hayPorEncargo) {
-    mensaje += `\n🚚 Envío nacional incluido (pedido de ${CONFIG.minimoCamisetasSinEnvio} o más camisetas).`;
+    mensaje += `\n🚚 Envío nacional incluido (pedido de ${CONFIG.minimoPrendasSinEnvio} o más prendas).`;
   }
 
   if (hayPorEncargo) {
     const textoForma = formaEncargoSeleccionada === '50'
-      ? 'Anticipo del 50% (resto contraentrega, solo Medellín)'
-      : 'Pago 100% anticipado (envío nacional)';
+      ? 'Anticipo del 50%: al llegar a Medellín enviamos foto, confirmamos quién recibe y se paga el saldo más el domicilio contraentrega.'
+      : 'Pago total anticipado: envío gestionado con transportadora hasta la dirección indicada.';
     mensaje += `\n📋 Forma de pedido: ${textoForma}`;
+
+    if (formaEncargoSeleccionada === '100') {
+      mensaje += `\n\n📍 *Datos de envío:*
+País: ${datosEnvio.pais}
+Departamento: ${datosEnvio.departamento}
+Ciudad: ${datosEnvio.ciudad}
+Dirección: ${datosEnvio.direccion}
+Teléfono: ${datosEnvio.telefono}
+Nombre y apellido: ${datosEnvio.nombre}`;
+    }
   }
+
 
   mensaje += `\n\n💵 *TOTAL A PAGAR:* $${total.toLocaleString('es-CO')} COP\n\n`;
   mensaje += "📌 Quedo atento para confirmar disponibilidad de stock y datos de envío.";

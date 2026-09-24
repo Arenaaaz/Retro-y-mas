@@ -334,8 +334,13 @@ const CAMISETAS = [
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: true,
-    dorsalInmediato: "Zidane 10",
-    tallasInmediatas: ["L"],
+    prendaInmediata: {
+      manga: "Manga corta",
+      parches: "Sin parches",
+      bordados: "Sin bordado",
+      tallas: ["L"],
+      dorsales: ["Zidane 10"]
+    },
     precio: 100000,
     descripcion: "Camiseta retro Francia versión local temporada 2006.",
     imagenes: ["img/Francia06.jpeg", "img/Francia06-1.jpeg", "img/Francia06-2.jpeg"],
@@ -482,8 +487,13 @@ const CAMISETAS = [
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: true,
-    dorsalInmediato: "Sin dorsal",
-    tallasInmediatas: ["L"],
+    prendaInmediata: {
+      manga: "Manga corta",
+      parches: "Sin parches",
+      bordados: "Sin bordado",
+      tallas: ["L"],
+      dorsales: ["Sin dorsal"]
+    },
     precio: 100000,
     descripcion: "Camiseta actual Portugal versión \"La pantera negra\" temporada 2026.",
     imagenes: ["img/Portugal26.jpg", "img/Portugal26-1.jpg"],
@@ -615,8 +625,13 @@ const CAMISETAS = [
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: true,
-    dorsalInmediato: "Ronaldo 7 - Manga larga + parches",
-    tallasInmediatas: ["L"],
+    prendaInmediata: {
+      manga: "Manga larga",
+      parches: "Parches",
+      bordados: "Sin bordado",
+      tallas: ["L"],
+      dorsales: ["Ronaldo 7"]
+    },
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2017/2018.",
     imagenes: ["img/Real17.jpeg", "img/Real17-1.jpeg", "img/Real17-2.jpeg"],
@@ -775,8 +790,13 @@ const CAMISETAS = [
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: true,
-    dorsalInmediato: "Messi 10",
-    tallasInmediatas: ["L"],
+    prendaInmediata: {
+      manga: "Manga corta",
+      parches: "Sin parches",
+      bordados: "Sin bordado",
+      tallas: ["L"],
+      dorsales: ["Messi 10"]
+    },
     precio: 100000,
     descripcion: "Camiseta retro Barcelona temporada 2010/2011.",
     imagenes: ["img/Barcelona10.jpeg", "img/Barcelona10-1.jpeg", "img/Barcelona10-2.jpeg"],
@@ -1213,6 +1233,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta alternativa de Real Madrid 06/07",
     imagenes: ["img/Real06-Alternativa.jpg", "img/Real06-Alternativa-1.jpg", "img/Real06-Alternativa-2.jpg", "img/Real06-Alternativa-3.jpg"],
+    tallas: ["S", "M", "L", "XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1230,6 +1251,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Barcelona temporada 26/27",
     imagenes: ["img/Barcelona26.jpg", "img/Barcelona26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1249,7 +1271,8 @@ const CAMISETAS = [
     entregaInmediata: false,
     precio: 100000,
     descripcion: "Camiseta local de Boca Juniors 02/03",
-    imagenes: ["img/Boca02.jpg", "img/Boca02-1.jpg", "img/Boca02-2.jpg"]
+    imagenes: ["img/Boca02.jpg", "img/Boca02-1.jpg", "img/Boca02-2.jpg"],
+    tallas: ["S", "M", "L", "XL"]
 
   },
   {
@@ -1864,7 +1887,7 @@ const CORTAVIENTOS = [
     tallasInmediatas: ["M", "L"],
     precio: 150000,
     descripcion: "Cortavientos impermeable con capota del PSG.",
-    imagenes: ["img/WindB-Psg.jpeg","img/WindB-Psg-1.jpeg","img/WindB-Psg-2-jpeg"],
+    imagenes: ["img/WindB-Psg.jpeg","img/WindB-Psg-1.jpeg","img/WindB-Psg-2.jpeg"],
     tallas: ["S", "M", "L", "XL"]
   }
 ];
