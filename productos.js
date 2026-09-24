@@ -116,6 +116,7 @@ const CAMISETAS = [
   {
     id: "CAM-08",
     nombre: "Argentina 2026 Alternativa",
+    grupo: "Argentina 2026",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
@@ -295,13 +296,13 @@ const CAMISETAS = [
   },
   {
     id: "CAM-21",
-    nombre: "Chelsea 26/27 Local",
+    nombre: "Chelsea 25/26 Local",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: false,
     precio: 100000,
-    descripcion: "Camiseta Chelsea versión local temporada 2026/2027.",
-    imagenes: ["img/Chelsea26.jpg", "img/Chelsea26-1.jpg", "img/Chelsea26-2.jpg"],
+    descripcion: "Camiseta Chelsea versión local temporada 2025/2026.",
+    imagenes: ["img/Chelsea25.jpg", "img/Chelsea25-1.jpg", "img/Chelsea25-2.jpg"],
     tallas: ["S", "M", "L", "XL"]
   },
   {
@@ -477,6 +478,7 @@ const CAMISETAS = [
   {
     id: "CAM-34",
     nombre: "Portugal 2026 \"La pantera negra\"",
+    grupo: "Portugal 2026",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     entregaInmediata: true,
@@ -1249,6 +1251,377 @@ const CAMISETAS = [
     descripcion: "Camiseta local de Boca Juniors 02/03",
     imagenes: ["img/Boca02.jpg", "img/Boca02-1.jpg", "img/Boca02-2.jpg"]
 
+  },
+  {
+    id: "CAM-81",
+    nombre: "Colombia 2026 Local",
+    grupo: "Colombia 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Colombia versión local temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Colombia26.jpg", "img/Colombia26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-82",
+    nombre: "Colombia 2026 Edición Especial",
+    grupo: "Colombia 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Ediciones Especiales",
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta edición especial Colombia temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Colombia26-SE.jpg", "img/Colombia26-SE-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-83",
+    nombre: "Argentina 2026 Local",
+    grupo: "Argentina 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Argentina versión local temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Argentina26-Local.jpg", "img/Argentina26-Local-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-84",
+    nombre: "Francia 2026 Local",
+    grupo: "Francia 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Francia versión local temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Francia26.jpg", "img/Francia26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-85",
+    nombre: "Francia 2026 Visitante",
+    grupo: "Francia 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Francia versión visitante temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Francia26-Visitante.jpg", "img/Francia26-Visitante-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-86",
+    nombre: "Brasil 2026 Local",
+    grupo: "Brasil 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Brasil versión local temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Brasil26.jpg", "img/Brasil26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-87",
+    nombre: "Brasil 2026 Visitante",
+    grupo: "Brasil 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Brasil versión visitante temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Brasil26-Visitante.jpg", "img/Brasil26-Visitante-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-88",
+    nombre: "Portugal 2026 Local",
+    grupo: "Portugal 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Portugal versión local temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Portugal26-Local.jpg", "img/Portugal26-Local-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-89",
+    nombre: "Japón 2026 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Japón versión local temporada 2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Japon26.jpg", "img/Japon26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-90",
+    nombre: "Barcelona 26/27 Alternativa",
+    grupo: "Barcelona 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Barcelona versión alternativa temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Barcelona26-Alternativa.jpg", "img/Barcelona26-Alternativa-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-91",
+    nombre: "Chelsea 26/27 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Chelsea versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Chelsea26.jpg", "img/Chelsea26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-92",
+    nombre: "Inter de Milán 26/27 Local",
+    grupo: "Inter de Milán 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Inter de Milán versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/InterMilan26.jpg", "img/InterMilan26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-93",
+    nombre: "Inter de Milán 26/27 Visitante",
+    grupo: "Inter de Milán 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Inter de Milán versión visitante temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/InterMilan26-Alternativa.jpg", "img/InterMilan26-Alternativa-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-94",
+    nombre: "River Plate 25/26 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual River Plate temporada 2025/2026. Disponible en manga corta y manga larga.",
+    imagenes: ["img/River25.jpg", "img/River25-1.jpg", "img/River25-2.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-95",
+    nombre: "Flamengo 26/27 Local",
+    grupo: "Flamengo 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Flamengo versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Flamengo26.jpg", "img/Flamengo26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-96",
+    nombre: "Flamengo 26/27 Alternativa",
+    grupo: "Flamengo 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Flamengo versión alternativa temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Flamengo26-Alternativa.jpg", "img/Flamengo26-Alternativa-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-97",
+    nombre: "Manchester City 26/27 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Manchester City versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/ManCity26.jpg", "img/ManCity26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-98",
+    nombre: "Palmeiras 26/27 Local",
+    grupo: "Palmeiras 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Palmeiras versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Palmeiras26.jpg", "img/Palmeiras26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-99",
+    nombre: "Palmeiras 26/27 Alternativa",
+    grupo: "Palmeiras 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Palmeiras versión alternativa temporada 2026/2027. Disponible en manga corta y manga larga.",
+    imagenes: ["img/Palmeiras26-Alternativa.jpg", "img/Palmeiras26-Alternativa-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-100",
+    nombre: "Atlético Nacional 2026 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta actual Atlético Nacional temporada 2026.",
+    imagenes: ["img/AtlNacional26.jpg", "img/AtlNacional26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"]
+  },
+  {
+    id: "CAM-101",
+    nombre: "Real Madrid 02/03 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Real Madrid versión local temporada 2002/2003.",
+    imagenes: ["img/Real02.jpg", "img/Real02-1.jpg"],
+    tallas: ["S", "M", "L", "XL"]
+  },
+  {
+    id: "CAM-102",
+    nombre: "Boca Juniors 00/01 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Boca Juniors versión local temporada 2000/2001.",
+    imagenes: ["img/Boca00.jpg", "img/Boca00-1.jpg"],
+    tallas: ["S", "M", "L", "XL"]
   }
 ];
 

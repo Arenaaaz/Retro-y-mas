@@ -2522,3 +2522,59 @@ body:has(.modal-overlay.active) {
   background: var(--navy);
   color: white;
 }
+
+/* ==========================================================================
+   22. ENVÍO Y FORMA DE PEDIDO POR ENCARGO (dentro del modal de pedido)
+   ========================================================================== */
+.banner-envio-pedido:empty {
+  display: none;
+}
+
+.banner-envio-texto {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--text-main);
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.selector-forma-encargo {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.selector-forma-titulo {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.opcion-forma-encargo {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.opcion-forma-encargo:not(:last-child) {
+  border-bottom: 1px solid #fde68a;
+}
+
+.opcion-forma-encargo input[type="radio"] {
+  margin-top: 3px;
+  accent-color: var(--navy);
+  flex-shrink: 0;
+}
