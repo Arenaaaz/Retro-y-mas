@@ -611,6 +611,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Real Madrid 06/07",
     imagenes: ["img/Real06-Local.jpg", "img/Real06-Local-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },

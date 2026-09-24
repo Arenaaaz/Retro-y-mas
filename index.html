@@ -99,6 +99,9 @@
   <!-- Barra de Navegación con Botón Ancho Completo -->
   <nav class="categorias-nav">
     <div class="top-nav-bar">
+      <button type="button" id="btn-salir-resenas" class="btn-volver-catalogo" onclick="volverAlCatalogo()">
+        ← Volver al catálogo
+      </button>
       <!-- Botón Menú Lateral / Sidebar Ancho Completo -->
       <button class="btn-menu-sidebar-full" onclick="toggleSidebar()">
         <span class="icono-menu">☰</span>
@@ -115,6 +118,7 @@
     </div>
 
     <div class="busqueda-container">
+      <label class="visually-hidden" for="input-busqueda">Buscar productos</label>
       <input type="text" id="input-busqueda" placeholder="🔍 Buscar por equipo, año o prenda..." onkeyup="filtrarPorBusqueda()">
     </div>
 
@@ -221,7 +225,6 @@
          por el botón de Reseñas o por el link ?vista=resenas (irAResenas()
          en script.js), para no alargar la portada con todas las reseñas. -->
     <section id="seccion-testimonios" class="seccion-testimonios" style="display: none;">
-      <button type="button" class="btn-volver-catalogo" onclick="volverAlCatalogo()">← Volver al catálogo</button>
       <div class="testimonios-header">
         <h2>Lo que dicen nuestros clientes</h2>
         <div id="resumen-calificacion" class="resumen-calificacion"></div>

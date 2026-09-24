@@ -134,9 +134,13 @@ const INFO_VISTA_RESENAS = {
  * ocultando el catálogo mientras tanto. `actualizarUrl` se pone en false
  * solo cuando la propia carga de la página ya trae ?vista=resenas. */
 function irAResenas(actualizarUrl = true) {
+  document.body.classList.add("vista-resenas-activa");
   document.getElementById("seccion-entrega-inmediata")?.style.setProperty("display", "none");
   document.getElementById("seccion-catalogo-general")?.style.setProperty("display", "none");
   document.querySelector(".banner-encargo")?.style.setProperty("display", "none");
+  document.querySelector(".seccion-confianza")?.style.setProperty("display", "none");
+  document.querySelector(".seccion-faq")?.style.setProperty("display", "none");
+  document.getElementById("guia-tallas")?.style.setProperty("display", "none");
   document.getElementById("seccion-testimonios")?.style.setProperty("display", "block");
 
   if (actualizarUrl) {
@@ -156,8 +160,12 @@ function irAResenas(actualizarUrl = true) {
  * activa) — categoriaActual no se toca al entrar a reseñas, así que todavía
  * guarda ese dato. */
 function volverAlCatalogo() {
+  document.body.classList.remove("vista-resenas-activa");
   document.getElementById("seccion-testimonios")?.style.setProperty("display", "none");
   document.querySelector(".banner-encargo")?.style.setProperty("display", "block");
+  document.querySelector(".seccion-confianza")?.style.setProperty("display", "block");
+  document.querySelector(".seccion-faq")?.style.setProperty("display", "block");
+  document.getElementById("guia-tallas")?.style.setProperty("display", "block");
 
   const url = new URL(window.location.href);
   url.searchParams.delete('vista');
@@ -682,7 +690,7 @@ function cambiarImagenPrincipal(idProducto, nuevaUrl, elementoMiniatura) {
  *
  * @param {string|number} idProducto - id del producto a mostrar.
  */
-function abrirVistaProducto(idProducto) {
+function abrirVistaProducto(idProducto, actualizarUrl = true) {
   const prod = PRODUCTOS.find(p => String(p.id) === String(idProducto));
   if (!prod) return;
 
@@ -870,7 +878,7 @@ function abrirVistaProducto(idProducto) {
 
   document.body.style.overflow = "hidden";
   document.getElementById("modal-opciones-producto").classList.add("active");
-  actualizarURLProducto(prod);
+  if (actualizarUrl) actualizarURLProducto(prod);
 }
 
 /** Dibuja la foto actual (según vistaIndiceActual) en el panel izquierdo del modal. */
@@ -1183,8 +1191,19 @@ function confirmarAgregarAlCarrito() {
 
 document.addEventListener("keydown", (e) => {
   const modalVista = document.getElementById("modal-opciones-producto");
-  if (!modalVista || !modalVista.classList.contains("active")) return;
-  if (e.key === "Escape") cerrarModalOpciones();
+  const modalPedido = document.getElementById("modal-pedido");
+  const modalDatos = document.getElementById("modal-datos-envio");
+  const modalFoto = document.getElementById("modal-foto-resena");
+
+  if (e.key === "Escape") {
+    if (modalDatos?.classList.contains("active")) cerrarModalDatosEnvio();
+    else if (modalPedido?.classList.contains("active")) cerrarModalPedido();
+    else if (modalFoto?.classList.contains("active")) cerrarVisorFoto();
+    else if (modalVista?.classList.contains("active")) cerrarModalOpciones();
+    return;
+  }
+
+  if (!modalVista?.classList.contains("active")) return;
   if (e.key === "ArrowLeft") cambiarImagenVista(-1);
   if (e.key === "ArrowRight") cambiarImagenVista(1);
 });
@@ -1196,13 +1215,23 @@ document.addEventListener("keydown", (e) => {
  */
 window.addEventListener("popstate", () => {
   const modalVista = document.getElementById("modal-opciones-producto");
-  const tieneProductoEnURL = new URL(window.location.href).searchParams.has('producto');
-  if (modalVista?.classList.contains("active") && !tieneProductoEnURL) {
+  const parametrosURL = new URL(window.location.href).searchParams;
+  const idProductoURL = parametrosURL.get('producto');
+  const productoActualURL = productoSeleccionadoTemp ? String(productoSeleccionadoTemp.id) : '';
+  const tieneProductoEnURL = Boolean(idProductoURL);
+  if (modalVista?.classList.contains("active") && idProductoURL && idProductoURL !== productoActualURL) {
+    abrirVistaProducto(idProductoURL, false);
+  } else if (modalVista?.classList.contains("active") && !tieneProductoEnURL) {
     document.getElementById("modal-opciones-producto").classList.remove("active");
     document.body.style.overflow = "";
     productoSeleccionadoTemp = null;
     vistaImagenesActuales = [];
     actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
+  }
+
+  const tipoURL = parametrosURL.get('tipo');
+  if (tipoURL && INFO_TIPO_PRENDA[tipoURL] && tipoURL !== tipoPrendaActual) {
+    filtrarTipoPrenda(tipoURL, null, false);
   }
 
   // Si estaba en la vista de reseñas y con "atrás" ya no queda ?vista=resenas
@@ -1211,8 +1240,12 @@ window.addEventListener("popstate", () => {
   const estaEnVistaResenas = document.getElementById("seccion-testimonios")?.style.display === "block";
   const tieneVistaResenasEnURL = new URL(window.location.href).searchParams.get('vista') === 'resenas';
   if (estaEnVistaResenas && !tieneVistaResenasEnURL) {
+    document.body.classList.remove("vista-resenas-activa");
     document.getElementById("seccion-testimonios").style.display = "none";
     document.querySelector(".banner-encargo")?.style.setProperty("display", "block");
+    document.querySelector(".seccion-confianza")?.style.setProperty("display", "block");
+    document.querySelector(".seccion-faq")?.style.setProperty("display", "block");
+    document.getElementById("guia-tallas")?.style.setProperty("display", "block");
     actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
 
     if (categoriaActual === 'entrega-inmediata') {
@@ -1734,11 +1767,11 @@ function renderizarFAQ() {
 
   contenedor.innerHTML = FAQS.map((item, idx) => `
     <div class="faq-item" id="faq-item-${idx}">
-      <button class="faq-pregunta" onclick="toggleFAQ(${idx})">
+      <button class="faq-pregunta" aria-expanded="false" aria-controls="faq-respuesta-${idx}" onclick="toggleFAQ(${idx})">
         <span>${item.pregunta}</span>
         <span class="faq-icono">+</span>
       </button>
-      <div class="faq-respuesta">
+      <div class="faq-respuesta" id="faq-respuesta-${idx}" role="region">
         <p>${item.respuesta}</p>
       </div>
     </div>
@@ -1748,7 +1781,9 @@ function renderizarFAQ() {
 /** Abre o cierra una pregunta del acordeón de FAQ según su índice. */
 function toggleFAQ(idx) {
   const item = document.getElementById(`faq-item-${idx}`);
-  if (item) item.classList.toggle("active");
+  if (!item) return;
+  const abierto = item.classList.toggle("active");
+  item.querySelector(".faq-pregunta")?.setAttribute("aria-expanded", String(abierto));
 }
 
 // ==========================================================================
