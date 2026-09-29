@@ -14,7 +14,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro AC Milan versión local temporada 2006/2007.",
     imagenes: ["img/AcMilan06.jpeg", "img/AcMilan06-1.jpeg", "img/AcMilan06-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -35,7 +35,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta retro Argentina versión local temporada 2006.",
     imagenes: ["img/Argentina06.jpg", "img/Argentina06-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -53,7 +53,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Brasil versión local temporada 2002.",
     imagenes: ["img/Brasil02.jpeg", "img/Brasil02-1.jpeg", "img/Brasil02-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-04",
@@ -64,7 +64,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Manchester United local temporada 2007/2008.",
     imagenes: ["img/United07.jpeg", "img/United07-1.jpeg", "img/United07-2.jpeg", "img/United07-3.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -88,7 +88,7 @@ const CAMISETAS = [
     precio: 110000,
     descripcion: "Camiseta retro AC Milan edición especial beige temporada 2023/2024.",
     imagenes: ["img/AcMilan23-Blanco.jpg", "img/AcMilan23-Blanco-1.jpg", "img/AcMilan23-Blanco-2.jpg", "img/AcMilan23-Blanco-3.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-06",
@@ -100,7 +100,7 @@ const CAMISETAS = [
     precio: 110000,
     descripcion: "Camiseta retro AC Milan edición especial oscura temporada 2023/2024.",
     imagenes: ["img/AcMilan23-Negra.jpg", "img/AcMilan23-Negra-1.jpg", "img/AcMilan23-Negra-2.jpg", "img/AcMilan23-Negra-3.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-07",
@@ -111,7 +111,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Alemania versión local temporada 2024.",
     imagenes: ["img/Alemania24.jpg", "img/Alemania24-1.jpg", "img/Alemania24-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-08",
@@ -123,7 +123,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Argentina versión alternativa temporada 2026.",
     imagenes: ["img/Argentina26.jpg", "img/Argentina26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-09",
@@ -134,7 +134,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Arsenal versión local temporada 2005.",
     imagenes: ["img/Arsenal05.jpeg", "img/Arsenal05-1.jpeg", "img/Arsenal05-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -155,7 +155,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Arsenal versión alternativa temporada 2022.",
     imagenes: ["img/Arsenal22.jpeg", "img/Arsenal22-1.jpeg", "img/Arsenal22-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-11",
@@ -166,7 +166,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Barcelona de local temporada 2008.",
     imagenes: ["img/Barcelona08.jpeg", "img/Barcelona08-1.jpeg", "img/Barcelona08-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -189,7 +189,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Barcelona versión local temporada 2005/2006.",
     imagenes: ["img/Barcelona05.jpeg", "img/Barcelona05-1.jpeg", "img/Barcelona05-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -212,7 +212,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta edicion especial Travis Scott Barcelona temporada 2025/2026.",
     imagenes: ["img/BarcelonaSE-Travis.jpg", "img/BarcelonaSE-Travis-1.jpg", "img/BarcelonaSE-Travis-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-14",
@@ -223,7 +223,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta edicion especial Barcelona temporada 2025/2026.",
     imagenes: ["img/BarcelonaSE-Rosa.jpg", "img/BarcelonaSE-Rosa-1.jpg", "img/BarcelonaSE-Rosa-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-15",
@@ -234,7 +234,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Bayern Munich versión local temporada 2017/2018.",
     imagenes: ["img/Bayern17.jpg", "img/Bayern17-1.jpg", "img/Bayern17-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-16",
@@ -245,7 +245,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Bayern Munich versión local temporada 2024/2025.",
     imagenes: ["img/Bayern24.jpg", "img/Bayern24-1.jpg", "img/Bayern24-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-17",
@@ -256,7 +256,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Bayern Munich versión local temporada 2025/26.",
     imagenes: ["img/Bayern25.jpg", "img/Bayern25-1.jpg", "img/Bayern25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-18",
@@ -268,7 +268,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Brasil versión alternativa azul temporada 2002.",
     imagenes: ["img/Brasil02-Alternativa.jpg", "img/Brasil02-Alternativa-1.jpg", "img/Brasil02-Alternativa-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-19",
@@ -280,7 +280,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Brasil temporada 2010.",
     imagenes: ["img/Brasil10.jpg", "img/Brasil10-1.jpg", "img/Brasil10-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-20",
@@ -292,7 +292,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Brasil versión alternativa azul temporada 2010.",
     imagenes: ["img/Brasil10-Alternativa.jpeg", "img/Brasil10-Alternativa-1.jpeg", "img/Brasil10-Alternativa-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-21",
@@ -303,7 +303,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta Chelsea versión local temporada 2025/2026.",
     imagenes: ["img/Chelsea25.jpg", "img/Chelsea25-1.jpg", "img/Chelsea25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-22",
@@ -314,7 +314,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Chelsea versión Champions League local temporada 2011/2012.",
     imagenes: ["img/Chelsea11.jpeg", "img/Chelsea11-1.jpeg", "img/Chelsea11-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -344,7 +344,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Francia versión local temporada 2006.",
     imagenes: ["img/Francia06.jpeg", "img/Francia06-1.jpeg", "img/Francia06-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-24",
@@ -355,7 +355,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual de Francia versión local temporada 2025.",
     imagenes: ["img/Francia25.jpg", "img/Francia25-1.jpg", "img/Francia25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -372,7 +372,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Francia versión local temporada 2018.",
     imagenes: ["img/Francia18.jpeg", "img/Francia18-1.jpeg", "img/Francia18-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -389,7 +389,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Inter de Milan versión local temporada 2025/2026.",
     imagenes: ["img/InterMilan25.jpg", "img/InterMilan25-1.jpg", "img/InterMilan25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-27",
@@ -400,7 +400,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Inter de Milan versión local temporada 2004/2005.",
     imagenes: ["img/InterMilan04.jpg", "img/InterMilan04-1.jpg", "img/InterMilan04-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-28",
@@ -411,7 +411,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Inter de Milan versión local temporada 2001/2002.",
     imagenes: ["img/InterMilan01.jpeg", "img/InterMilan01-1.jpeg", "img/InterMilan01-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-29",
@@ -422,7 +422,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Inter de Milan versión local temporada 2011/2012.",
     imagenes: ["img/InterMilan11.jpg", "img/InterMilan11-1.jpg", "img/InterMilan11-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-30",
@@ -433,7 +433,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Japon versión local temporada 2006.",
     imagenes: ["img/Japon06.jpg", "img/Japon06-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-31",
@@ -444,7 +444,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Juventus versión local temporada 2004/2005.",
     imagenes: ["img/Juventus04.jpg", "img/Juventus04-1.jpg", "img/Juventus04-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-32",
@@ -455,7 +455,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Juventus versión local temporada 2019/2020.",
     imagenes: ["img/Juventus19.jpeg", "img/Juventus19-1.jpeg", "img/Juventus19-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -472,7 +472,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Noruega versión local temporada 2026.",
     imagenes: ["img/Noruega26.jpg", "img/Noruega26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -497,7 +497,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Portugal versión \"La pantera negra\" temporada 2026.",
     imagenes: ["img/Portugal26.jpg", "img/Portugal26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-35",
@@ -508,7 +508,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Portugal versión local temporada 2016.",
     imagenes: ["img/Portugal16.jpeg", "img/Portugal16-1.jpeg", "img/Portugal16-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -525,7 +525,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta edicion especial \"The Siuu\" Portugal temporada 2023.",
     imagenes: ["img/PortugalSE.jpeg", "img/PortugalSE-1.jpg", "img/PortugalSE-2.jpg", "img/PortugalSE-3.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-37",
@@ -536,7 +536,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Paris Saint Germain versión local temporada 2021/2022.",
     imagenes: ["img/Psg21.jpg", "img/Psg21-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -553,7 +553,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Paris Saint Germain versión local temporada 2024/2025.",
     imagenes: ["img/Psg24.jpg", "img/Psg24-1.jpg", "img/Psg24-2.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -571,7 +571,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid versión visitante temporada 2022/2023.",
     imagenes: ["img/Real22.jpeg", "img/Real22-1.jpeg", "img/Real22-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-40",
@@ -582,7 +582,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta edicion especial Real Madrid temporada 2025/2026.",
     imagenes: ["img/RealSE25.jpeg", "img/RealSE25-1.jpeg", "img/RealSE25-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-41",
@@ -593,7 +593,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2012/2013.",
     imagenes: ["img/Real12-Visitante.jpeg", "img/Real12-Visitante-1.jpeg", "img/Real12-Visitante-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
         manga: [
             { tipo: "Manga Corta", adicional: 0 },
@@ -611,7 +611,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Real Madrid 06/07",
     imagenes: ["img/Real06-Local.jpg", "img/Real06-Local-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -636,7 +636,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2017/2018.",
     imagenes: ["img/Real17.jpeg", "img/Real17-1.jpeg", "img/Real17-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -658,7 +658,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid Visitante temporada 2017/2018.",
     imagenes: ["img/Real17-Visitante.jpeg", "img/Real17-Visitante-1.jpeg", "img/Real17-Visitante-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
         manga: [
             { tipo: "Manga Corta", adicional: 0 },
@@ -676,7 +676,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Real Madrid Local temporada 2026/2027.",
     imagenes: ["img/Real26.jpg", "img/Real26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
         manga: [
             { tipo: "Manga Corta", adicional: 0 },
@@ -694,7 +694,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Real Madrid Visitante temporada 2026/2027.",
     imagenes: ["img/Real26-Visitante.jpeg", "img/Real26-Visitante-1.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
         manga: [
             { tipo: "Manga Corta", adicional: 0 },
@@ -711,7 +711,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Sporting temporada 2003/2004.",
     imagenes: ["img/Sporting03.jpg", "img/Sporting03-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
         manga: [
             { tipo: "Manga Corta", adicional: 0 },
@@ -728,7 +728,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta edicion especial Japon temporada 2024.",
     imagenes: ["img/JaponSE24.jpg", "img/JaponSE24-1.jpg", "img/JaponSE24-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-49",
@@ -739,7 +739,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta edicion especial \"La Pulga\" Argentina temporada 2023.",
     imagenes: ["img/ArgentinaSE23.jpeg", "img/ArgentinaSE23-1.jpg", "img/ArgentinaSE23-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-50",
@@ -750,7 +750,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta edicion especial Brasil temporada 2022.",
     imagenes: ["img/BrasilSE22.jpeg", "img/BrasilSE22-1.jpeg", "img/BrasilSE22-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-51",
@@ -761,7 +761,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta retro Colombia temporada 2014.",
     imagenes: ["img/Colombia14.jpg", "img/Colombia14-1.jpg", "img/Colombia14-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-52",
@@ -772,7 +772,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta retro Colombia temporada 1994.",
     imagenes: ["img/Colombia94.jpg", "img/Colombia94-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-53",
@@ -783,7 +783,7 @@ const CAMISETAS = [
     precio: 120000,
     descripcion: "Camiseta retro España temporada 2008.",
     imagenes: ["img/España08.jpeg", "img/España08-1.jpg", "img/España08-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-54",
@@ -801,7 +801,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Barcelona temporada 2010/2011.",
     imagenes: ["img/Barcelona10.jpeg", "img/Barcelona10-1.jpeg", "img/Barcelona10-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -824,7 +824,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro AC Milan temporada 2009/2010.",
     imagenes: ["img/AcMilan09.jpeg", "img/AcMilan09-1.jpeg", "img/AcMilan09-2.jpeg", "img/AcMilan09-3.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -846,7 +846,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro AC Milan versión visitante temporada 2006/2007.",
     imagenes: ["img/AcMilan06-Visitante.jpg", "img/AcMilan06-Visitante-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -869,7 +869,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual PSG temporada 2025/2026.",
     imagenes: ["img/Psg25.jpg", "img/Psg25-1.jpg", "img/Psg25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -891,7 +891,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Manchester City temporada 2025/2026.",
     imagenes: ["img/ManCity25.jpg", "img/ManCity25-1.jpg", "img/ManCity25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -912,7 +912,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual PSG temporada 2026/2027.",
     imagenes: ["img/Psg26.jpg", "img/Psg26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -934,7 +934,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Manchester City temporada 2025/2026.",
     imagenes: ["img/ManCity25-Alternativa.jpg", "img/ManCity25-Alternativa-1.jpg", "img/ManCity25-Alternativa-2.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -955,7 +955,7 @@ const CAMISETAS = [
     precio: 110000,
     descripcion: "Camiseta especial Vasco da Gama temporada 2022/2023.",
     imagenes: ["img/VascoSE22.jpeg", "img/VascoSE22-1.jpeg", "img/VascoSE22-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "CAM-62",
@@ -966,7 +966,7 @@ const CAMISETAS = [
     precio: 110000,
     descripcion: "Camiseta especial Italia temporada 2022/2023.",
     imagenes: ["img/ItaliaSE22.jpeg", "img/ItaliaSE22-1.jpeg", "img/ItaliaSE22-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-63",
@@ -977,7 +977,7 @@ const CAMISETAS = [
     precio: 110000,
     descripcion: "Camiseta especial Italia temporada 2023/2024.",
     imagenes: ["img/ItaliaSE23.jpeg", "img/ItaliaSE23-1.jpeg", "img/ItaliaSE23-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-64",
@@ -988,7 +988,7 @@ const CAMISETAS = [
     precio: 110000,
     descripcion: "Camiseta especial Italia temporada 2024/2025.",
     imagenes: ["img/ItaliaSE24.jpeg", "img/ItaliaSE24-1.jpeg", "img/ItaliaSE24-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-65",
@@ -999,7 +999,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local Inglaterra temporada 2004.",
     imagenes: ["img/Inglaterra04.jpg", "img/Inglaterra04-1.jpg", "img/Inglaterra04-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-66",
@@ -1011,7 +1011,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta Visitante AC Milan temporada 2026/2027",
     imagenes: ["img/AcMilan26-Visitante.jpg", "img/AcMilan26-Visitante-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   }, 
   {
     id: "CAM-67",
@@ -1023,7 +1023,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta Local AC Milan temporada 2025/2026 ",
     imagenes: ["img/AcMilan25.jpg", "img/AcMilan25-1.jpg", "img/AcMilan25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]   
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-68",
@@ -1034,7 +1034,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Portugal temporada 2004",
     imagenes: ["img/Portugal04.jpeg","img/Portugal04-1.jpeg","img/Portugal04-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes:
     {
       manga: [
@@ -1052,7 +1052,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Brasil temporada 2004 - Nota: La prenda está disponible en manga larga y corta",
     imagenes: ["img/Brasil04.jpg", "img/Brasil04-2.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes:
     {
       manga: [
@@ -1070,7 +1070,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Argentina 2024",
     imagenes: ["img/Argentina24.jpg", "img/Argentina24-1.jpg", "img/Argentina24-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-71",
@@ -1082,7 +1082,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Real Madrid 22/23",
     imagenes: ["img/Real22-Local.jpeg", "img/Real22-Local-1.jpeg", "img/Real22-Local-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1103,7 +1103,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Real Madrid 22/23",
     imagenes: ["img/Real23.jpg", "img/Real23-1.jpg", "img/Real23-2.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1126,7 +1126,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Real Madrid 22/23",
     imagenes: ["img/Real21.jpeg", "img/Real21-1.jpeg", "img/Real21-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1150,7 +1150,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Real Madrid 11/12  - Nota: La prenda está disponible en manga larga y corta",
     imagenes: ["img/Real11.jpg", "img/Real11-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1172,7 +1172,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta visitante de Real Madrid 11/12",
     imagenes: ["img/Real11-Visitante.jpg", "img/Real11-Visitante-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1194,7 +1194,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta alternativa de Real Madrid 11/12",
     imagenes: ["img/Real11-Alternativa.jpg", "img/Real11-Alternativa-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1216,7 +1216,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2006/2007.",
     imagenes: ["img/Real06.jpeg", "img/Real06-1.jpeg", "img/Real06-2.jpeg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1234,7 +1234,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta alternativa de Real Madrid 06/07",
     imagenes: ["img/Real06-Alternativa.jpg", "img/Real06-Alternativa-1.jpg", "img/Real06-Alternativa-2.jpg", "img/Real06-Alternativa-3.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1252,7 +1252,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Barcelona temporada 26/27",
     imagenes: ["img/Barcelona26.jpg", "img/Barcelona26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes:{
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1273,7 +1273,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta local de Boca Juniors 02/03",
     imagenes: ["img/Boca02.jpg", "img/Boca02-1.jpg", "img/Boca02-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
 
   },
   {
@@ -1286,7 +1286,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Colombia versión local temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Colombia26.jpg", "img/Colombia26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1304,7 +1304,7 @@ const CAMISETAS = [
     precio: 110000,
     descripcion: "Camiseta edición especial Colombia temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Colombia26-SE.jpg", "img/Colombia26-SE-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1322,7 +1322,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Argentina versión local temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Argentina26-Local.jpg", "img/Argentina26-Local-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1340,7 +1340,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Francia versión local temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Francia26.jpg", "img/Francia26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1358,7 +1358,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Francia versión visitante temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Francia26-Visitante.jpg", "img/Francia26-Visitante-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1376,7 +1376,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Brasil versión local temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Brasil26.jpg", "img/Brasil26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1394,7 +1394,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Brasil versión visitante temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Brasil26-Visitante.jpg", "img/Brasil26-Visitante-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1412,7 +1412,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Portugal versión local temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Portugal26-Local.jpg", "img/Portugal26-Local-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1429,7 +1429,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Japón versión local temporada 2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/Japon26.jpg", "img/Japon26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1447,7 +1447,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Barcelona versión alternativa temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/Barcelona26-Alternativa.jpg", "img/Barcelona26-Alternativa-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1464,7 +1464,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Chelsea versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/Chelsea26.jpg", "img/Chelsea26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1482,7 +1482,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Inter de Milán versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/InterMilan26.jpg", "img/InterMilan26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1500,7 +1500,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Inter de Milán versión visitante temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/InterMilan26-Alternativa.jpg", "img/InterMilan26-Alternativa-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1517,7 +1517,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual River Plate temporada 2025/2026. Disponible en manga corta y manga larga.",
     imagenes: ["img/River25.jpg", "img/River25-1.jpg", "img/River25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1535,7 +1535,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Flamengo versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/Flamengo26.jpg", "img/Flamengo26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1553,7 +1553,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Flamengo versión alternativa temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/Flamengo26-Alternativa.jpg", "img/Flamengo26-Alternativa-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1570,7 +1570,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Manchester City versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/ManCity26.jpg", "img/ManCity26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1588,7 +1588,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Palmeiras versión local temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/Palmeiras26.jpg", "img/Palmeiras26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1606,7 +1606,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Palmeiras versión alternativa temporada 2026/2027. Disponible en manga corta y manga larga.",
     imagenes: ["img/Palmeiras26-Alternativa.jpg", "img/Palmeiras26-Alternativa-1.jpg"],
-    tallas: ["S", "M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
       manga: [
         { tipo: "Manga Corta", adicional: 0 },
@@ -1623,7 +1623,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta actual Atlético Nacional temporada 2026.",
     imagenes: ["img/AtlNacional26.jpg", "img/AtlNacional26-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-101",
@@ -1634,7 +1634,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid versión local temporada 2002/2003.",
     imagenes: ["img/Real02.jpg", "img/Real02-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "CAM-102",
@@ -1645,7 +1645,7 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Boca Juniors versión local temporada 2000/2001.",
     imagenes: ["img/Boca00.jpg", "img/Boca00-1.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   }
 ];
 
@@ -1660,7 +1660,7 @@ const PANTALONETAS = [
     precio: 50000,
     descripcion: "Pantaloneta local Argentina temporada 2024.",
     imagenes: ["img/ShortArgentina24.jpg", "img/ShortArgentina24-1.jpg", "img/ShortArgentina24-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "PAN-02",
@@ -1671,7 +1671,7 @@ const PANTALONETAS = [
     precio: 50000,
     descripcion: "Pantaloneta local Chelsea temporada 2025/2026.",
     imagenes: ["img/ShortChelsea25.jpg", "img/ShortChelsea25-1.jpg", "img/ShortChelsea25-2.jpg"],
-    tallas: ["S", "M", "L", "XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
     id: "PAN-03",

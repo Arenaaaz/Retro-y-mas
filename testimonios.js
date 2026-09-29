@@ -81,5 +81,21 @@ const TESTIMONIOS = [
     comentario: "Calidad increible y la prenda muy exclusiva. Se notan muy bien los detalles y la tela es perfecta para vestir o jugar.",
     producto: "AC Milan 2006 Local",
     imagenes: ["img/resena6.jpg"]
-  }
+  },
+  {
+    nombre: "Eric",
+    ciudad: "Medellin",
+    calificacion: 5,
+    comentario: "Excelente calidad y detalle de bordados.",
+    producto: "Real Madrid 06/07 Visitante",
+    imagenes: ["img/resena7.jpg"]
+  },
+  {
+    nombre: "Eric",
+    ciudad: "Medellin",
+    calificacion: 5,
+    comentario: "Calidad de tela increible, acabados y bordados elegantes.",
+    producto: "AC Milan 09/10 Local",
+    imagenes: ["img/resena8.jpg"]
+  },
 ];
