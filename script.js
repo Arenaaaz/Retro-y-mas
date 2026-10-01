@@ -1,55 +1,20 @@
 // ==========================================================================
 // SCRIPT PRINCIPAL DE LA TIENDA
 // ==========================================================================
-// Este archivo contiene TODA la lógica del sitio: catálogo, filtros, carrito,
-// modal de personalización de producto y testimonios. No contiene datos de
-// productos (eso vive en productos.js) ni reseñas (eso vive en testimonios.js).
-//
-// Índice de este archivo (usa Ctrl+F con estos títulos para saltar rápido):
-//   1. CONFIGURACIÓN DEL NEGOCIO
-//   2. VARIABLES GLOBALES
-//   3. INICIALIZACIÓN
-//   4. RENDERIZADO DE CATEGORÍAS
-//   5. RENDERIZADO DE TESTIMONIOS
-//   6. RENDERIZADO DE PRODUCTOS
-//   7. MODAL DE VISTA RÁPIDA DE PRODUCTO (foto grande + personalización)
-//   8. FILTROS Y BÚSQUEDA
-//   9. CARRITO Y ENVÍO POR WHATSAPP
-//   10. VISOR DE FOTOS DE RESEÑAS
-//   11. PREGUNTAS FRECUENTES (FAQ)
-//   12. SIDEBAR
-// ==========================================================================
 
-
-// ==========================================================================
 // 1. CONFIGURACIÓN DEL NEGOCIO
-// ==========================================================================
-// Cambia estos valores para actualizar datos del negocio en TODO el sitio
-// sin tener que buscar número por número en el resto del código.
 const CONFIG = {
   nombreTienda: "Retro y más",
-  whatsapp: "573013276930", // Formato: código de país + número, sin +, sin espacios
+  whatsapp: "573013276930",
   moneda: "COP",
   redesSociales: {
     instagram: "https://www.instagram.com/retroymas_/"
   },
-  // TODO: ajusta este valor al costo real de tu envío nacional.
-  // Se suma solo cuando el pedido tiene menos de 3 prendas Y no incluye
-  // ninguna prenda de Entrega Inmediata (esas se manejan aparte, por
-  // domiciliario en Medellín — ver actualizarBannerPedido en este archivo).
   costoEnvio: 15000,
   minimoPrendasSinEnvio: 3
 };
 
-// ==========================================================================
 // 1B. ENLACES COMPARTIBLES Y TÍTULOS POR SECCIÓN
-// ==========================================================================
-// Permiten que compartir el link de una prenda puntual, o de una sección
-// como "Pantalonetas", lleve a quien lo abra directo a esa vista (en vez de
-// siempre caer en la portada), y que la pestaña del navegador muestre un
-// título acorde en cada caso. Todo pasa por la URL (?producto=ID o
-// ?tipo=Camisetas) sin recargar la página ni crear archivos nuevos, así que
-// no hay nada adicional que mantener.
 const TITULO_BASE = document.title;
 const DESCRIPCION_BASE = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
 
@@ -72,15 +37,12 @@ const INFO_TIPO_PRENDA = {
   }
 };
 
-/** Cambia el título de la pestaña y la meta description (para SEO y para que
- * el link se vea bien si alguien lo comparte). */
 function actualizarMetaPagina(titulo, descripcion) {
   document.title = titulo || TITULO_BASE;
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.setAttribute('content', descripcion || DESCRIPCION_BASE);
 }
 
-/** Pone en la URL (sin recargar la página) qué tipo de prenda se está viendo. */
 function actualizarURLTipo(tipo) {
   const url = new URL(window.location.href);
   url.searchParams.set('tipo', tipo);
@@ -90,11 +52,6 @@ function actualizarURLTipo(tipo) {
   actualizarMetaPagina(info?.titulo, info?.descripcion);
 }
 
-/** Pone en la URL (sin recargar la página) qué producto se está viendo, para
- * que el link de la barra de direcciones se pueda copiar y compartir tal
- * cual y abra ese producto directamente. Si la URL ya traía ese mismo
- * producto (ej. se llegó por un link compartido), reemplaza en vez de
- * apilar una entrada duplicada en el historial. */
 function actualizarURLProducto(prod) {
   const url = new URL(window.location.href);
   const yaEstabaEsteProducto = url.searchParams.get('producto') === String(prod.id);
@@ -107,35 +64,24 @@ function actualizarURLProducto(prod) {
   actualizarMetaPagina(`${prod.nombre} | ${CONFIG.nombreTienda}`, prod.descripcion || DESCRIPCION_BASE);
 }
 
-/** Quita "producto" o "tipo" de la URL al cerrar el modal o al volver a ver
- * todo el catálogo, y restaura el título original de la página. */
 function limpiarURLProducto() {
   const url = new URL(window.location.href);
-  if (!url.searchParams.has('producto')) return; // nada que limpiar
+  if (!url.searchParams.has('producto')) return;
   url.searchParams.delete('producto');
   history.replaceState(null, '', url);
   actualizarMetaPagina(TITULO_BASE, DESCRIPCION_BASE);
 }
 
-// ==========================================================================
 // 1C. VISTA DE RESEÑAS COMO "PÁGINA" APARTE
-// ==========================================================================
-// No es un archivo .html nuevo (eso obligaría a mantener el header, sidebar,
-// footer y modales duplicados en dos archivos) — es la misma página, pero
-// intercambiando qué se ve, con su propia URL (?vista=resenas) para que se
-// pueda compartir o guardar en favoritos igual que si fuera una página real.
-
 const INFO_VISTA_RESENAS = {
   titulo: `Reseñas de clientes | ${CONFIG.nombreTienda}`,
   descripcion: 'Lo que dicen nuestros clientes sobre las camisetas retro de fútbol de Retro y más.'
 };
 
-/** Muestra la sección completa de reseñas como si fuera una página aparte,
- * ocultando el catálogo mientras tanto. `actualizarUrl` se pone en false
- * solo cuando la propia carga de la página ya trae ?vista=resenas. */
 function irAResenas(actualizarUrl = true) {
   document.body.classList.add("vista-resenas-activa");
   document.getElementById("seccion-entrega-inmediata")?.style.setProperty("display", "none");
+  document.getElementById("seccion-oferta-especial")?.style.setProperty("display", "none");
   document.getElementById("seccion-catalogo-general")?.style.setProperty("display", "none");
   document.querySelector(".banner-encargo")?.style.setProperty("display", "none");
   document.querySelector(".seccion-confianza")?.style.setProperty("display", "none");
@@ -154,11 +100,6 @@ function irAResenas(actualizarUrl = true) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/** Vuelve del "página" de reseñas al catálogo normal, restaurando
- * exactamente lo que se estaba viendo antes de entrar a reseñas (incluida
- * la sección especial de "Entrega Inmediata" si esa era la que estaba
- * activa) — categoriaActual no se toca al entrar a reseñas, así que todavía
- * guarda ese dato. */
 function volverAlCatalogo() {
   document.body.classList.remove("vista-resenas-activa");
   document.getElementById("seccion-testimonios")?.style.setProperty("display", "none");
@@ -174,21 +115,17 @@ function volverAlCatalogo() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   if (categoriaActual === 'entrega-inmediata') {
-    filtrarCategoria('entrega-inmediata'); // muestra de nuevo esa sección especial y oculta el catálogo general
+    filtrarCategoria('entrega-inmediata');
+  } else if (categoriaActual === 'oferta-especial') {
+    filtrarCategoria('oferta-especial');
   } else {
     document.getElementById("seccion-entrega-inmediata")?.style.setProperty("display", "none");
+    document.getElementById("seccion-oferta-especial")?.style.setProperty("display", "none");
     document.getElementById("seccion-catalogo-general")?.style.setProperty("display", "block");
     ejecutarFiltroCombinado();
   }
 }
 
-/**
- * Botón 🔗 del modal de producto. En celular usa el panel nativo de
- * compartir de WhatsApp/Instagram/etc. (navigator.share); en computador,
- * donde ese panel no existe, copia el link al portapapeles y avisa con un
- * toast. El link apunta a la URL actual (ya trae ?producto=ID desde
- * actualizarURLProducto, que se llama al abrir el modal).
- */
 async function compartirProducto() {
   if (!productoSeleccionadoTemp) return;
   const url = window.location.href;
@@ -197,9 +134,7 @@ async function compartirProducto() {
   if (navigator.share) {
     try {
       await navigator.share({ title: titulo, url });
-    } catch (err) {
-      // El usuario cerró el panel de compartir sin elegir nada; no es un error real.
-    }
+    } catch (err) {}
     return;
   }
 
@@ -213,7 +148,6 @@ async function compartirProducto() {
 
 let timeoutToast = null;
 
-/** Muestra un mensaje corto flotante que desaparece solo (ej. "Enlace copiado"). */
 function mostrarToast(mensaje) {
   let toast = document.getElementById("toast-mensaje");
   if (!toast) {
@@ -231,34 +165,22 @@ function mostrarToast(mensaje) {
   }, 2200);
 }
 
-// ==========================================================================
 // 2. VARIABLES GLOBALES
-// ==========================================================================
 let carrito = [];
 let total = 0;
-let costoEnvioAplicado = 0; // se recalcula en cada actualizarCarrito(); ver actualizarBannerPedido()
-let formaEncargoSeleccionada = ''; // '100' o '50'; ver selector "Forma de pedido" en modal-pedido
+let costoEnvioAplicado = 0;
+let formaEncargoSeleccionada = '';
 let datosEnvio = null;
 let tipoPrendaActual = 'Camisetas';
 let categoriaActual = 'todos';
 
-// Producto que está abierto actualmente en el modal de vista rápida, y las
-// opciones que el cliente ha ido eligiendo dentro de ese modal.
 let productoSeleccionadoTemp = null;
 let opcionesSeleccionadas = { talla: '', manga: '', parches: '', nombreNumero: '' };
 
-// Estado de navegación de fotos dentro del modal de vista rápida.
 let vistaImagenesActuales = [];
 let vistaIndiceActual = 0;
 
-// --------------------------------- INICIALIZACIÓN ---------------------------------
-/**
- * Punto de entrada del sitio. Se ejecuta una sola vez, cuando el HTML ya
- * terminó de cargar. Dibuja el catálogo y los testimonios, actualiza el año
- * del footer, y decide si debe abrir directamente la sección de "entrega
- * inmediata" (cuando alguien llega desde un enlace con #entrega-inmediata,
- * por ejemplo un anuncio).
- */
+// 3. INICIALIZACIÓN
 document.addEventListener("DOMContentLoaded", () => {
   renderizarCategorias();
   renderizarTestimonios();
@@ -278,43 +200,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const vistaURL = parametrosURL.get('vista');
 
   if (vistaURL === 'resenas') {
-    // Alguien entró por un link directo a las reseñas (?vista=resenas);
-    // el "false" evita reescribir la URL que ya está bien.
     irAResenas(false);
   } else if (window.location.hash === "#entrega-inmediata") {
     filtrarCategoria("entrega-inmediata");
   } else if (tipoURL && INFO_TIPO_PRENDA[tipoURL]) {
-    // Alguien entró por un link tipo ?tipo=Pantalonetas (ej. compartido o
-    // desde el sidebar); el "false" evita reescribir la URL que ya está bien.
     filtrarTipoPrenda(tipoURL, null, false);
     actualizarMetaPagina(INFO_TIPO_PRENDA[tipoURL].titulo, INFO_TIPO_PRENDA[tipoURL].descripcion);
   } else {
-    // Por defecto, la página arranca en "Todos" — se ve el catálogo
-    // general completo, no la caja oscura de Entrega Inmediata (esa
-    // solo aparece si el cliente toca ese chip a propósito).
     filtrarCategoria("todos");
   }
 
-  // Si además la URL trae ?producto=ID (ej. un link directo a una prenda
-  // puntual compartido por WhatsApp), se abre ese producto de una vez.
   if (idProductoURL) {
     const prod = PRODUCTOS.find(p => String(p.id) === String(idProductoURL));
     if (prod) abrirVistaProducto(prod.id);
   }
 
-  actualizarNavCompacta(); // por si la página carga ya con scroll (ej. #entrega-inmediata)
+  actualizarNavCompacta();
 });
 
-// ==========================================================================
 // 4. RENDERIZADO DE CATEGORÍAS
-// ==========================================================================
-/**
- * Dibuja los botones de subcategoría (los "chips" horizontales debajo del
- * buscador: "Todos", "Entrega Inmediata", y una por cada categoría que
- * exista dentro del tipo de prenda actualmente seleccionado). Se vuelve a
- * llamar cada vez que el cliente cambia de tipo de prenda en el sidebar,
- * porque las categorías disponibles cambian según el tipo.
- */
 function renderizarCategorias() {
   const contenedor = document.getElementById("contenedor-categorias");
   if (!contenedor) return;
@@ -328,6 +232,7 @@ function renderizarCategorias() {
 
   contenedor.innerHTML = `
     <button class="btn-categoria active" onclick="filtrarCategoria('todos', this)">Todos</button>
+    <button class="btn-categoria btn-oferta-limitada" onclick="filtrarCategoria('oferta-especial', this)">🔥 Ofertas Especiales</button>
     <button class="btn-categoria btn-inmediato" onclick="filtrarCategoria('entrega-inmediata', this)">⚡ Entrega Inmediata</button>
     ${categoriasUnicas.map(cat => `
       <button class="btn-categoria" onclick="filtrarCategoria('${cat}', this)">
@@ -337,30 +242,12 @@ function renderizarCategorias() {
   `;
 }
 
-// ==========================================================================
 // 5. RENDERIZADO DE TESTIMONIOS
-// ==========================================================================
-/**
- * Convierte un número de calificación (1 a 5) en estrellas de texto.
- * Redondea al entero más cercano antes de dibujar, así que un 4.6 se ve
- * como 5 estrellas llenas.
- */
 function generarEstrellas(calificacion) {
   const llenas = Math.round(Number(calificacion) || 0);
   return '★'.repeat(llenas) + '☆'.repeat(5 - llenas);
 }
 
-/**
- * Dibuja la sección completa de testimonios: la barra corta que aparece
- * arriba de todo el sitio (siempre visible, con o sin reseñas todavía), el
- * resumen de calificación junto al título de la sección, y cada tarjeta de
- * reseña individual (incluyendo las fotos que el cliente haya compartido).
- *
- * Si TESTIMONIOS (definido en testimonios.js) está vacío, en vez de
- * ocultar la sección se muestra una invitación a dejar la primera reseña:
- * así el cliente siempre encuentra el apartado en el mismo lugar, exista o
- * no contenido todavía (punto 1 del pedido de rediseño).
- */
 function renderizarTestimonios() {
   const contenedor = document.getElementById("contenedor-testimonios");
   const resumen = document.getElementById("resumen-calificacion");
@@ -375,8 +262,6 @@ function renderizarTestimonios() {
   const linkDejarResena = `https://wa.me/${CONFIG.whatsapp}?text=${mensajeInvitacion}`;
 
   if (listaTestimonios.length === 0) {
-    // Barra superior siempre visible, incluso sin reseñas: mantiene el
-    // acceso predecible aunque el contenido cambie.
     if (barraSuperior) {
       barraSuperior.innerHTML = `
         <a href="?vista=resenas" onclick="event.preventDefault(); irAResenas();">
@@ -397,10 +282,6 @@ function renderizarTestimonios() {
     return;
   }
 
-  // Number(...) convierte a número cualquier valor válido; si el campo
-  // "calificacion" de alguna reseña faltara o estuviera mal escrito (por
-  // ejemplo "calificación" con tilde), esto evita que todo el promedio
-  // se dañe y muestre "NaN" en vez de un número.
   const promedio = listaTestimonios.reduce((sum, t) => sum + (Number(t.calificacion) || 0), 0) / listaTestimonios.length;
 
   if (barraSuperior) {
@@ -454,13 +335,6 @@ function renderizarTestimonios() {
   renderizarBannerResenas(listaTestimonios);
 }
 
-/**
- * Dibuja el banner compacto de reseñas: fotos apiladas (decorativas) +
- * calificación + un solo botón "Ver todas". Reemplaza a la fila de
- * "historias" tipo Instagram, que no se adaptaba bien a pantallas chicas y
- * no quedaba claro qué eran — esto siempre ocupa el mismo alto sin
- * importar cuántas reseñas haya ni el ancho de pantalla.
- */
 function renderizarBannerResenas(listaTestimonios) {
   const contenedor = document.getElementById("banner-resenas");
   if (!contenedor) return;
@@ -477,7 +351,6 @@ function renderizarBannerResenas(listaTestimonios) {
 
   const promedio = listaTestimonios.reduce((sum, t) => sum + (Number(t.calificacion) || 0), 0) / listaTestimonios.length;
 
-  // Hasta 4 fotos apiladas, con iniciales para quien no mandó foto.
   const fotos = listaTestimonios.slice(0, 4).map(t => {
     if (t.imagenes && t.imagenes.length > 0) {
       return `<span class="banner-resenas-avatar"><img src="${t.imagenes[0]}" alt="Foto de ${t.nombre}"></span>`;
@@ -498,20 +371,7 @@ function renderizarBannerResenas(listaTestimonios) {
   `;
 }
 
-// ==========================================================================
 // 6. RENDERIZADO DE PRODUCTOS
-// ==========================================================================
-/**
- * Dibuja una cuadrícula de tarjetas de producto dentro del contenedor
- * indicado. Se usa tanto para el catálogo general (#contenedor-productos)
- * como para la sección de entrega inmediata (#contenedor-stock-inmediato).
- * Las prendas con entrega inmediata siempre aparecen primero.
- *
- * @param {Array<Object>} productos - Lista de productos a dibujar (ya
- *   filtrada; esta función no vuelve a filtrar nada).
- * @param {string} idContenedor - id del elemento donde se inserta el grid.
- */
-/** Normaliza la disponibilidad inmediata nueva y la estructura antigua. */
 function obtenerDisponibilidadInmediata(prod) {
   const disponibilidad = prod.prendaInmediata || {};
   const comoLista = valor => {
@@ -587,13 +447,6 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
     return;
   }
 
-  // Prioridad 1: entrega inmediata, SIEMPRE por prenda individual (no por
-  // grupo) — así una versión sin stock nunca "arrastra" hacia arriba, ni
-  // esconde, a otra que sí tiene, y el cliente ve de una todas las prendas
-  // realmente disponibles ahora mismo.
-  // Prioridad 2 (dentro de cada uno de esos dos bloques): las versiones
-  // del mismo equipo (campo "grupo" en productos.js) se muestran juntas,
-  // sin importar en qué orden se agregaron al archivo.
   const primerIndicePorClave = new Map();
   productos.forEach((p, idx) => {
     const clave = p.grupo || p.id;
@@ -608,7 +461,7 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
     const claveA = a.grupo || a.id;
     const claveB = b.grupo || b.id;
     if (claveA !== claveB) return primerIndicePorClave.get(claveA) - primerIndicePorClave.get(claveB);
-    return 0; // mismo grupo: conservan su orden original entre sí
+    return 0;
   });
 
   contenedor.innerHTML = productosOrdenados.map(prod => {
@@ -654,15 +507,6 @@ function renderizarProductos(productos, idContenedor = "contenedor-productos") {
   }).join('');
 }
 
-/**
- * Cambia la foto principal mostrada en una tarjeta de producto del catálogo
- * (no confundir con cambiarImagenVista, que hace lo mismo pero dentro del
- * modal de vista rápida).
- *
- * @param {string} idProducto - id del producto dueño de la miniatura.
- * @param {string} nuevaUrl - ruta de la imagen que se debe mostrar.
- * @param {HTMLElement} elementoMiniatura - la miniatura sobre la que se hizo clic.
- */
 function cambiarImagenPrincipal(idProducto, nuevaUrl, elementoMiniatura) {
   const imgPrincipal = document.getElementById(`img-principal-${idProducto}`);
   if (imgPrincipal) imgPrincipal.src = nuevaUrl;
@@ -673,23 +517,7 @@ function cambiarImagenPrincipal(idProducto, nuevaUrl, elementoMiniatura) {
   }
 }
 
-// ==========================================================================
 // 7. MODAL DE VISTA RÁPIDA DE PRODUCTO
-// ==========================================================================
-// Este es el modal combinado que pidió Sebastian: una sola ventana con la
-// foto grande y navegable a la izquierda, y el panel de personalización +
-// precio + botón de agregar a la derecha (se apilan en celular). Reemplaza
-// lo que antes eran dos ventanas separadas (una para ampliar fotos y otra
-// para elegir talla/dorsal).
-
-/**
- * Abre el modal de vista rápida para un producto: prepara el estado de la
- * galería de fotos, resetea las opciones elegidas a sus valores por
- * defecto, y dibuja el formulario de personalización (talla, estampado,
- * variantes de manga/parches y bordado conmemorativo si aplican).
- *
- * @param {string|number} idProducto - id del producto a mostrar.
- */
 function abrirVistaProducto(idProducto, actualizarUrl = true) {
   const prod = PRODUCTOS.find(p => String(p.id) === String(idProducto));
   if (!prod) return;
@@ -698,11 +526,6 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
   vistaImagenesActuales = prod.imagenes || [];
   vistaIndiceActual = 0;
 
-  // Si la prenda está en Entrega Inmediata, se auto-selecciona la talla y
-  // el dorsal que realmente hay en stock hoy, en vez de dejar la primera
-  // talla del arreglo por defecto — así el cliente ve de una el pedido
-  // exacto que se puede despachar ya mismo, sin tener que adivinar cuál
-  // combinación es la que está disponible.
   const disponibilidadInmediata = obtenerDisponibilidadInmediata(prod);
   const tallaInmediataDefault = (prod.entregaInmediata && disponibilidadInmediata.tallas.length) ? disponibilidadInmediata.tallas[0] : null;
   const dorsalDisponible = disponibilidadInmediata.dorsales.find(dorsal => !/^sin\b/i.test(dorsal.trim()));
@@ -737,7 +560,6 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
   renderizarMiniaturasVista();
   renderizarDotsVista();
 
-  // Evaluar si la prenda permite estampado (solo Camisetas)
   const esCamiseta = !prod.tipoPrenda || prod.tipoPrenda.toLowerCase() === 'camisetas';
 
   const contenedorBody = document.getElementById("modal-opt-body");
@@ -765,7 +587,6 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
       `;
     })()}
 
-    <!-- 1. SELECCIÓN DE TALLA -->
     ${prod.tallas && prod.tallas.length > 0 ? `
       <div class="selector-chip-container">
         <label>
@@ -787,7 +608,6 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
       </div>
     ` : ''}
 
-    <!-- 2. CAMPO DE ESTAMPADO (SÓLO SE MUESTRA EN CAMISETAS) -->
     ${esCamiseta ? `
       <div class="campo-personalizacion-container">
         <label for="input-nombre-numero">🖊️ Nombre y Número de Jugador (Opcional)</label>
@@ -805,7 +625,6 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
       </div>
     ` : ''}
 
-    <!-- 3. VARIANTES DE MANGA (SI APLICA) -->
     ${prod.variantes?.manga ? `
       <div class="selector-chip-container">
         <label>👕 Tipo de Manga</label>
@@ -826,7 +645,6 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
       </div>
     ` : ''}
 
-    <!-- 4. VARIANTES DE PARCHES (SI APLICA) -->
     ${prod.variantes?.parches ? `
       <div class="selector-chip-container">
         <label>🛡️ Parches / Escudos</label>
@@ -847,18 +665,17 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
       </div>
     ` : ''}
 
-    <!-- 5. BORDADO CONMEMORATIVO (SI APLICA) -->
     ${prod.tieneOpcionBordado ? `
       <div class="selector-chip-container">
         <label>🏆 Incluir ${prod.textoBordado || 'Bordado de la Final'} (Sin costo extra)</label>
         <div class="chips-wrapper">
           <button type="button"
-              class="chip-opcion ${opcionesSeleccionadas.bordadoConmemorativo === 'Sin bordado' ? 'active' : ''} ${prod.entregaInmediata && disponibilidadInmediata.bordados === 'Sin bordado' ? 'chip-inmediato' : ''}"
+              class="chip-opcion ${opcionesSeleccionadas.bordadoConmemorativo === 'Sin bordado' ? 'active' : ''}${prod.entregaInmediata && disponibilidadInmediata.bordados === 'Sin bordado' ? 'chip-inmediato' : ''}"
                   onclick="cambiarOpcionModal('bordadoConmemorativo', 'Sin bordado', this)">
             Sin bordado ${prod.entregaInmediata && disponibilidadInmediata.bordados === 'Sin bordado' ? '⚡' : ''}
           </button>
           <button type="button"
-              class="chip-opcion ${opcionesSeleccionadas.bordadoConmemorativo !== 'Sin bordado' ? 'active' : ''} ${prod.entregaInmediata && disponibilidadInmediata.bordados !== 'Sin bordado' && disponibilidadInmediata.bordados ? 'chip-inmediato' : ''}"
+              class="chip-opcion ${opcionesSeleccionadas.bordadoConmemorativo !== 'Sin bordado' ? 'active' : ''}${prod.entregaInmediata && disponibilidadInmediata.bordados !== 'Sin bordado' && disponibilidadInmediata.bordados ? 'chip-inmediato' : ''}"
                   onclick="cambiarOpcionModal('bordadoConmemorativo', '${prod.textoBordado || 'Con Bordado de la Final'}', this)">
             Con Bordado Final ⚽ ${prod.entregaInmediata && disponibilidadInmediata.bordados !== 'Sin bordado' && disponibilidadInmediata.bordados ? '⚡' : ''}
           </button>
@@ -881,7 +698,6 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
   if (actualizarUrl) actualizarURLProducto(prod);
 }
 
-/** Dibuja la foto actual (según vistaIndiceActual) en el panel izquierdo del modal. */
 function renderizarImagenVista() {
   const img = document.getElementById("vista-img-principal");
   if (!img || vistaImagenesActuales.length === 0) return;
@@ -889,7 +705,6 @@ function renderizarImagenVista() {
   img.alt = productoSeleccionadoTemp ? productoSeleccionadoTemp.nombre : '';
 }
 
-/** Dibuja la fila de miniaturas debajo de la foto principal del modal. */
 function renderizarMiniaturasVista() {
   const cont = document.getElementById("vista-miniaturas");
   if (!cont) return;
@@ -902,11 +717,6 @@ function renderizarMiniaturasVista() {
   `).join('');
 }
 
-/**
- * Dibuja los puntos indicadores de foto que reemplazan a las miniaturas en
- * celular (ver CSS: .vista-galeria-dots solo se muestra en esa pantalla).
- * Cada punto también es clicable para saltar directo a esa foto.
- */
 function renderizarDotsVista() {
   const cont = document.getElementById("vista-dots");
   if (!cont) return;
@@ -919,7 +729,6 @@ function renderizarDotsVista() {
   `).join('');
 }
 
-/** Salta directamente a una foto específica dentro del modal (clic en miniatura). */
 function irAImagenVista(idx) {
   vistaIndiceActual = idx;
   renderizarImagenVista();
@@ -927,11 +736,6 @@ function irAImagenVista(idx) {
   renderizarDotsVista();
 }
 
-/**
- * Avanza o retrocede una foto dentro del modal, dando la vuelta al llegar
- * al final o al principio (por eso el módulo con el total de imágenes).
- * @param {number} delta - usa -1 para "anterior" y 1 para "siguiente".
- */
 function cambiarImagenVista(delta) {
   if (vistaImagenesActuales.length === 0) return;
   const totalImagenes = vistaImagenesActuales.length;
@@ -941,11 +745,6 @@ function cambiarImagenVista(delta) {
   renderizarDotsVista();
 }
 
-/**
- * Registra la opción elegida (talla, manga, parches o bordado), resalta el
- * botón correspondiente como activo dentro de su mismo grupo, y recalcula
- * el precio mostrado.
- */
 function cambiarOpcionModal(tipo, valor, elemento) {
   opcionesSeleccionadas[tipo] = valor;
 
@@ -970,11 +769,6 @@ function cambiarOpcionModal(tipo, valor, elemento) {
   actualizarPrecioModal();
 }
 
-/**
- * Recalcula el precio final sumando los adicionales de manga y parches (si
- * el cliente eligió alguna variante con costo extra) y lo pinta en los dos
- * lugares donde se muestra el precio dentro del modal.
- */
 function actualizarPrecioModal() {
   if (!productoSeleccionadoTemp) return;
 
@@ -997,7 +791,6 @@ function actualizarPrecioModal() {
   if (precioVista) precioVista.innerText = precioFormateado;
 }
 
-/** Cierra el modal de vista rápida y limpia el estado temporal del producto. */
 function cerrarModalOpciones() {
   document.getElementById("modal-opciones-producto").classList.remove("active");
   document.body.style.overflow = "";
@@ -1006,13 +799,6 @@ function cerrarModalOpciones() {
   limpiarURLProducto();
 }
 
-/**
- * Se llama desde el link "Ver guía de tallas" dentro del modal de
- * personalización. El modal tapa toda la página mientras está abierto, así
- * que primero hay que cerrarlo y solo después hacer scroll a la sección
- * (si se hace al tiempo, el navegador no tiene una página visible a la
- * cual moverse).
- */
 function verGuiaTallas() {
   cerrarModalOpciones();
   setTimeout(() => {
@@ -1020,33 +806,14 @@ function verGuiaTallas() {
   }, 250);
 }
 
-// ==========================================================================
-// BARRAS QUE REACCIONAN AL SCROLL (arriba y abajo)
-// ==========================================================================
-// 1) Barra superior (botón de secciones + buscador + categorías): se queda
-//    SIEMPRE visible y pegada arriba (no se desliza ni desaparece; eso se
-//    sentía brusco). En vez de eso, apenas el cliente deja el tope de la
-//    página se "compacta": se esconde el botón de Ver secciones/Reseñas y
-//    el buscador se hace más chico. La fila de categorías (Todos, Entrega
-//    Inmediata, Retro...) no cambia nunca de tamaño ni se oculta, para
-//    mantener siempre a mano el filtro más usado.
-// 2) Barra flotante de "Total acumulado" (abajo): esta sí se oculta al
-//    bajar buscando más prendas y reaparece al subir un poco, o de
-//    inmediato al agregar algo al pedido (mostrarBarraCarritoTemporal,
-//    llamada desde confirmarAgregarAlCarrito más abajo).
-
-const UMBRAL_NAV_COMPACTA = 60; // px de scroll desde donde la barra superior empieza a poder compactarse
-const UMBRAL_SCROLL_NAV = 12; // px mínimos de scroll hacia arriba para volver a expandirla
-const PAUSA_TRAS_CAMBIO_NAV = 320; // ms; un poco más que la transición CSS (0.25s)
+// BARRAS QUE REACCIONAN AL SCROLL
+const UMBRAL_NAV_COMPACTA = 60;
+const UMBRAL_SCROLL_NAV = 12;
+const PAUSA_TRAS_CAMBIO_NAV = 320;
 let ultimoScrollYNav = window.scrollY;
 let navCompacta = false;
-let navEnPausa = false; // true mientras la barra está animándose, para no reaccionar a scrolls que ella misma provoca
+let navEnPausa = false;
 
-/**
- * Compacta la barra superior al bajar, y la vuelve a expandir con solo
- * subir un poco el scroll (no hace falta llegar hasta el tope de la
- * página) o al llegar cerca del tope, que siempre la muestra completa.
- */
 function actualizarNavCompacta() {
   if (navEnPausa) return;
 
@@ -1058,17 +825,14 @@ function actualizarNavCompacta() {
   let cambio = false;
 
   if (scrollActual < UMBRAL_NAV_COMPACTA) {
-    // Cerca del tope de la página siempre se muestra completa.
     if (navCompacta) cambio = true;
     nav.classList.remove("compacta");
     navCompacta = false;
   } else if (diferencia > UMBRAL_SCROLL_NAV && !navCompacta) {
-    // Bajando: se compacta para dejar ver más prendas.
     nav.classList.add("compacta");
     navCompacta = true;
     cambio = true;
   } else if (diferencia < -UMBRAL_SCROLL_NAV && navCompacta) {
-    // Subiendo, aunque sea un poco: se vuelve a expandir.
     nav.classList.remove("compacta");
     navCompacta = false;
     cambio = true;
@@ -1077,8 +841,6 @@ function actualizarNavCompacta() {
   ultimoScrollYNav = scrollActual;
 
   if (cambio) {
-    // Mientras dura la transición ignoramos el scroll, y al terminar
-    // resincronizamos la referencia con la posición real ya asentada.
     navEnPausa = true;
     setTimeout(() => {
       navEnPausa = false;
@@ -1089,7 +851,7 @@ function actualizarNavCompacta() {
 
 let ultimoScrollYBarraCarrito = window.scrollY;
 let barraCarritoOculta = false;
-const UMBRAL_SCROLL_BARRA = 12; // px mínimos para reaccionar; evita parpadeos con scrolls muy pequeños
+const UMBRAL_SCROLL_BARRA = 12;
 
 function actualizarVisibilidadBarraCarrito() {
   const barra = document.querySelector(".barra-carrito");
@@ -1099,15 +861,12 @@ function actualizarVisibilidadBarraCarrito() {
   const diferencia = scrollActual - ultimoScrollYBarraCarrito;
 
   if (scrollActual < 80) {
-    // Cerca del tope de la página siempre se muestra.
     barra.classList.remove("barra-carrito-oculta");
     barraCarritoOculta = false;
   } else if (diferencia > UMBRAL_SCROLL_BARRA && !barraCarritoOculta) {
-    // Bajando: se oculta para dejar ver más prendas.
     barra.classList.add("barra-carrito-oculta");
     barraCarritoOculta = true;
   } else if (diferencia < -UMBRAL_SCROLL_BARRA && barraCarritoOculta) {
-    // Subiendo: se vuelve a mostrar.
     barra.classList.remove("barra-carrito-oculta");
     barraCarritoOculta = false;
   }
@@ -1127,12 +886,6 @@ window.addEventListener("scroll", () => {
   }
 }, { passive: true });
 
-/**
- * Muestra la barra del carrito de inmediato, aunque el cliente esté en
- * medio de un scroll hacia abajo (por ejemplo, justo después de agregar
- * una prenda al pedido). Si sigue bajando para ver más prendas, la barra
- * se vuelve a ocultar sola con el listener de scroll de arriba.
- */
 function mostrarBarraCarritoTemporal() {
   const barra = document.querySelector(".barra-carrito");
   if (!barra) return;
@@ -1141,12 +894,6 @@ function mostrarBarraCarritoTemporal() {
   ultimoScrollYBarraCarrito = window.scrollY;
 }
 
-/**
- * Toma las opciones elegidas por el cliente, calcula el precio final y
- * agrega el producto al carrito. Cada línea del carrito recibe un
- * itemUniqueId propio (aunque sea la misma camiseta) para poder eliminarla
- * individualmente sin afectar otras unidades iguales en el pedido.
- */
 function confirmarAgregarAlCarrito() {
   if (!productoSeleccionadoTemp) return;
 
@@ -1208,11 +955,6 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") cambiarImagenVista(1);
 });
 
-/**
- * Al usar el botón "atrás" del navegador estando en el link de un producto
- * (?producto=ID), en vez de salir del sitio de una simplemente se cierra el
- * modal — es el comportamiento que la gente espera de un link compartido.
- */
 window.addEventListener("popstate", () => {
   const modalVista = document.getElementById("modal-opciones-producto");
   const parametrosURL = new URL(window.location.href).searchParams;
@@ -1234,9 +976,6 @@ window.addEventListener("popstate", () => {
     filtrarTipoPrenda(tipoURL, null, false);
   }
 
-  // Si estaba en la vista de reseñas y con "atrás" ya no queda ?vista=resenas
-  // en la URL, hay que volver a mostrar el catálogo (sin volver a empujar
-  // otra entrada al historial, por eso no se llama volverAlCatalogo()).
   const estaEnVistaResenas = document.getElementById("seccion-testimonios")?.style.display === "block";
   const tieneVistaResenasEnURL = new URL(window.location.href).searchParams.get('vista') === 'resenas';
   if (estaEnVistaResenas && !tieneVistaResenasEnURL) {
@@ -1250,29 +989,24 @@ window.addEventListener("popstate", () => {
 
     if (categoriaActual === 'entrega-inmediata') {
       filtrarCategoria('entrega-inmediata');
+    } else if (categoriaActual === 'oferta-especial') {
+      filtrarCategoria('oferta-especial');
     } else {
       document.getElementById("seccion-entrega-inmediata")?.style.setProperty("display", "none");
+      document.getElementById("seccion-oferta-especial")?.style.setProperty("display", "none");
       document.getElementById("seccion-catalogo-general")?.style.setProperty("display", "block");
       ejecutarFiltroCombinado();
     }
   } else if (!estaEnVistaResenas && tieneVistaResenasEnURL) {
-    // Caso inverso: con "adelante" se vuelve a entrar a la vista de reseñas.
     irAResenas(false);
   }
 });
 
-/**
- * Permite pasar de foto en la galería del modal deslizando el dedo hacia
- * la izquierda o la derecha (swipe), pensado sobre todo para celular ahora
- * que ahí la foto ocupa mucho más espacio. Solo reacciona a gestos
- * mayormente horizontales, para no interferir con el scroll vertical de la
- * página cuando alguien desliza en diagonal.
- */
 (() => {
   const galeriaPrincipal = document.getElementById("vista-galeria-principal");
   if (!galeriaPrincipal) return;
 
-  const UMBRAL_SWIPE = 40; // px mínimos para contar como deslizar, no un simple toque
+  const UMBRAL_SWIPE = 40;
   let inicioX = 0;
   let inicioY = 0;
 
@@ -1293,25 +1027,7 @@ window.addEventListener("popstate", () => {
   }, { passive: true });
 })();
 
-// ==========================================================================
 // 8. FILTROS Y BÚSQUEDA
-// ==========================================================================
-/**
- * Cambia el tipo de prenda activo (Camisetas, Pantalonetas, Entrenamiento o
- * Cortavientos), resetea la subcategoría a "todos", vuelve a dibujar los
- * botones de categoría (porque cambian según el tipo) y hace scroll al
- * inicio de la página.
- *
- * @param {string} tipo - uno de los tipoPrenda usados en productos.js.
- * @param {HTMLElement} [elemento] - botón sobre el que se hizo clic, si vino
- *   de la barra horizontal (cuando viene del sidebar no se pasa).
- */
-/**
- * Filtra el catálogo por tipo de prenda (Camisetas, Pantalonetas,
- * Entrenamiento, Cortavientos). `actualizarUrl` se pone en false solo
- * cuando la propia carga de la página ya trae ese tipo en la URL
- * (?tipo=Pantalonetas) y no hace falta volver a escribirla.
- */
 function filtrarTipoPrenda(tipo, elemento, actualizarUrl = true) {
   tipoPrendaActual = tipo;
   categoriaActual = 'todos';
@@ -1330,8 +1046,10 @@ function filtrarTipoPrenda(tipo, elemento, actualizarUrl = true) {
   renderizarCategorias();
 
   const seccionInmediata = document.getElementById("seccion-entrega-inmediata");
+  const seccionOferta = document.getElementById("seccion-oferta-especial");
   const seccionCatalogo = document.getElementById("seccion-catalogo-general");
   if (seccionInmediata) seccionInmediata.style.display = "none";
+  if (seccionOferta) seccionOferta.style.display = "none";
   if (seccionCatalogo) seccionCatalogo.style.display = "block";
 
   ejecutarFiltroCombinado();
@@ -1341,15 +1059,6 @@ function filtrarTipoPrenda(tipo, elemento, actualizarUrl = true) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/**
- * Cambia la subcategoría activa (los chips "Todos", "Retro", "Actual",
- * "Entrega Inmediata", etc.). Cuando la categoría es 'entrega-inmediata' se
- * muestra la sección destacada de stock en vez del catálogo general.
- *
- * @param {string} categoria - 'todos', 'entrega-inmediata', o el nombre
- *   exacto de una categoría definida en productos.js.
- * @param {HTMLElement} [elemento] - botón sobre el que se hizo clic.
- */
 function filtrarCategoria(categoria, elemento) {
   categoriaActual = categoria;
   document.querySelectorAll('.btn-categoria').forEach(btn => btn.classList.remove('active'));
@@ -1364,9 +1073,21 @@ function filtrarCategoria(categoria, elemento) {
   }
 
   const seccionInmediata = document.getElementById("seccion-entrega-inmediata");
+  const seccionOferta = document.getElementById("seccion-oferta-especial");
   const seccionCatalogo = document.getElementById("seccion-catalogo-general");
 
-  if (categoria === 'entrega-inmediata') {
+  if (categoria === 'oferta-especial') {
+    if (seccionInmediata) seccionInmediata.style.display = "none";
+    if (seccionOferta) seccionOferta.style.display = "block";
+    if (seccionCatalogo) seccionCatalogo.style.display = "none";
+
+    const productosOferta = PRODUCTOS.filter(p => {
+      const tipo = p.tipoPrenda || 'Camisetas';
+      const coincideTipo = (tipoPrendaActual === 'todos') || (tipo.toLowerCase() === tipoPrendaActual.toLowerCase());
+      return p.ofertaEspecial === true && coincideTipo;
+    });
+    renderizarProductos(productosOferta, "contenedor-oferta-especial");
+  } else if (categoria === 'entrega-inmediata') {
     const tituloStock = document.getElementById("titulo-stock-dinamico");
     if (tituloStock) {
       const nombreSeccion = tipoPrendaActual === 'todos' ? 'Prendas' : tipoPrendaActual;
@@ -1374,6 +1095,7 @@ function filtrarCategoria(categoria, elemento) {
     }
 
     if (seccionInmediata) seccionInmediata.style.display = "block";
+    if (seccionOferta) seccionOferta.style.display = "none";
     if (seccionCatalogo) seccionCatalogo.style.display = "none";
 
     const productosStock = PRODUCTOS.filter(p => {
@@ -1384,6 +1106,7 @@ function filtrarCategoria(categoria, elemento) {
     renderizarProductos(productosStock, "contenedor-stock-inmediato");
   } else {
     if (seccionInmediata) seccionInmediata.style.display = "none";
+    if (seccionOferta) seccionOferta.style.display = "none";
     if (seccionCatalogo) seccionCatalogo.style.display = "block";
 
     ejecutarFiltroCombinado();
@@ -1398,11 +1121,6 @@ function filtrarCategoria(categoria, elemento) {
 
 let yaSubioPorBusqueda = false;
 
-/** Se ejecuta con cada tecla escrita en el buscador; delega en ejecutarFiltroCombinado
- * y sube la página SOLO la primera vez que se empieza a escribir (si se
- * hiciera en cada tecla, en celular choca con el navegador tratando de
- * mantener visible el campo por encima del teclado, y la pantalla "brinca"
- * con cada letra). */
 function filtrarPorBusqueda() {
   ejecutarFiltroCombinado();
 
@@ -1413,16 +1131,10 @@ function filtrarPorBusqueda() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     yaSubioPorBusqueda = true;
   } else if (!tieneTexto) {
-    yaSubioPorBusqueda = false; // se borró la búsqueda: la próxima vez vuelve a subir una vez
+    yaSubioPorBusqueda = false;
   }
 }
 
-/**
- * Filtro central del catálogo: combina tipo de prenda + categoría + texto
- * de búsqueda al mismo tiempo y vuelve a dibujar el grid de productos. Se
- * llama después de casi cualquier cambio de filtro para mantener todo
- * sincronizado en una sola función.
- */
 function ejecutarFiltroCombinado() {
   const inputBusqueda = document.getElementById('input-busqueda');
   const textoBusqueda = inputBusqueda ? inputBusqueda.value.toLowerCase().trim() : '';
@@ -1441,24 +1153,15 @@ function ejecutarFiltroCombinado() {
   renderizarProductos(resultados, "contenedor-productos");
 }
 
-// ==========================================================================
 // 9. CARRITO Y ENVÍO POR WHATSAPP
-// ==========================================================================
-/** Quita una línea del carrito por su itemUniqueId y refresca los totales visibles. */
 function eliminarDelCarrito(itemUniqueId) {
   carrito = carrito.filter(item => item.itemUniqueId !== itemUniqueId);
   actualizarCarrito();
   renderizarModalPedido();
 }
 
-/**
- * Recalcula el total del carrito y actualiza todos los lugares donde se
- * muestra: la barra flotante inferior, el modal de pedido y el contador de
- * unidades. También activa la animación "con-items" del botón de pedido
- * cuando hay al menos un producto agregado.
- */
 function actualizarCarrito() {
-  actualizarBannerPedido(); // calcula costoEnvioAplicado y dibuja el banner correspondiente, antes de sumar el total
+  actualizarBannerPedido();
 
   total = carrito.reduce((sum, item) => sum + item.precio, 0) + costoEnvioAplicado;
 
@@ -1473,23 +1176,10 @@ function actualizarCarrito() {
   if (btnRealizarPedido) btnRealizarPedido.classList.toggle("con-items", carrito.length > 0);
 }
 
-/**
- * Decide y dibuja qué pasa con el envío según lo que hay en el carrito:
- * - Si hay alguna prenda de Entrega Inmediata: esas se entregan por
- *   domiciliario en Medellín, pagado contraentrega (su valor varía según
- *   la zona) — nunca se suma un monto fijo al total por esto.
- * - Si NO hay ninguna de Entrega Inmediata (todo es "por encargo") y el
- *   pedido tiene menos de CONFIG.minimoPrendasSinEnvio prendas: se
- *   suma CONFIG.costoEnvio al total, y además se muestra el selector de
- *   "Forma de pedido" (100% anticipado o 50% de anticipo).
- * - Si hay 3 o más prendas y nada de Entrega Inmediata: envío nacional
- *   incluido, sin costo adicional, pero el selector de forma de pedido
- *   sigue apareciendo (sigue siendo un pedido por encargo).
- */
 function actualizarBannerPedido() {
   const banner = document.getElementById("banner-envio-pedido");
   const selectorForma = document.getElementById("selector-forma-encargo");
-  if (!banner) return; // el modal de pedido no está en esta página
+  if (!banner) return;
 
   if (carrito.length === 0) {
     banner.innerHTML = '';
@@ -1525,7 +1215,7 @@ function actualizarBannerPedido() {
   }
 
   if (selectorForma) selectorForma.style.display = hayPorEncargo ? 'block' : 'none';
-  if (!hayPorEncargo) formaEncargoSeleccionada = ''; // ya no aplica; evita que quede una selección vieja pegada
+  if (!hayPorEncargo) formaEncargoSeleccionada = '';
 }
 
 function seleccionarFormaEncargo(valor) {
@@ -1558,7 +1248,6 @@ function guardarDatosEnvio() {
   mostrarToast('Datos de envío guardados');
 }
 
-/** Abre el modal que resume el pedido actual (carrito) y bloquea el scroll de fondo. */
 function abrirModalPedido() {
   renderizarModalPedido();
   document.body.style.overflow = "hidden";
@@ -1566,18 +1255,12 @@ function abrirModalPedido() {
   if (modal) modal.classList.add("active");
 }
 
-/** Cierra el modal de resumen de pedido y restaura el scroll de la página. */
 function cerrarModalPedido() {
   const modal = document.getElementById("modal-pedido");
   if (modal) modal.classList.remove("active");
   document.body.style.overflow = "";
 }
 
-/**
- * Dibuja la lista detallada de productos dentro del modal de pedido, con
- * todas las opciones elegidas (talla, dorsal, manga, parches, bordado) y un
- * botón para quitar cada línea individualmente.
- */
 function renderizarModalPedido() {
   const contenedor = document.getElementById("lista-detallada-pedido");
   if (!contenedor) return;
@@ -1613,12 +1296,6 @@ function renderizarModalPedido() {
   }).join('');
 }
 
-/**
- * Construye el mensaje final con todos los productos del carrito y abre
- * WhatsApp con ese texto ya escrito, listo para enviar al número de
- * CONFIG.whatsapp. También dispara el evento "Lead" de Meta Pixel para
- * medir conversiones si en algún momento hay campañas activas.
- */
 function enviarWhatsApp() {
   if (carrito.length === 0) {
     alert("Por favor agrega al menos un producto a tu pedido.");
@@ -1685,7 +1362,6 @@ Nombre y apellido: ${datosEnvio.nombre}`;
     }
   }
 
-
   mensaje += `\n\n💵 *TOTAL A PAGAR:* $${total.toLocaleString('es-CO')} COP\n\n`;
   mensaje += "📌 Quedo atento para confirmar disponibilidad de stock y datos de envío.";
 
@@ -1693,19 +1369,7 @@ Nombre y apellido: ${datosEnvio.nombre}`;
   window.location.href = url;
 }
 
-// ==========================================================================
 // 10. VISOR DE FOTOS DE RESEÑAS
-// ==========================================================================
-// Visor simple (una sola imagen a la vez, sin opciones de compra) para
-// ampliar las fotos que los clientes comparten junto a su reseña. Separado
-// a propósito del modal de vista rápida de producto: aquí no hay nada que
-// personalizar ni agregar al carrito, solo mostrar la foto en grande.
-
-/**
- * Abre el visor de fotos con la imagen de una reseña específica.
- * @param {number} indiceTestimonio - posición del testimonio dentro de TESTIMONIOS.
- * @param {number} indiceImagen - posición de la foto dentro de ese testimonio.
- */
 function abrirVisorFoto(indiceTestimonio, indiceImagen) {
   if (typeof TESTIMONIOS === 'undefined') return;
   const testimonio = TESTIMONIOS[indiceTestimonio];
@@ -1721,18 +1385,12 @@ function abrirVisorFoto(indiceTestimonio, indiceImagen) {
   document.body.style.overflow = "hidden";
 }
 
-/** Cierra el visor de fotos de reseñas y restaura el scroll de la página. */
 function cerrarVisorFoto() {
   document.getElementById("modal-foto-resena").classList.remove("active");
   document.body.style.overflow = "";
 }
 
-// ==========================================================================
 // 11. PREGUNTAS FRECUENTES (FAQ)
-// ==========================================================================
-// Contenido de las preguntas frecuentes. Edítalo libremente aquí: cada
-// objeto es una pregunta con su respuesta; el orden en que las escribas es
-// el orden en que aparecen en la página.
 const FAQS = [
   {
     pregunta: "¿Cómo sé qué talla pedir?",
@@ -1756,11 +1414,6 @@ const FAQS = [
   }
 ];
 
-/**
- * Dibuja el acordeón de preguntas frecuentes a partir del arreglo FAQS de
- * arriba. Cada pregunta empieza cerrada; un clic la abre y cierra sin
- * afectar a las demás (pueden quedar varias abiertas al tiempo).
- */
 function renderizarFAQ() {
   const contenedor = document.getElementById("contenedor-faq");
   if (!contenedor) return;
@@ -1778,7 +1431,6 @@ function renderizarFAQ() {
   `).join('');
 }
 
-/** Abre o cierra una pregunta del acordeón de FAQ según su índice. */
 function toggleFAQ(idx) {
   const item = document.getElementById(`faq-item-${idx}`);
   if (!item) return;
@@ -1786,15 +1438,7 @@ function toggleFAQ(idx) {
   item.querySelector(".faq-pregunta")?.setAttribute("aria-expanded", String(abierto));
 }
 
-// ==========================================================================
 // 12. SIDEBAR
-// ==========================================================================
-/**
- * Abre o cierra el menú lateral de secciones. Cuando se llama desde el
- * clic en el fondo oscuro (overlay), solo cierra si el clic fue exactamente
- * sobre el fondo y no sobre el panel interno (por eso la comprobación de
- * e.target !== e.currentTarget).
- */
 function toggleSidebar(e) {
   if (e && e.target !== e.currentTarget) return;
   const sidebar = document.getElementById("sidebar-secciones");

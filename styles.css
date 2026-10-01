@@ -2,9 +2,7 @@
    1. VARIABLES Y RESET GLOBAL
    ========================================================================== */
 :root {
-  /* Paleta de marca: azul marino de camiseta + dorado de escudo sobre
-     un fondo "lino" neutro (evita el look genérico de papel envejecido
-     plano, manteniendo la calidez que pidió el cliente). */
+  /* Paleta de marca */
   --navy: #0F1830;
   --navy-dark: #090E1D;
   --navy-light: #1C2A47;
@@ -20,10 +18,7 @@
   --text-muted: #5B6272;
   --border-color: #E1DDD0;
 
-  /* Escala única de radios y sombras: se usa en tarjetas, modales, botones
-     y banners para que todo el sitio se sienta "de la misma familia" en
-     vez de que cada bloque tenga su propia esquina y sombra (punto 8 del
-     rediseño: armonía visual). */
+  /* Escala única de radios y sombras */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 18px;
@@ -32,7 +27,7 @@
   --shadow-md: 0 6px 20px rgba(15, 24, 48, 0.12);
   --shadow-lg: 0 12px 32px rgba(15, 24, 48, 0.18);
 
-  /* Compatibilidad con nombres usados en el resto del archivo */
+  /* Compatibilidad */
   --primary: var(--navy);
   --primary-hover: var(--navy-dark);
 }
@@ -57,19 +52,12 @@
 
 html {
   scroll-behavior: smooth;
-  /* Evita que el navegador "compense" solo el scroll cuando la barra
-     superior cambia de tamaño al compactarse/expandirse (scroll anchoring).
-     Sin esto, ese ajuste automático se detecta como un scroll más y puede
-     generar un ciclo de compactar/expandir muy rápido. */
   overflow-anchor: none;
 }
 
 body {
   font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  /* Textura sutil de "malla de camiseta" sobre el fondo lino: un guiño al
-     material del producto en vez de un color plano genérico. */
-  background-image:
-    radial-gradient(rgba(15, 24, 48, 0.035) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(15, 24, 48, 0.035) 1px, transparent 1px);
   background-size: 16px 16px;
   background-color: var(--bg-main);
   color: var(--text-main);
@@ -78,16 +66,11 @@ body {
 /* ==========================================================================
    BARRA DE DESPLAZAMIENTO PERSONALIZADA
    ========================================================================== */
-/* Firefox: grosor delgado + color del "riel" y del "pulgar" (thumb) que
-   combinan con la paleta de la marca. Se aplica a toda la página y a
-   cualquier contenedor interno con scroll propio (modales, sidebar,
-   chips de categorías, miniaturas). */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--gold) var(--bg-main-alt);
 }
 
-/* Chrome, Edge, Safari y otros basados en WebKit */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -112,7 +95,7 @@ h1, h2, h3, .titulo-producto {
   letter-spacing: 0.4px;
 }
 
-/* BLOQUEO DE SCROLL CUANDO UN MODAL ESTÁ ABIERTO */
+/* BLOQUEO DE SCROLL CON MODAL ACTIVO */
 body:has(.modal-overlay.active) {
   overflow: hidden !important;
   touch-action: none;
@@ -222,7 +205,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
 /* ==========================================================================
    3. NAVEGACIÓN, SIDEBAR Y CATEGORÍAS
    ========================================================================== */
-/* BANNER SUPERIOR DE ENVÍOS */
 .shipping-banner {
   background:
     radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px) 0 0 / 14px 14px,
@@ -234,7 +216,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   line-height: 1.4;
 }
 
-/* BOTÓN DE SECCIONES ANCHO COMPLETO */
 .top-nav-bar {
   width: 100%;
   max-width: 1200px;
@@ -249,12 +230,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   opacity: 1;
 }
 
-/* Se activa por JS (ver "BARRA SUPERIOR: COMPACTAR AL HACER SCROLL" en
-   script.js) apenas el cliente deja el tope de la página: se esconde el
-   botón de secciones/reseñas y el buscador se achica (más abajo), pero la
-   fila de categorías (Todos, Entrega Inmediata, Retro...) se mantiene
-   siempre visible y del mismo tamaño para no perder el acceso rápido a
-   los filtros. Es un colapso suave, no un "desaparece toda la barra". */
 .categorias-nav.compacta .top-nav-bar {
   max-height: 0;
   opacity: 0;
@@ -263,8 +238,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   pointer-events: none;
 }
 
-/* La vista de reseñas tiene su propia navegación: no necesita filtros de
-   catálogo ni una barra de carrito cubriendo el pie de página. */
 .vista-resenas-activa .busqueda-container,
 .vista-resenas-activa .categorias-container,
 .vista-resenas-activa #banner-resenas,
@@ -304,7 +277,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   flex-basis: 0;
 }
 
-/* Botón de acceso directo a reseñas, siempre visible junto al menú */
 .btn-ver-resenas-nav {
   flex-shrink: 0;
   display: flex;
@@ -386,7 +358,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   transform: scale(0.99);
 }
 
-/* SIDEBAR LATERAL DESLIZABLE */
 .sidebar-overlay {
   position: fixed;
   top: 0;
@@ -723,14 +694,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* La imagen completa es clicable y abre el mismo modal que el botón
-   "Personalizar y Agregar" (punto 2 del rediseño: una sola acción de
-   pedido en la tarjeta, en vez de un botón de lupa aparte). El cursor y
-   la superposición al pasar el mouse son la única pista visual de que
-   se puede hacer clic ahí; en celular basta con tocar la foto. */
-.img-container {
   cursor: pointer;
 }
 
@@ -1133,17 +1096,10 @@ input:focus-visible,
   transition: transform 0.28s ease;
 }
 
-/* Se activa por JS mientras el cliente sigue bajando para ver más prendas
-   (script.js, sección "BARRA DE CARRITO: OCULTAR AL BAJAR..."). Se desliza
-   fuera de la pantalla en vez de desaparecer de golpe. */
 .barra-carrito.barra-carrito-oculta {
   transform: translateY(150%);
 }
 
-/* En pantallas anchas, "despegamos" la barra de los bordes para que se
-   lea como un elemento flotante y no como una franja pegada de lado a
-   lado (punto 7: menos cuadrada, más "flotante"). En celular se deja
-   pegada a los bordes para no perder espacio útil de toque. */
 @media (min-width: 620px) {
   .barra-carrito {
     left: 16px;
@@ -1296,8 +1252,6 @@ input:focus-visible,
   animation: modalEntrada 0.22s ease-out;
 }
 
-/* Un solo momento de entrada (no animamos nada más dentro del modal) para
-   que abrir la ficha de producto se sienta intencional sin ser excesivo. */
 @keyframes modalEntrada {
   from { opacity: 0; transform: translateY(10px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -1466,17 +1420,12 @@ input:focus-visible,
   box-sizing: border-box;
 }
 
-/* El formulario puede superar la altura disponible en celulares pequeños;
-   el desplazamiento debe abarcar encabezado, campos y botones. */
 #modal-datos-envio > .modal-contenido {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
-/* El resumen puede crecer por las opciones de pago; se desplaza completo
-   para que la lista de productos no quede comprimida entre el encabezado y
-   el pie del modal. */
 #modal-pedido .modal-contenido {
   overflow-y: auto;
   overflow-x: hidden;
@@ -1495,7 +1444,7 @@ input:focus-visible,
 }
 
 /* ==========================================================================
-   10. BANNERS Y SECCIONES DESTACADAS
+   10. BANNERS, SECCIONES DESTACADAS Y OFERTAS ESPECIALES
    ========================================================================== */
 .shipping-banner {
   background: #111827;
@@ -1526,7 +1475,23 @@ input:focus-visible,
   color: #16A34A;
 }
 
-/* BOTÓN DE ENTREGA INMEDIATA EN BARRAS HORIZONTALES */
+/* BOTÓN DE OFERTA ESPECIAL 🔥 */
+.btn-categoria.btn-oferta-limitada,
+.btn-categoria.btn-oferta-limitada:hover,
+.btn-categoria.btn-oferta-limitada.active {
+  background: linear-gradient(135deg, #DC2626, #991B1B) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(220, 38, 38, 0.45);
+  animation: pulse-fire 2s ease-in-out infinite;
+}
+
+@keyframes pulse-fire {
+  0% { box-shadow: 0 2px 10px rgba(220, 38, 38, 0.45); }
+  50% { box-shadow: 0 2px 18px rgba(220, 38, 38, 0.85); }
+  100% { box-shadow: 0 2px 10px rgba(220, 38, 38, 0.45); }
+}
+
 .btn-categoria.btn-inmediato,
 .btn-categoria.btn-inmediato:hover,
 .btn-categoria.btn-inmediato:focus,
@@ -1577,6 +1542,10 @@ input:focus-visible,
   letter-spacing: 0.5px;
 }
 
+.badge-oferta-fire {
+  background: linear-gradient(135deg, #DC2626, #991B1B) !important;
+}
+
 .banner-stock h2 {
   font-size: 1.4rem;
   font-weight: 800;
@@ -1613,6 +1582,32 @@ input:focus-visible,
   margin-bottom: 20px;
   color: #f8fafc;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* BANNER DE COMBOS EN LA PARTE SUPERIOR */
+.banner-combo-oferta {
+  border-left: 5px solid #DC2626;
+  background: linear-gradient(135deg, #1E1B18, #0F1830);
+}
+
+.chips-combo-precios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.chip-combo {
+  background: rgba(220, 38, 38, 0.18);
+  border: 1px solid #DC2626;
+  color: #FCA5A5;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+}
+
+.chip-combo strong {
+  color: #ffffff;
 }
 
 .banner-encargo-contenido span {
@@ -1691,13 +1686,6 @@ input:focus-visible,
   box-shadow: var(--shadow-md);
 }
 
-/* Foto principal de la reseña: ahora es lo primero que se ve en la
-   tarjeta, grande y protagonista (antes era una miniatura pequeña al
-   final). Relación 3:4 (más alta que ancha) porque las fotos de camisetas
-   colgadas o puestas suelen ser verticales; un recorte cuadrado o
-   apaisado les corta los hombros o el logo. Si el cliente compartió más
-   de una foto, las demás quedan como miniaturas debajo del comentario
-   (ver .imagenes-testimonio). */
 .testimonio-foto {
   position: relative;
   width: 100%;
@@ -1739,8 +1727,6 @@ input:focus-visible,
   flex-direction: column;
 }
 
-/* Cuando la reseña no trae fotos, el cuerpo ocupa toda la tarjeta y
-   conserva el borde dorado a la izquierda como antes. */
 .card-testimonio:not(:has(.testimonio-foto)) .testimonio-cuerpo {
   border-radius: var(--radius-md);
 }
@@ -1773,9 +1759,6 @@ input:focus-visible,
   font-weight: 600;
 }
 
-/* Fotos adicionales (a partir de la segunda) que el cliente compartió
-   junto a su reseña: quedan como miniaturas debajo del comentario. La
-   primera foto ya se muestra grande arriba, en .testimonio-foto. */
 .imagenes-testimonio {
   display: flex;
   gap: 6px;
@@ -1815,8 +1798,6 @@ input:focus-visible,
   margin-top: 8px;
 }
 
-/* En celular las reseñas se muestran en dos columnas para que la sección no
-   se convierta en una lista interminable de tarjetas individuales. */
 @media (max-width: 560px) {
   .seccion-testimonios {
     margin-top: 20px;
@@ -1890,17 +1871,9 @@ input:focus-visible,
    12. FOOTER
    ========================================================================== */
 .footer-tienda {
-  /* Mismo tono que el header, el sidebar y la barra flotante del carrito,
-     para que las zonas oscuras del sitio se lean como una sola familia de
-     color en vez de tonos oscuros ligeramente distintos (punto 8: armonía). */
   background: var(--navy);
   color: #E7E1CF;
   margin-top: 32px;
-  /* El padding-bottom extra (antes vivía como espacio en blanco reservado
-     en el body) hace que el fondo oscuro del footer siga hasta donde llega
-     la barra flotante del carrito, en vez de dejar ver el fondo claro de
-     la página entre los dos (punto 5 del rediseño). Si cambias la altura
-     de .barra-carrito, ajusta este valor para que coincida. */
   padding: 32px 20px calc(16px + 96px);
 }
 
@@ -1976,12 +1949,8 @@ input:focus-visible,
 }
 
 /* ==========================================================================
-   13. MODAL DE VISTA RÁPIDA DE PRODUCTO (galería grande + personalización)
+   13. MODAL DE VISTA RÁPIDA DE PRODUCTO
    ========================================================================== */
-/* Un único modal reemplaza lo que antes eran dos pasos separados (ampliar
-   foto y luego personalizar): ahora la foto en grande y el panel de
-   pedido conviven en la misma ventana, uno al lado del otro en pantallas
-   anchas y apilados en celular. Ver abrirVistaProducto() en script.js. */
 .modal-vista-producto {
   max-width: 960px;
   width: 100%;
@@ -2091,9 +2060,6 @@ input:focus-visible,
   opacity: 1;
 }
 
-/* Puntos indicadores de foto: ocultos por defecto (en pantallas grandes
-   se usan las miniaturas de abajo); se activan solo en celular, ver media
-   query más abajo. */
 .vista-galeria-dots {
   display: none;
   position: absolute;
@@ -2148,9 +2114,6 @@ input:focus-visible,
     overflow-y: auto;
   }
   .vista-galeria-principal {
-    /* Antes: 62vw / máx 320px. Con las miniaturas ocultas en celular, la
-       foto puede crecer bastante más y seguir dejando espacio cómodo para
-       el panel de personalización debajo. */
     height: 88vw;
     max-height: 480px;
   }
@@ -2159,10 +2122,6 @@ input:focus-visible,
     border-top: 1px solid var(--border-color);
     overflow-y: visible;
   }
-  /* En celular quitamos la fila de miniaturas para darle todo el ancho a
-     la foto; los puntos de abajo cumplen el mismo rol de mostrar cuántas
-     fotos hay y en cuál vas, y además se puede pasar de foto deslizando
-     con el dedo (ver gestos táctiles en script.js). */
   .vista-galeria-miniaturas {
     display: none;
   }
@@ -2181,13 +2140,8 @@ input:focus-visible,
 }
 
 /* ==========================================================================
-   13B. CATÁLOGO EN 2 COLUMNAS PARA CELULARES PEQUEÑOS (iPhone SE a 15 Pro Max)
+   13B. CATÁLOGO EN 2 COLUMNAS PARA CELULARES
    ========================================================================== */
-/* Antes el grid solo mostraba 1 tarjeta por fila en celular (minmax 240px),
-   así que entre una tarjeta grande y la barra flotante del carrito casi no
-   quedaba catálogo visible sin hacer scroll. Aquí forzamos 2 columnas y
-   compactamos textos/paddings para que cada tarjeta siga siendo legible en
-   ~170-190px de ancho. */
 @media (max-width: 560px) {
   .main-container {
     padding-left: 10px;
@@ -2224,6 +2178,49 @@ input:focus-visible,
     white-space: nowrap;
   }
 
+  .info-container {
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .titulo-producto {
+    font-size: 0.82rem;
+    margin-bottom: 0;
+    line-height: 1.25;
+  }
+
+  .descripcion-producto {
+    display: none;
+  }
+
+  .precio-producto {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .btn-agregar {
+    padding: 9px 6px;
+    font-size: 0.72rem;
+  }
+
+  .badge-inmediato-card {
+    font-size: 0.6rem;
+    padding: 3px 6px;
+    top: 6px;
+    left: 6px;
+  }
+
+  .miniaturas-container {
+    padding: 6px;
+    gap: 5px;
+  }
+
+  .miniatura {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+  }
+}
 
 @media (max-width: 359px) {
   .grid-productos {
@@ -2251,61 +2248,10 @@ input:focus-visible,
     flex: 1;
   }
 }
-  .info-container {
-    padding: 10px;
-    gap: 6px;
-  }
 
-  .titulo-producto {
-    font-size: 0.82rem;
-    margin-bottom: 0;
-    line-height: 1.25;
-  }
-
-  /* Se oculta para dejar espacio a lo esencial (foto, título y precio);
-     la descripción completa sigue visible al abrir la tarjeta. */
-  .descripcion-producto {
-    display: none;
-  }
-
-  .precio-producto {
-    font-size: 1rem;
-    margin-bottom: 4px;
-  }
-
-  .btn-agregar {
-    padding: 9px 6px;
-    font-size: 0.72rem;
-  }
-
-  .badge-inmediato-card {
-    font-size: 0.6rem;
-    padding: 3px 6px;
-    top: 6px;
-    left: 6px;
-  }
-
-  /* Antes las ocultábamos para ahorrar espacio, pero tapaban la única
-     forma de ver las demás fotos sin entrar al modal. Las dejamos, solo
-     más chicas y con menos separación para que las 3-4 miniaturas quepan
-     en el ancho angosto de una tarjeta de 2 columnas. */
-  .miniaturas-container {
-    padding: 6px;
-    gap: 5px;
-  }
-
-  .miniatura {
-    width: 34px;
-    height: 34px;
-    border-radius: 6px;
-  }
-}
 /* ==========================================================================
-   14. BOTÓN FLOTANTE DE REDES SOCIALES (junto al de WhatsApp)
+   14. BOTÓN FLOTANTE DE REDES SOCIALES
    ========================================================================== */
-/* Usa la misma idea visual que el botón de WhatsApp para que se lea como
-   parte de la misma familia de "acciones flotantes", pero con la marca de
-   Instagram. Ver CONFIG.redesSociales en script.js para cambiar el enlace. */
 .social-btn, a.social-btn {
   position: fixed !important;
   bottom: 145px !important;
@@ -2341,19 +2287,11 @@ input:focus-visible,
     width: 48px !important;
     height: 48px !important;
   }
-
-  #btn-tiktok-flotante svg {
-    width: 21px !important;
-    height: 21px !important;
-  }
 }
 
 /* ==========================================================================
-   15. VISOR DE FOTOS GENÉRICO (fotos de reseñas de clientes)
+   15. VISOR DE FOTOS GENÉRICO
    ========================================================================== */
-/* Visor simple de una sola imagen a la vez, para ampliar las fotos que los
-   clientes comparten en sus reseñas. Es intencionalmente más simple que el
-   modal de producto porque aquí no hay nada que personalizar ni comprar. */
 .visor-foto-overlay {
   background: rgba(10, 13, 20, 0.94);
 }
@@ -2397,7 +2335,7 @@ input:focus-visible,
 }
 
 /* ==========================================================================
-   16. SECCIÓN DE CONFIANZA ("CÓMO COMPRAR CON NOSOTROS")
+   16. SECCIÓN DE CONFIANZA
    ========================================================================== */
 .seccion-confianza {
   margin: 8px 0 28px;
@@ -2586,9 +2524,6 @@ input:focus-visible,
   text-align: center;
 }
 
-/* Con hasta 8 columnas (talla + 7 tallas), en celular no cabe todo el ancho;
-   se deja deslizar horizontalmente en vez de achicar el texto hasta hacerlo
-   ilegible. */
 .guia-tallas-scroll {
   overflow-x: auto;
   border: 1px solid var(--border-color);
@@ -2635,7 +2570,7 @@ input:focus-visible,
 }
 
 /* ==========================================================================
-   20. TOAST (avisos cortos flotantes, ej. "Enlace copiado")
+   20. TOAST
    ========================================================================== */
 .toast-mensaje {
   position: fixed;
@@ -2660,14 +2595,9 @@ input:focus-visible,
   transform: translateX(-50%) translateY(0);
 }
 
-
 /* ==========================================================================
-   21. BANNER DE RESEÑAS (fotos apiladas + calificación + botón)
+   21. BANNER DE RESEÑAS
    ========================================================================== */
-/* Reemplaza a la fila de "historias" tipo Instagram: es un solo bloque
-   flexible (nunca una fila con scroll horizontal ni burbujas sueltas), así
-   que se adapta solo a cualquier ancho de pantalla sin necesitar reglas
-   especiales por dispositivo. */
 .banner-resenas {
   margin-bottom: 20px;
 }
@@ -2746,9 +2676,6 @@ input:focus-visible,
   margin-left: auto;
 }
 
-/* En pantallas angostas, si no alcanza el ancho para las tres partes en una
-   sola fila, el botón pasa a ocupar su propia fila completa en vez de
-   apretarse o desbordar. */
 @media (max-width: 420px) {
   .banner-resenas-link {
     justify-content: center;
@@ -2761,9 +2688,6 @@ input:focus-visible,
   }
 }
 
-/* Botón para volver al catálogo desde la página de reseñas: con forma de
-   botón real (borde, relleno) para que sea obvio que es una acción, no
-   solo un texto suelto. */
 .btn-volver-catalogo {
   display: inline-flex;
   align-items: center;
@@ -2786,7 +2710,7 @@ input:focus-visible,
 }
 
 /* ==========================================================================
-   22. ENVÍO Y FORMA DE PEDIDO POR ENCARGO (dentro del modal de pedido)
+   22. ENVÍO Y FORMA DE PEDIDO POR ENCARGO
    ========================================================================== */
 .banner-envio-pedido:empty {
   display: none;
@@ -2933,7 +2857,7 @@ input:focus-visible,
 .btn-secundario-modal {
   padding: 11px 16px;
   border: 1px solid #cbd5e1;
-  border-radius: 9px;
+  border-radius: 99px;
   background: #ffffff;
   color: var(--navy);
   cursor: pointer;
