@@ -670,12 +670,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   height: 100%;
 }
 
-.card-producto:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 26px rgba(15, 24, 48, 0.16);
-  border-color: var(--gold);
-}
-
 /* ==========================================================================
    5. GALERÍA DE IMÁGENES Y MINIATURAS
    ========================================================================== */
@@ -706,10 +700,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   transition: transform 0.35s ease;
 }
 
-.img-container:hover img {
-  transform: scale(1.05);
-}
-
 .img-overlay-ver {
   position: absolute;
   inset: 0;
@@ -721,10 +711,6 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   opacity: 0;
   transition: opacity 0.2s ease;
   pointer-events: none;
-}
-
-.img-container:hover .img-overlay-ver {
-  opacity: 1;
 }
 
 .img-overlay-ver span {
@@ -757,11 +743,33 @@ body:has(.modal-overlay.active) :is(.social-btn, .wpp-btn) {
   transition: border-color 0.2s, opacity 0.2s, transform 0.2s;
 }
 
-.miniatura.active, 
-.miniatura:hover {
+.miniatura.active {
   border-color: var(--navy);
   opacity: 1;
   transform: translateY(-1px);
+}
+
+@media (hover: hover) {
+  .card-producto:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 26px rgba(15, 24, 48, 0.16);
+    border-color: var(--gold);
+  }
+
+  .img-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .img-container:hover .img-overlay-ver,
+  .img-container:focus-visible .img-overlay-ver {
+    opacity: 1;
+  }
+
+  .miniatura:hover {
+    border-color: var(--navy);
+    opacity: 1;
+    transform: translateY(-1px);
+  }
 }
 
 /* ==========================================================================
@@ -1129,6 +1137,16 @@ input:focus-visible,
   color: var(--gold);
 }
 
+.precio-original {
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.precio-original[hidden] {
+  display: none;
+}
+
 .acciones-carrito {
   display: flex;
   gap: 10px;
@@ -1413,6 +1431,17 @@ input:focus-visible,
   font-size: 1.2rem;
 }
 
+.modal-total-valores {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.modal-total-valores .precio-original {
+  font-size: 0.9rem;
+}
+
 .modal-footer .btn-whatsapp {
   width: 100%;
   justify-content: center;
@@ -1586,8 +1615,23 @@ input:focus-visible,
 
 /* BANNER DE COMBOS EN LA PARTE SUPERIOR */
 .banner-combo-oferta {
+  display: block;
   border-left: 5px solid #DC2626;
   background: linear-gradient(135deg, #1E1B18, #0F1830);
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.banner-combo-oferta:hover,
+.banner-combo-oferta:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.2);
+}
+
+.seccion-oferta-limitada {
+  scroll-margin-top: 120px;
 }
 
 .chips-combo-precios {
@@ -1962,6 +2006,7 @@ input:focus-visible,
   flex-grow: 1;
   min-height: 0;
   overflow: hidden;
+  scroll-behavior: auto;
 }
 
 .vista-galeria {
@@ -2714,6 +2759,19 @@ input:focus-visible,
    ========================================================================== */
 .banner-envio-pedido:empty {
   display: none;
+}
+
+.banner-combo-promo:empty {
+  display: none;
+}
+
+.banner-combo-promo-texto {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-left: 3px solid #f97316;
+  border-radius: 8px;
+  color: #9a3412;
+  padding: 10px 14px;
 }
 
 .banner-envio-texto {

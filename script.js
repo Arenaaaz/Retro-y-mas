@@ -79,6 +79,7 @@ const INFO_VISTA_RESENAS = {
 };
 
 function irAResenas(actualizarUrl = true) {
+  limpiarHashOfertaEspecial();
   document.body.classList.add("vista-resenas-activa");
   document.getElementById("seccion-entrega-inmediata")?.style.setProperty("display", "none");
   document.getElementById("seccion-oferta-especial")?.style.setProperty("display", "none");
@@ -201,6 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (vistaURL === 'resenas') {
     irAResenas(false);
+  } else if (window.location.hash === "#oferta-especial") {
+    irAOfertaEspecial();
   } else if (window.location.hash === "#entrega-inmediata") {
     filtrarCategoria("entrega-inmediata");
   } else if (tipoURL && INFO_TIPO_PRENDA[tipoURL]) {
@@ -232,7 +235,7 @@ function renderizarCategorias() {
 
   contenedor.innerHTML = `
     <button class="btn-categoria active" onclick="filtrarCategoria('todos', this)">Todos</button>
-    <button class="btn-categoria btn-oferta-limitada" onclick="filtrarCategoria('oferta-especial', this)">🔥 Ofertas Especiales</button>
+    <button class="btn-categoria btn-oferta-limitada" onclick="irAOfertaEspecial(this)">🔥 Ofertas Especiales</button>
     <button class="btn-categoria btn-inmediato" onclick="filtrarCategoria('entrega-inmediata', this)">⚡ Entrega Inmediata</button>
     ${categoriasUnicas.map(cat => `
       <button class="btn-categoria" onclick="filtrarCategoria('${cat}', this)">
@@ -409,6 +412,12 @@ function combinacionEsEntregaInmediata(prod, opciones = opcionesSeleccionadas) {
     (!disponibilidad.manga || coincideDisponibilidad(opciones.manga, disponibilidad.manga)) &&
     (!disponibilidad.parches || coincideDisponibilidad(opciones.parches, disponibilidad.parches)) &&
     (disponibilidad.dorsales.length === 0 || disponibilidad.dorsales.some(dorsal => coincideDisponibilidad(dorsalSeleccionado, dorsal)));
+}
+
+function obtenerRecargoDorsalPromocional(prod, dorsal) {
+  const esCamisetaEnPromocion = prod.ofertaEspecial === true &&
+    (!prod.tipoPrenda || prod.tipoPrenda.toLowerCase() === 'camisetas');
+  return esCamisetaEnPromocion && dorsal.trim() ? 10000 : 0;
 }
 
 function escaparHTML(valor) {
@@ -618,7 +627,7 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
                maxlength="40"
                pattern="[A-Za-zÀ-ÿ0-9 .-]{1,40}"
                ${prod.entregaInmediata && combinacionEsEntregaInmediata(prod) ? 'readonly' : ''}
-               oninput="opcionesSeleccionadas.nombreNumero = this.value">
+               oninput="opcionesSeleccionadas.nombreNumero = this.value; actualizarPrecioModal()">
         <small style="color: #64748b; font-size: 0.75rem; display: block; margin-top: 4px;">
           Déjalo en blanco si prefieres la prenda sin estampado.
         </small>
@@ -683,6 +692,15 @@ function abrirVistaProducto(idProducto, actualizarUrl = true) {
       </div>
     ` : ''}
   `;
+
+  const restablecerScrollVista = () => {
+    const layout = document.querySelector('.vista-producto-layout');
+    const opciones = document.querySelector('.vista-opciones');
+    if (layout) layout.scrollTop = 0;
+    if (opciones) opciones.scrollTop = 0;
+  };
+  restablecerScrollVista();
+  requestAnimationFrame(restablecerScrollVista);
 
   actualizarPrecioModal();
 
@@ -783,6 +801,9 @@ function actualizarPrecioModal() {
     const varParches = productoSeleccionadoTemp.variantes.parches.find(p => p.tipo === opcionesSeleccionadas.parches);
     if (varParches) precioCalculado += varParches.adicional;
   }
+
+  const dorsal = document.getElementById("input-nombre-numero")?.value.trim() || opcionesSeleccionadas.nombreNumero;
+  precioCalculado += obtenerRecargoDorsalPromocional(productoSeleccionadoTemp, dorsal);
 
   const precioFormateado = `$ ${precioCalculado.toLocaleString('es-CO')} COP`;
   document.getElementById("modal-opt-precio-total").innerText = precioFormateado;
@@ -915,6 +936,7 @@ function confirmarAgregarAlCarrito() {
   }
 
   const dorsalIngresado = document.getElementById("input-nombre-numero")?.value.trim() || '';
+  precioFinal += obtenerRecargoDorsalPromocional(productoSeleccionadoTemp, dorsalIngresado);
   const esEntregaInmediata = combinacionEsEntregaInmediata(productoSeleccionadoTemp);
 
   carrito.push({
@@ -928,6 +950,7 @@ function confirmarAgregarAlCarrito() {
     parches: opcionesSeleccionadas.parches,
     bordadoConmemorativo: opcionesSeleccionadas.bordadoConmemorativo,
     dorsalPersonalizado: dorsalIngresado,
+    ofertaEspecial: productoSeleccionadoTemp.ofertaEspecial === true,
     entregaInmediata: esEntregaInmediata
   });
 
@@ -1029,6 +1052,7 @@ window.addEventListener("popstate", () => {
 
 // 8. FILTROS Y BÚSQUEDA
 function filtrarTipoPrenda(tipo, elemento, actualizarUrl = true) {
+  limpiarHashOfertaEspecial();
   tipoPrendaActual = tipo;
   categoriaActual = 'todos';
 
@@ -1059,8 +1083,44 @@ function filtrarTipoPrenda(tipo, elemento, actualizarUrl = true) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function filtrarCategoria(categoria, elemento) {
+function irAOfertaEspecial(elemento = null) {
+  if (window.location.hash !== '#oferta-especial') {
+    const url = new URL(window.location.href);
+    url.hash = 'oferta-especial';
+    history.pushState({ categoria: 'oferta-especial' }, '', url);
+  }
+
+  filtrarCategoria('oferta-especial', elemento, false);
+  document.getElementById('seccion-oferta-especial')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+window.addEventListener('hashchange', () => {
+  if (window.location.hash === '#oferta-especial') {
+    irAOfertaEspecial();
+  } else if (categoriaActual === 'oferta-especial') {
+    filtrarCategoria('todos', null, false);
+  }
+});
+
+function limpiarHashOfertaEspecial() {
+  if (window.location.hash !== '#oferta-especial') return;
+
+  const url = new URL(window.location.href);
+  url.hash = '';
+  history.replaceState(history.state, '', url);
+}
+
+function filtrarCategoria(categoria, elemento, desplazarAlInicio = true) {
+  if (categoria !== 'oferta-especial') {
+    limpiarHashOfertaEspecial();
+  }
+
   categoriaActual = categoria;
+  const bannerOferta = document.getElementById('banner-combo-oferta');
+  if (bannerOferta) bannerOferta.style.display = categoria === 'oferta-especial' ? 'none' : '';
   document.querySelectorAll('.btn-categoria').forEach(btn => btn.classList.remove('active'));
 
   if (elemento) {
@@ -1116,7 +1176,9 @@ function filtrarCategoria(categoria, elemento) {
     document.activeElement.blur();
   }
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (desplazarAlInicio) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 
 let yaSubioPorBusqueda = false;
@@ -1160,25 +1222,76 @@ function eliminarDelCarrito(itemUniqueId) {
   renderizarModalPedido();
 }
 
+function calcularDescuentoPromocion() {
+  const camisetasEnOferta = carrito.filter(item =>
+    item.ofertaEspecial === true &&
+    (!item.tipoPrenda || item.tipoPrenda.toLowerCase() === 'camisetas')
+  );
+  let descuento = 0;
+
+  for (let indice = 0; indice + 2 < camisetasEnOferta.length; indice += 3) {
+    const combo = camisetasEnOferta.slice(indice, indice + 3);
+    const precioRegular = combo.reduce((suma, item) => suma + item.precio, 0);
+    const camisetasConDorsal = combo.filter(item => item.dorsalPersonalizado).length;
+    const precioPromocional = 200000 + camisetasConDorsal * 10000;
+    descuento += Math.max(0, precioRegular - precioPromocional);
+  }
+
+  return { cantidad: camisetasEnOferta.length, descuento };
+}
+
 function actualizarCarrito() {
   actualizarBannerPedido();
 
-  total = carrito.reduce((sum, item) => sum + item.precio, 0) + costoEnvioAplicado;
+  const promocion = calcularDescuentoPromocion();
+  const totalAnterior = carrito.reduce((sum, item) => sum + item.precio, 0) + costoEnvioAplicado;
+  total = totalAnterior - promocion.descuento;
 
   const totalPrecio = document.getElementById("total-precio");
+  const totalPrecioOriginal = document.getElementById("total-precio-original");
   const modalTotalPrecio = document.getElementById("modal-total-precio");
+  const modalTotalOriginal = document.getElementById("modal-total-original");
   const contadorCant = document.getElementById("contador-cant");
   const btnRealizarPedido = document.querySelector(".btn-realizar-pedido");
 
   if (totalPrecio) totalPrecio.innerText = `$ ${total.toLocaleString('es-CO')} COP`;
+  if (totalPrecioOriginal) {
+    totalPrecioOriginal.innerText = `$ ${totalAnterior.toLocaleString('es-CO')} COP`;
+    totalPrecioOriginal.hidden = promocion.descuento <= 0;
+  }
   if (modalTotalPrecio) modalTotalPrecio.innerText = `$ ${total.toLocaleString('es-CO')} COP`;
+  if (modalTotalOriginal) {
+    modalTotalOriginal.innerText = `$ ${totalAnterior.toLocaleString('es-CO')} COP`;
+    modalTotalOriginal.hidden = promocion.descuento <= 0;
+  }
   if (contadorCant) contadorCant.innerText = carrito.length;
   if (btnRealizarPedido) btnRealizarPedido.classList.toggle("con-items", carrito.length > 0);
 }
 
 function actualizarBannerPedido() {
   const banner = document.getElementById("banner-envio-pedido");
+  const bannerCombo = document.getElementById("banner-combo-promo");
   const selectorForma = document.getElementById("selector-forma-encargo");
+  const promocion = calcularDescuentoPromocion();
+
+  if (bannerCombo) {
+    if (promocion.cantidad >= 3) {
+      const combosAplicados = Math.floor(promocion.cantidad / 3);
+      const camisetasRestantes = promocion.cantidad % 3;
+      bannerCombo.innerHTML = `
+        <p class="banner-combo-promo-texto">🔥 <strong>Combo aplicado:</strong> ${combosAplicados} grupo${combosAplicados === 1 ? '' : 's'} de 3 camisetas actuales${promocion.descuento > 0 ? ` — ahorras $${promocion.descuento.toLocaleString('es-CO')} COP + $15.000 COP de costos de importación` : '. Costos de importación incluidos'}.${camisetasRestantes ? ` ${camisetasRestantes} camiseta${camisetasRestantes === 1 ? '' : 's'} más para otro combo.` : ''}
+        </p>
+      `;
+    } else if (promocion.cantidad > 0) {
+      const faltantes = 3 - promocion.cantidad;
+      bannerCombo.innerHTML = `
+        <p class="banner-combo-promo-texto">🔥 Agrega ${faltantes} camiseta${faltantes === 1 ? '' : 's'} actual${faltantes === 1 ? '' : 'es'} más para activar el combo promocional.</p>
+      `;
+    } else {
+      bannerCombo.innerHTML = '';
+    }
+  }
+
   if (!banner) return;
 
   if (carrito.length === 0) {
@@ -1205,12 +1318,12 @@ function actualizarBannerPedido() {
   } else if (cantidadPrendas < CONFIG.minimoPrendasSinEnvio) {
     costoEnvioAplicado = CONFIG.costoEnvio;
     banner.innerHTML = `
-      <p class="banner-envio-texto">🚚 <strong>Envío nacional:</strong> se incluyen $${CONFIG.costoEnvio.toLocaleString('es-CO')} COP en el total (pedidos de ${CONFIG.minimoPrendasSinEnvio} o más prendas no pagan envío).</p>
+      <p class="banner-envio-texto">🚚 <strong>Envío nacional:</strong> se incluyen $${CONFIG.costoEnvio.toLocaleString('es-CO')} COP en el total.</p>
     `;
   } else {
     costoEnvioAplicado = 0;
     banner.innerHTML = `
-      <p class="banner-envio-texto">🚚 <strong>Envío nacional incluido</strong> — tu pedido ya califica por tener ${CONFIG.minimoPrendasSinEnvio} o más prendas.</p>
+      <p class="banner-envio-texto">📦 <strong>Costos de importación incluidos</strong> — tu pedido ya califica por tener ${CONFIG.minimoPrendasSinEnvio} o más prendas.</p>
     `;
   }
 
@@ -1336,18 +1449,23 @@ function enviarWhatsApp() {
     mensaje += `*${idx + 1}.* ${item.nombre}${infoVariantes}${etiquetaInmediata} - $${item.precio.toLocaleString('es-CO')}\n`;
   });
 
+  const promocion = calcularDescuentoPromocion();
+  if (promocion.descuento > 0) {
+    mensaje += `\n🔥 Descuento combo camisetas actuales: -$${promocion.descuento.toLocaleString('es-CO')} COP`;
+  }
+
   const hayEntregaInmediata = carrito.some(item => item.entregaInmediata);
   if (hayEntregaInmediata) {
     mensaje += `\n🛵 Pago contraentrega en Medellín (el domicilio varía según la zona).`;
   } else if (costoEnvioAplicado > 0) {
     mensaje += `\n🚚 Envío nacional incluido: $${costoEnvioAplicado.toLocaleString('es-CO')} COP`;
   } else if (hayPorEncargo) {
-    mensaje += `\n🚚 Envío nacional incluido (pedido de ${CONFIG.minimoPrendasSinEnvio} o más prendas).`;
+    mensaje += `\n📦 Costos de importación incluidos (pedido de ${CONFIG.minimoPrendasSinEnvio} o más prendas).`;
   }
 
   if (hayPorEncargo) {
     const textoForma = formaEncargoSeleccionada === '50'
-      ? 'Anticipo del 50%: al llegar a Medellín enviamos foto, confirmamos quién recibe y se paga el saldo más el domicilio contraentrega.'
+      ? 'Anticipo del 50%: al llegar a Medellín enviamos foto, confirmamos quién recibe y se paga el saldo más el costo del domicilio (no incluido) contraentrega.'
       : 'Pago total anticipado: envío gestionado con transportadora hasta la dirección indicada.';
     mensaje += `\n📋 Forma de pedido: ${textoForma}`;
 

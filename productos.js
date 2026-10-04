@@ -799,14 +799,6 @@ const CAMISETAS = [
     nombre: "Barcelona 10/11 Local",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
-    entregaInmediata: true,
-    prendaInmediata: {
-      manga: "Manga corta",
-      parches: "Sin parches",
-      bordados: "Sin bordado",
-      tallas: ["L"],
-      dorsales: ["Messi 10"]
-    },
     precio: 100000,
     descripcion: "Camiseta retro Barcelona temporada 2010/2011.",
     imagenes: ["img/Barcelona10.jpeg", "img/Barcelona10-1.jpeg", "img/Barcelona10-2.jpeg"],

@@ -98,4 +98,12 @@ const TESTIMONIOS = [
     producto: "AC Milan 09/10 Local",
     imagenes: ["img/resena8.jpg"]
   },
+  {
+    nombre: "Sofia",
+    ciudad: "Medellin",
+    calificacion: 5,
+    comentario: "Muchas gracias, la camiseta está super linda y la calidad espectacular!!",
+    producto: "Barcelona 10/11 Local",
+    imagenes: ["img/resena9.jpeg"]
+  }
 ];
