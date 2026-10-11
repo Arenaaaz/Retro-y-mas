@@ -16,10 +16,11 @@
   <meta property="og:image" content="/img/logo.png">
   <meta property="og:locale" content="es_CO">
 
-  <meta name="theme-color" content="#111827">
+  <meta name="theme-color" content="#0F1830">
   <link rel="icon" type="image/png" href="/img/logo.png">
   <link rel="shortcut icon" type="image/png" href="/img/logo.png">
   <link rel="apple-touch-icon" href="/img/logo.png">
+  <link rel="icon" type="image/png" href="/img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,49 +69,18 @@
     <span>📦 <strong>Pedidos por encargo:</strong> costos de importación incluidos (15 a 20 días hábiles). Entregas inmediatas en Medellín: el domicilio varía según la dirección.</span>
   </div>
 
-  <div id="barra-resenas" class="barra-resenas"></div>
-
   <!-- Encabezado -->
   <header class="header">
     <div class="header-container">
+      <div class="header-logo-wrapper">
+        <img src="img/logo.png" alt="Logo Retro y más" class="header-logo">
+      </div>
       <div class="header-info">
         <h1 id="nombre-tienda">Retro y más</h1>
         <p id="subtitulo-tienda">Donde encuentras las camisetas retro de mejor calidad</p>
       </div>
-      <div class="header-logo-wrapper">
-        <img src="img/logo.png" alt="Logo Retro y más" class="header-logo">
-      </div>
     </div>
   </header>
-
-  <!-- Navegación -->
-  <nav class="categorias-nav">
-    <div class="top-nav-bar">
-      <button type="button" id="btn-salir-resenas" class="btn-volver-catalogo" onclick="volverAlCatalogo()">
-        ← Volver al catálogo
-      </button>
-      <button class="btn-menu-sidebar-full" onclick="toggleSidebar()">
-        <span class="icono-menu">☰</span>
-        <span>
-          Ver secciones
-          <small>Camisetas · Pantalonetas · Buzos</small>
-        </span>
-      </button>
-      <a href="?vista=resenas" class="btn-ver-resenas-nav" onclick="event.preventDefault(); irAResenas();">
-        <span class="icono-estrella-nav">★</span>
-        <span>Reseñas</span>
-      </a>
-    </div>
-
-    <div class="busqueda-container">
-      <label class="visually-hidden" for="input-busqueda">Buscar productos</label>
-      <input type="text" id="input-busqueda" placeholder="🔍 Buscar por equipo, año o prenda..." onkeyup="filtrarPorBusqueda()">
-    </div>
-
-    <div class="categorias-container" id="contenedor-categorias">
-      <!-- Se genera dinámicamente -->
-    </div>
-  </nav>
 
   <!-- Sidebar -->
   <aside id="sidebar-secciones" class="sidebar-overlay" onclick="toggleSidebar(event)">
@@ -149,11 +119,16 @@
 
         <div class="sidebar-divisor"><span>Acceso rápido</span></div>
 
-        <button class="sidebar-item item-destacado" onclick="filtrarCategoria('entrega-inmediata'); toggleSidebar();">
+        <a href="#entrega-inmediata" class="sidebar-item item-destacado" onclick="filtrarCategoria('entrega-inmediata'); toggleSidebar();">
           <span class="sidebar-item-icono">⚡</span>
           <span class="sidebar-item-texto">Entrega Inmediata<small>Disponible hoy en Medellín</small></span>
           <span class="sidebar-item-flecha">›</span>
-        </button>
+        </a>
+        <a href="#guia-tallas" class="sidebar-item" onclick="document.getElementById('guia-tallas').scrollIntoView({ behavior: 'smooth' }); toggleSidebar();">
+          <span class="sidebar-item-icono">📏</span>
+          <span class="sidebar-item-texto">Guía de tallas<small>Encuentra tu ajuste ideal</small></span>
+          <span class="sidebar-item-flecha">›</span>
+        </a>
         <a href="?vista=resenas" class="sidebar-item" onclick="event.preventDefault(); toggleSidebar(); irAResenas();">
           <span class="sidebar-item-icono">⭐</span>
           <span class="sidebar-item-texto">Reseñas de Clientes<small>Mira lo que dicen de nosotros</small></span>
@@ -168,27 +143,104 @@
 
   <!-- Principal -->
   <main class="main-container">
+    <section class="hero-principal" aria-labelledby="hero-titulo">
+      <div class="hero-texto">
+        <p class="hero-etiqueta">Camisetas retro de fútbol</p>
+        <h2 id="hero-titulo">Hay camisetas.<br>Y hay <span>historias.</span></h2>
+        <p>Revive los grandes momentos con camisetas clásicas de tus clubes y selecciones favoritos. Encuentra la tuya y hazla aún más personal.</p>
+        <div class="hero-acciones">
+          <a class="hero-boton hero-boton-principal" href="#catalogo">Explorar colección <span aria-hidden="true">→</span></a>
+          <a class="hero-enlace-oferta" href="#oferta-especial" onclick="event.preventDefault(); irAOfertaEspecial();">Ver camisetas de temporada</a>
+        </div>
+        <p class="hero-nota">Personalización con dorsal <span aria-hidden="true">·</span> Envíos a toda Colombia</p>
+      </div>
+      <div class="hero-visual" id="carrusel-destacados" role="region" aria-label="Prendas destacadas" aria-roledescription="carrusel" aria-live="off">
+        <img id="hero-destacado-imagen" src="img/AcMilan06.jpeg" alt="Camiseta retro AC Milan 06/07 Local" fetchpriority="high">
+        <button class="hero-zona-paso anterior" id="hero-destacado-anterior" type="button" aria-label="Prenda destacada anterior"></button>
+        <button class="hero-zona-paso siguiente" id="hero-destacado-siguiente" type="button" aria-label="Prenda destacada siguiente"></button>
+        <div class="hero-visual-etiqueta">
+          <span class="hero-visual-kicker">Prenda destacada</span>
+          <span class="hero-visual-titulo" id="hero-destacado-titulo">AC Milan 06/07 Local</span>
+          <button class="hero-visual-enlace" id="hero-destacado-ver" type="button">Ver prenda <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="hero-carrusel-indicadores" id="hero-destacado-indicadores" aria-label="Elegir prenda destacada"></div>
+      </div>
+    </section>
+
     <section id="banner-resenas" class="banner-resenas" aria-label="Reseñas de clientes"></section>
 
-    <!-- BANNER PEDIDO POR ENCARGO -->
-    <div class="banner-encargo">
-      <div class="banner-encargo-contenido">
-        <span>💡 <strong>¿No encuentras tu talla o dorsal favorito en entrega inmediata?</strong></span>
-        <p>¡No te preocupes! Podemos traerte cualquier prenda, dorsal o talla bajo pedido por encargo con envío de 15 a 20 días hábiles.</p>
+    <!-- Navegación del catálogo -->
+    <nav class="categorias-nav" aria-label="Navegación del catálogo">
+      <div class="top-nav-bar">
+        <button type="button" id="btn-salir-resenas" class="btn-volver-catalogo" onclick="volverAlCatalogo()">
+          Volver al catálogo
+        </button>
+        <button class="btn-menu-sidebar-full" onclick="toggleSidebar()">
+          <span class="icono-menu">☰</span>
+          <span>
+            Ver secciones
+            <small>Camisetas · Pantalonetas · Buzos</small>
+          </span>
+        </button>
+        <a href="?vista=resenas" class="btn-ver-resenas-nav" onclick="event.preventDefault(); irAResenas();">
+          <span class="icono-estrella-nav">★</span>
+          <span>Reseñas</span>
+        </a>
       </div>
-    </div>
 
-    <!-- BANNER DE COMBO DE OFERTA EN CAMISETAS ACTUALES -->
-    <a id="banner-combo-oferta" class="banner-encargo banner-combo-oferta" href="#oferta-especial" aria-label="Ver camisetas en oferta" onclick="event.preventDefault(); irAOfertaEspecial();">
-      <div class="banner-encargo-contenido">
-        <span>🔥 <strong>OFERTA EN CAMISETAS DE TEMPORADA ACTUAL</strong></span>
-        <p>Llévalas individuales desde <strong>$80.000 COP</strong> (dorsal: +$10.000) o aprovecha el combo especial:</p>
-        <div class="chips-combo-precios">
-          <span class="chip-combo">👕 3 Camisetas SIN dorsal: <strong>$200.000 COP · costos de importación incluidos</strong></span>
-          <span class="chip-combo">🖊️ 3 Camisetas CON dorsal: <strong>$230.000 COP · costos de importación incluidos</strong></span>
+      <div class="busqueda-container">
+        <label class="visually-hidden" for="input-busqueda">Buscar productos</label>
+        <input type="text" id="input-busqueda" placeholder="Buscar equipo, año o prenda..." oninput="filtrarPorBusqueda()">
+      </div>
+
+      <div class="categorias-container" id="contenedor-categorias">
+        <!-- Se genera dinámicamente -->
+      </div>
+
+      <div class="fila-orden">
+        <label id="etiqueta-orden">Ordenar por:</label>
+        <div class="orden-control">
+          <select id="selector-orden" onchange="cambiarOrden(this.value)">
+            <option value="relevancia">Relevancia</option>
+            <option value="precio-asc">Precio: menor a mayor</option>
+            <option value="precio-desc">Precio: mayor a menor</option>
+            <option value="mas-vendidas">Más vendidas</option>
+            <option value="anio-nuevo">Año: más reciente</option>
+            <option value="anio-viejo">Año: más antiguo</option>
+          </select>
+          <div class="orden-selector-personalizado" id="orden-selector-personalizado" hidden>
+            <button class="orden-selector-trigger" id="orden-selector-trigger" type="button"
+              aria-haspopup="listbox" aria-expanded="false" aria-labelledby="etiqueta-orden orden-valor-actual">
+              <span id="orden-valor-actual">Relevancia</span>
+              <svg aria-hidden="true" viewBox="0 0 16 16" fill="none">
+                <path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="orden-menu" id="orden-menu" role="listbox" aria-labelledby="etiqueta-orden" hidden></div>
+          </div>
         </div>
       </div>
-    </a>
+    </nav>
+
+    <section class="beneficios-inicio" aria-label="Opciones de compra">
+      <div class="banner-encargo">
+        <div class="banner-encargo-contenido">
+          <span><strong>¿Buscas otra talla o un dorsal especial?</strong></span>
+          <p>Lo traemos por encargo. Tiempo estimado: 15 a 20 días hábiles.</p>
+        </div>
+      </div>
+
+      <a id="banner-combo-oferta" class="banner-encargo banner-combo-oferta" href="#oferta-especial" aria-label="Ver camisetas de temporada en oferta" onclick="event.preventDefault(); irAOfertaEspecial();">
+        <div class="banner-encargo-contenido">
+          <span><strong>Temporada actual <span class="oferta-desde">Desde $80.000 COP</span></strong></span>
+          <p>Individuales desde $80.000 COP; dorsal +$10.000. Combos de 3 con importación incluida:</p>
+          <div class="chips-combo-precios">
+            <span class="chip-combo">Sin dorsal <strong>$200.000</strong></span>
+            <span class="chip-combo">Con dorsal <strong>$230.000</strong></span>
+          </div>
+        </div>
+      </a>
+    </section>
 
     <!-- SECCIÓN OFERTA POR TIEMPO LIMITADO -->
     <section id="seccion-oferta-especial" class="seccion-stock-destacado seccion-oferta-limitada" style="display: none;">
@@ -217,6 +269,7 @@
 
     <!-- Catálogo General -->
     <section id="seccion-catalogo-general">
+      <span id="catalogo" class="ancla-seccion" aria-hidden="true"></span>
       <div class="grid-productos" id="contenedor-productos">
         <!-- Se carga dinámicamente desde script.js -->
       </div>
@@ -224,6 +277,7 @@
 
     <!-- SECCIÓN DE TESTIMONIOS / RESEÑAS -->
     <section id="seccion-testimonios" class="seccion-testimonios" style="display: none;">
+      <span id="resenas" class="ancla-seccion" aria-hidden="true"></span>
       <div class="testimonios-header">
         <h2>Lo que dicen nuestros clientes</h2>
         <div id="resumen-calificacion" class="resumen-calificacion"></div>
@@ -385,8 +439,9 @@
           <div class="vista-galeria-principal" id="vista-galeria-principal">
             <span id="vista-badge-inmediato" class="badge-inmediato-vista" style="display:none;">⚡ Entrega Inmediata</span>
             <button class="vista-galeria-nav prev" onclick="cambiarImagenVista(-1)" aria-label="Foto anterior">‹</button>
-            <img id="vista-img-principal" src="" alt="">
+            <img id="vista-img-principal" src="" alt="" onclick="abrirZoomProducto()" title="Click para ampliar">
             <button class="vista-galeria-nav next" onclick="cambiarImagenVista(1)" aria-label="Foto siguiente">›</button>
+            <span class="vista-zoom-hint" onclick="abrirZoomProducto()">🔍 Ampliar</span>
             <div id="vista-dots" class="vista-galeria-dots"></div>
           </div>
           <div id="vista-miniaturas" class="vista-galeria-miniaturas"></div>
@@ -511,6 +566,22 @@
     <div class="visor-foto-contenido" onclick="event.stopPropagation()">
       <img id="visor-foto-img" src="" alt="Foto de reseña de cliente">
     </div>
+  </div>
+
+  <!-- ZOOM DE FOTO DE PRODUCTO: se abre al tocar la foto principal dentro
+       del modal de personalización, para ver bien los detalles de la
+       prenda (estampados, bordados, textura). Comparte el mismo arreglo
+       de fotos y el mismo índice que la galería normal (vistaImagenesActuales
+       / vistaIndiceActual en script.js), así que navegar aquí también
+       deja la galería de atrás en esa misma foto al cerrar. -->
+  <div id="modal-zoom-producto" class="modal-overlay visor-foto-overlay" role="dialog" aria-modal="true" aria-label="Foto ampliada del producto" onclick="cerrarZoomProducto()">
+    <button class="btn-cerrar-visor" onclick="event.stopPropagation(); cerrarZoomProducto()" aria-label="Cerrar">&times;</button>
+    <button class="vista-galeria-nav prev" onclick="event.stopPropagation(); cambiarImagenZoom(-1)" aria-label="Foto anterior">‹</button>
+    <div class="visor-foto-contenido" id="zoom-producto-contenido" onclick="event.stopPropagation()">
+      <img id="zoom-producto-img" src="" alt="Foto ampliada del producto">
+      <div id="zoom-producto-dots" class="vista-galeria-dots zoom-producto-dots"></div>
+    </div>
+    <button class="vista-galeria-nav next" onclick="event.stopPropagation(); cambiarImagenZoom(1)" aria-label="Foto siguiente">›</button>
   </div>
 
   <!-- Botones Flotantes -->

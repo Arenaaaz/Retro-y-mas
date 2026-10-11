@@ -4,6 +4,7 @@
 
 // 👕 CAMISETAS DE FÚTBOL
 const CAMISETAS = [
+  // SECCIÓN DE CAMISETAS DE ADULTO
   {
     id: "CAM-01",
     nombre: "AC Milan 06/07 Local",
@@ -24,7 +25,8 @@ const CAMISETAS = [
         { tipo: "Sin parches", adicional: 0 },
         { tipo: "Parches Champions / Mundial de clubes", adicional: 10000 }
       ]
-    }
+    },
+    masVendida: true
   },
   {
     id: "CAM-02",
@@ -41,7 +43,8 @@ const CAMISETAS = [
         { tipo: "Manga Corta", adicional: 0 },
         { tipo: "Manga Larga", adicional: 10000 }
       ]
-    }
+    },
+    masVendida: true
   },
   {
     id: "CAM-03",
@@ -53,11 +56,13 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Brasil versión local temporada 2002.",
     imagenes: ["img/Brasil02.jpeg", "img/Brasil02-1.jpeg", "img/Brasil02-2.jpeg"],
-    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
+    masVendida: true
   },
   {
     id: "CAM-04",
     nombre: "Manchester United 2007/08 Local",
+    grupo: "Manchester United 2007/08",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
     entregaInmediata: false,
@@ -76,7 +81,8 @@ const CAMISETAS = [
       ]
     },
     tieneOpcionBordado: true,
-    textoBordado: "Bordado Final Moscow 2008"
+    textoBordado: "Bordado Final Moscow 2008",
+    masVendida: true
   },
   {
     id: "CAM-05",
@@ -179,7 +185,8 @@ const CAMISETAS = [
       ]
     },
     tieneOpcionBordado: true,
-    textoBordado: "Bordado Final Roma 2009"
+    textoBordado: "Bordado Final Roma 2009",
+    masVendida: true
   },
   {
     id: "CAM-12",
@@ -632,14 +639,6 @@ const CAMISETAS = [
     grupo: "Real Madrid 17/18",
     tipoPrenda: "Camisetas",
     categoria: "Retro",
-    entregaInmediata: true,
-    prendaInmediata: {
-      manga: "Manga larga",
-      parches: "Parches",
-      bordados: "Sin bordado",
-      tallas: ["L"],
-      dorsales: ["Ronaldo 7"]
-    },
     precio: 100000,
     descripcion: "Camiseta retro Real Madrid temporada 2017/2018.",
     imagenes: ["img/Real17.jpeg", "img/Real17-1.jpeg", "img/Real17-2.jpeg"],
@@ -653,7 +652,8 @@ const CAMISETAS = [
         { tipo: "Sin parches", adicional: 0 },
         { tipo: "Parches Champions / Liga", adicional: 10000 }
       ]
-    }
+    },
+    masVendida: true
   },
   {
     id: "CAM-44",
@@ -667,11 +667,16 @@ const CAMISETAS = [
     imagenes: ["img/Real17-Visitante.jpeg", "img/Real17-Visitante-1.jpeg", "img/Real17-Visitante-2.jpeg"],
     tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
     variantes: {
-        manga: [
-            { tipo: "Manga Corta", adicional: 0 },
-            { tipo: "Manga Larga", adicional: 10000 }
-            ]
-        }
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions / Liga", adicional: 10000 }
+      ]
+    },
+    masVendida: true
   },
   {
     id: "CAM-45",
@@ -709,7 +714,8 @@ const CAMISETAS = [
             { tipo: "Manga Corta", adicional: 0 },
             { tipo: "Manga Larga", adicional: 10000 }
             ]
-        }
+        },
+    masVendida: true
   },
   {
     id: "CAM-47",
@@ -859,7 +865,8 @@ const CAMISETAS = [
       ]
     },
     tieneOpcionBordado: true,
-    textoBordado: "Bordado Final Athens 2007"
+    textoBordado: "Bordado Final Athens 2007",
+    masVendida: true
   },
   {
     id: "CAM-57",
@@ -909,6 +916,7 @@ const CAMISETAS = [
   {
     id: "CAM-59",
     nombre: "PSG 26/27 Local",
+    grupo: "PSG 26/27",
     tipoPrenda: "Camisetas",
     categoria: "Actual",
     ofertaEspecial: true,
@@ -959,7 +967,7 @@ const CAMISETAS = [
     entregaInmediata: false,
     precio: 110000,
     descripcion: "Camiseta especial Vasco da Gama temporada 2022/2023.",
-    imagenes: ["img/VascoSE22.jpeg", "img/VascoSE22-1.jpeg", "img/VascoSE22-2.jpeg"],
+    imagenes: ["img/VascoSE22.jpeg", "img/VascoSE22-1.jpeg", "img/VascoSE22-2.jpeg", "img/VascoSE22-3.jpeg"],
     tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
@@ -1066,7 +1074,8 @@ const CAMISETAS = [
         { tipo: "Manga Corta", adicional: 0 },
         { tipo: "Manga Larga", adicional: 10000 }
       ]
-    }
+    },
+    masVendida: true
   },
   {
     id: "CAM-70",
@@ -1672,7 +1681,8 @@ const CAMISETAS = [
     precio: 100000,
     descripcion: "Camiseta retro Boca Juniors versión local temporada 2000/2001.",
     imagenes: ["img/Boca00.jpg", "img/Boca00-1.jpg"],
-    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
+    masVendida: true
   },
   {
     id: "CAM-103",
@@ -1758,7 +1768,7 @@ const CAMISETAS = [
     ofertaEspecial: true,
     entregaInmediata: false,
     precio: 80000,
-    descripcion: "Camiseta actual Españal temporada 2026.",
+    descripcion: "Camiseta actual España temporada 2026.",
     imagenes: ["img/España26-Visitante.jpg", "img/España26-Visitante-1.jpg"],
     tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
@@ -1771,7 +1781,7 @@ const CAMISETAS = [
     entregaInmediata: false,
     precio: 80000,
     descripcion: "Camiseta actual Inglaterra temporada 2026.",
-    imagenes: ["img/Inglaterra26.jpg", "img/Inglaterra26.jpg"],
+    imagenes: ["img/Inglaterra26.jpg", "img/Inglaterra26-1.jpg"],
     tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
   {
@@ -1783,7 +1793,7 @@ const CAMISETAS = [
     ofertaEspecial: true,
     entregaInmediata: false,
     precio: 80000,
-    descripcion: "Camiseta actual Manchester United temporada 2026.",
+    descripcion: "Camiseta actual Manchester United temporada 2026/2027.",
     imagenes: ["img/United26.jpg", "img/United26-1.jpg"],
     tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
@@ -1796,7 +1806,7 @@ const CAMISETAS = [
     ofertaEspecial: true,
     entregaInmediata: false,
     precio: 80000,
-    descripcion: "Camiseta actual Manchester United temporada 2026.",
+    descripcion: "Camiseta actual Manchester United temporada 2026/2027.",
     imagenes: ["img/United26-Visitante.jpg", "img/United26-Visitante-1.jpg"],
     tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
@@ -1809,7 +1819,7 @@ const CAMISETAS = [
     ofertaEspecial: true,
     entregaInmediata: false,
     precio: 80000,
-    descripcion: "Camiseta actual Borussia Dortmund temporada 2026.",
+    descripcion: "Camiseta actual Borussia Dortmund temporada 2026/2027.",
     imagenes: ["img/Dortmund26.jpg", "img/Dortmund26-1.jpg"],
     tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
@@ -1822,10 +1832,633 @@ const CAMISETAS = [
     ofertaEspecial: true,
     entregaInmediata: false,
     precio: 80000,
-    descripcion: "Camiseta actual Borussia Dortmund temporada 2026.",
+    descripcion: "Camiseta actual Borussia Dortmund temporada 2026/2027.",
     imagenes: ["img/Dortmund26-Visitante.jpg", "img/Dortmund26-Visitante-1.jpg"],
     tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
   },
+  {
+    id: "CAM-115",
+    nombre: "Juventus 26/27 Alternativa",
+    grupo: "Juventus 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    ofertaEspecial: true,
+    entregaInmediata: false,
+    precio: 80000,
+    descripcion: "Camiseta actual Juventus temporada 2026/2027.",
+    imagenes: ["img/Juventus26-Alternativa.jpg", "img/Juventus26-Alternativa-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-116",
+    nombre: "Juventus 26/27 Visitante",
+    grupo: "Juventus 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    ofertaEspecial: true,
+    entregaInmediata: false,
+    precio: 80000,
+    descripcion: "Camiseta actual Borussia Dortmund temporada 2026/2027.",
+    imagenes: ["img/Juventus26-Visitante.jpg", "img/Juventus26-Visitante-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+
+  {
+    id: "CAM-117",
+    nombre: "Santos 2011 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Santos versión local temporada 2011.",
+    imagenes: ["img/Santos11.jpeg", "img/Santos11-1.jpeg", "img/Santos11-2.jpeg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
+    masVendida: true
+  },
+  {
+    id: "CAM-118",
+    nombre: "Manchester United 2007/08 Visitante",
+    grupo: "Manchester United 2007/08",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Manchester United visitante temporada 2007/2008.",
+    imagenes: ["img/United07-Visitante.jpg", "img/United07-Visitante-1.jpg", "img/United07-Visitante-2.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ],
+      parches: [
+        { tipo: "Sin parches", adicional: 0 },
+        { tipo: "Parches Champions League", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-119",
+    nombre: "Argentina Edicion Especial Lionel Messi",
+    tipoPrenda: "Camisetas",
+    categoria: "Ediciones Especiales",
+    entregaInmediata: false,
+    precio: 120000,
+    descripcion: "Camiseta edición especial Selección Argentina homenaje a Lionel Messi.",
+    imagenes: ["img/ArgentinaMessi.jpg", "img/ArgentinaMessi-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-120",
+    nombre: "Inter de Milan 97/98 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Inter de Milán temporada 1997/1998.",
+    imagenes: ["img/InterMilan98.jpg", "img/InterMilan98-1.jpg", "img/InterMilan98-2.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-121",
+    nombre: "Fiorentina 98/99 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Fiorentina temporada 1998/1999.",
+    imagenes: ["img/Fiore98.jpg", "img/Fiore98-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-122",
+    nombre: "Arsenal 03/04 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Arsenal temporada 2003/2004 'Los Invencibles'.",
+    imagenes: ["img/Arsenal04.jpg", "img/Arsenal04-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-123",
+    nombre: "AC Milan 97/98 Local",
+    grupo: "AC Milan 97/98",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro AC Milan versión local temporada 1997/1998.",
+    imagenes: ["img/AcMilan97.jpg", "img/AcMilan97-1.jpg", "img/AcMilan97-2.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-124",
+    nombre: "AC Milan 97/98 Alternativa",
+    grupo: "AC Milan 97/98",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro AC Milan versión alternativa temporada 1997/1998.",
+    imagenes: ["img/AcMilan97-Alternativa.jpg", "img/AcMilan97-Alternativa-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-125",
+    nombre: "AC Milan 97/98 Visitante",
+    grupo: "AC Milan 97/98",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro AC Milan versión visitante temporada 1997/1998.",
+    imagenes: ["img/AcMilan97-Visitante.jpg", "img/AcMilan97-Visitante-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-126",
+    nombre: "Colombia 2003 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Selección Colombia temporada 2003.",
+    imagenes: ["img/Colombia03.jpg", "img/Colombia03-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-127",
+    nombre: "Argentina 1986 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Argentina versión local temporada 1986.",
+    imagenes: ["img/Argentina86.jpeg", "img/Argentina86-1.jpeg", "img/Argentina86-2.jpeg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
+    variantes: {
+      manga: [
+        { tipo: "Manga Corta", adicional: 0 },
+        { tipo: "Manga Larga", adicional: 10000 }
+      ]
+    }
+  },
+  {
+    id: "CAM-128",
+    nombre: "Argentina 1994 Local",
+    grupo: "Argentina 1994",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Argentina versión local temporada 1994.",
+    imagenes: ["img/Argentina94.jpg", "img/Argentina94-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-129",
+    nombre: "Argentina 1994 Visitante",
+    grupo: "Argentina 1994",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Argentina versión visitante temporada 1994.",
+    imagenes: ["img/Argentina94-Visitante.jpeg", "img/Argentina94-Visitante-1.jpeg", "img/Argentina94-Visitante-2.jpeg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-130",
+    nombre: "Brasil 1998 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Brasil versión local temporada 1998.",
+    imagenes: ["img/Brasil98.jpeg", "img/Brasil98-1.jpeg", "img/Brasil98-2.jpeg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-131",
+    nombre: "Francia 1998 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Francia versión local temporada 1998.",
+    imagenes: ["img/Francia98.jpeg", "img/Francia98-1.jpeg", "img/Francia98-2.jpeg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-132",
+    nombre: "Países Bajos 1998 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Países Bajos (Holanda) versión local temporada 1998.",
+    imagenes: ["img/Holanda98.jpeg", "img/Holanda98-1.jpeg", "img/Holanda98-2.jpeg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-133",
+    nombre: "Alemania 2008 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Camiseta retro Alemania versión local temporada 2008.",
+    imagenes: ["img/Alemania08.jpg", "img/Alemania08-1.jpg", "img/Alemania08-2.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-134",
+    nombre: "Arsenal 26/27 Local",
+    grupo: "Arsenal 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    ofertaEspecial: true,
+    entregaInmediata: false,
+    precio: 80000,
+    descripcion: "Camiseta actual Arsenal versión local temporada 2026/2027.",
+    imagenes: ["img/Arsenal26.jpg", "img/Arsenal26-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-135",
+    nombre: "Boca Juniors 2026 Local",
+    grupo: "Boca Juniors 2026",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    ofertaEspecial: true,
+    entregaInmediata: false,
+    precio: 80000,
+    descripcion: "Camiseta actual Boca Juniors versión local temporada 2026.",
+    imagenes: ["img/Boca26.jpg", "img/Boca26-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "CAM-136",
+    nombre: "PSG 26/27 Alternativa",
+    grupo: "PSG 26/27",
+    tipoPrenda: "Camisetas",
+    categoria: "Actual",
+    ofertaEspecial: true,
+    entregaInmediata: false,
+    precio: 80000,
+    descripcion: "Camiseta actual PSG versión alternativa temporada 2026/2027.",
+    imagenes: ["img/Psg26-Alternativa.jpg", "img/Psg26-Alternativa-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+
+// TRAVIS SCOTT ---------------------------------------------------------------------
+
+  {
+    id: "TRAVIS-01",
+    nombre: "Total 90 X Travis Scott - Brasil",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisBrasil.jpg","img/TravisBrasil-1.jpg","img/TravisBrasil-2.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"],
+    masVendida: true
+  },
+  {
+    id: "TRAVIS-02",
+    nombre: "Total 90 X Travis Scott - Argentina",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisArg.jpg","img/TravisArg-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-03",
+    nombre: "Total 90 X Travis Scott - Paises Bajos",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisPaisesB.jpg","img/TravisPaisesB-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-04",
+    nombre: "Total 90 X Travis Scott - Francia",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisFrancia.jpg","img/TravisFrancia-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-05",
+    nombre: "Total 90 X Travis Scott - Francia",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisFrancia.jpg","img/TravisAustra-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-06",
+    nombre: "Total 90 X Travis Scott - Australia",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisAustra.jpg","img/TravisAustra-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-07",
+    nombre: "Total 90 X Travis Scott - Corea del sur",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisCorea.jpg","img/TravisCorea-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-08",
+    nombre: "Total 90 X Travis Scott - Inglaterra",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisIngl.jpg","img/TravisIngl-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-09",
+    nombre: "Total 90 X Travis Scott - España",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisEsp.jpg","img/TravisEsp-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-10",
+    nombre: "Total 90 X Travis Scott - Croacia",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisCroa.jpg","img/TravisCroa-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-11",
+    nombre: "Total 90 X Travis Scott - Portugal",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisPort.jpg","img/TravisPort-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-12",
+    nombre: "Total 90 X Travis Scott - Mexico",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisMX.jpg","img/TravisMX-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  {
+    id: "TRAVIS-13",
+    nombre: "Total 90 X Travis Scott - Noruega",
+    grupo: "Total 90 X Travis Scott",
+    tipoPrenda: "Camisetas",
+    categoria: "Travis Scott X Total 90",
+    ofertaEspecial: false,
+    entregaInmediata: false,
+    precio: 110000,
+    descripcion: "Camiseta de edicion especial Travis Scott X Total 90",
+    imagenes: ["img/TravisNor.jpg","img/TravisNor-1.jpg"],
+    tallas: ["S", "M", "L", "XL", "2XL", "3XL"]
+  },
+  
+    
+// 🧒 SECCIÓN DE NIÑOS
+  {
+    id: "KID-01",
+    nombre: "Niño - Real Madrid 06/07 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Real Madrid temporada 06/07 local.",
+    imagenes: ["img/KIDS-Real06-Local.jpg", "img/KIDS-Real06-Local-1.jpg", "img/KIDS-Real06-Local-2.jpg", "img/KIDS-Real06-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-02",
+    nombre: "Niño - Brasil 2004 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Brasil año 2004 local.",
+    imagenes: ["img/KIDS-Brasil04-Local.jpg", "img/KIDS-Brasil04-Local-1.jpg", "img/KIDS-Brasil04-Local-2.jpg", "img/KIDS-Brasil04-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-03",
+    nombre: "Niño - Francia 1998 Visitante",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Francia año 1998 visitante.",
+    imagenes: ["img/KIDS-Francia98-Visitante.jpg", "img/KIDS-Francia98-Visitante-1.jpg", "img/KIDS-Francia98-Visitante-2.jpg", "img/KIDS-Francia98-Visitante-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-04",
+    nombre: "Niño - Inglaterra 1998 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Inglaterra año 1998 local.",
+    imagenes: ["img/KIDS-Inglaterra98-Local.jpg", "img/KIDS-Inglaterra98-Local-1.jpg", "img/KIDS-Inglaterra98-Local-2.jpg", "img/KIDS-Inglaterra98-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-05",
+    nombre: "Niño - Portugal 2004 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Portugal año 2004 local.",
+    imagenes: ["img/KIDS-Portugal04-Local.jpg", "img/KIDS-Portugal04-Local-1.jpg", "img/KIDS-Portugal04-Local-2.jpg", "img/KIDS-Portugal04-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-06",
+    nombre: "Niño - España 2010 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) España año 2010 local.",
+    imagenes: ["img/KIDS-España10-Local.jpg", "img/KIDS-España10-Local-1.jpg", "img/KIDS-España10-Local-2.jpg", "img/KIDS-España10-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-07",
+    nombre: "Niño - Barcelona 22/23 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Barcelona temporada 22/23 local.",
+    imagenes: ["img/KIDS-Barcelona22-Local.jpeg", "img/KIDS-Barcelona22-Local-1.jpeg", "img/KIDS-Barcelona22-Local-2.jpeg", "img/KIDS-Barcelona22-Local-3.jpeg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-08",
+    nombre: "Niño - AC Milan 1998 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) AC Milan año 1998 local.",
+    imagenes: ["img/KIDS-Milan98-Local.jpg", "img/KIDS-Milan98-Local-1.jpg", "img/KIDS-Milan98-Local-2.jpg", "img/KIDS-Milan98-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-09",
+    nombre: "Niño - Inglaterra 2022 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Inglaterra año 2022 local.",
+    imagenes: ["img/KIDS-Inglaterra22-Local.jpeg", "img/KIDS-Inglaterra22-Local-1.jpeg", "img/KIDS-Inglaterra22-Local-2.jpeg", "img/KIDS-Inglaterra22-Local-3.jpeg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-10",
+    nombre: "Niño - Países Bajos Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Países Bajos local.",
+    imagenes: ["img/KIDS-PaisesBajos-Local.jpg", "img/KIDS-PaisesBajos-Local-1.jpg", "img/KIDS-PaisesBajos-Local-2.jpg", "img/KIDS-PaisesBajos-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-11",
+    nombre: "Niño - PSG Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) PSG local.",
+    imagenes: ["img/KIDS-PSG-Local.jpg", "img/KIDS-PSG-Local-1.jpg", "img/KIDS-PSG-Local-2.jpg", "img/KIDS-PSG-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-12",
+    nombre: "Niño - Brasil 2004 Visitante",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Brasil año 2004 visitante.",
+    imagenes: ["img/KIDS-Brasil04-Visitante.jpg", "img/KIDS-Brasil04-Visitante-1.jpg", "img/KIDS-Brasil04-Visitante-2.jpg", "img/KIDS-Brasil04-Visitante-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-13",
+    nombre: "Niño - Bayern Múnich 21/22 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Bayern Múnich temporada 21/22 local.",
+    imagenes: ["img/KIDS-Bayern22-Local.jpeg", "img/KIDS-Bayern22-Local-1.jpeg", "img/KIDS-Bayern22-Local-2.jpeg", "img/KIDS-Bayern22-Local-3.jpeg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-14",
+    nombre: "Niño - Real Madrid 11/12 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) Real Madrid temporada 11/12 local.",
+    imagenes: ["img/KIDS-Real11-Local.jpeg", "img/KIDS-Real11-Local-1.jpg", "img/KIDS-Real11-Local-2.jpg", "img/KIDS-Real11-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  },
+  {
+    id: "KID-15",
+    nombre: "Niño - AC Milan 05/06 Local",
+    tipoPrenda: "Camisetas",
+    categoria: "Conjunto para niños",
+    entregaInmediata: false,
+    precio: 100000,
+    descripcion: "Conjunto de camiseta + pantaloneta (para niños) AC Milan temporada 05/06 local.",
+    imagenes: ["img/KIDS-Milan06-Local.jpeg", "img/KIDS-Milan06-Local-1.jpg", "img/KIDS-Milan06-Local-2.jpg", "img/KIDS-Milan06-Local-3.jpg"],
+    tallas: ["16", "18", "20", "22", "24", "26", "28"]
+  }
 
 
 ];
@@ -2054,6 +2687,40 @@ const ENTRENAMIENTO = [
     precio: 150000,
     descripcion: "Chaqueta de entrenamiento PSG.",
     imagenes: ["img/JacketPsg01.jpeg","img/JacketPsg01-1.jpeg", "img/JacketPsg01-2.jpeg"],
+  },
+  {
+    id: "ENT-06",
+    nombre: "Buzo de entrenamiento Alemania 2026",
+    tipoPrenda: "Entrenamiento",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 150000,
+    descripcion: "Buzo de entrenamiento Selección Alemania temporada 2026.",
+    imagenes: ["img/TrainAlemania26.jpg", "img/TrainAlemania26-1.jpg"],
+    tallas: ["S", "M", "L", "XL"]
+  },
+  {
+    id: "ENT-07",
+    nombre: "Buzo de entrenamiento Francia 2006",
+    tipoPrenda: "Entrenamiento",
+    categoria: "Retro",
+    entregaInmediata: false,
+    precio: 150000,
+    descripcion: "Buzo de entrenamiento Selección Francia temporada 2006.",
+    imagenes: ["img/TrainFrancia06.jpg", "img/TrainFrancia06-1.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    masVendida: true
+  },
+  {
+    id: "ENT-08",
+    nombre: "Buzo de entrenamiento Corinthians",
+    tipoPrenda: "Entrenamiento",
+    categoria: "Actual",
+    entregaInmediata: false,
+    precio: 150000,
+    descripcion: "Buzo de entrenamiento Corinthians.",
+    imagenes: ["img/TrainCorinthians.jpeg", "img/TrainCorinthians-1.jpeg", "img/TrainCorinthians-2.jpeg"],
+    tallas: ["S", "M", "L", "XL"]
   }
 ];
 
@@ -2080,3 +2747,4 @@ const PRODUCTOS = [
   ...ENTRENAMIENTO,
   ...CORTAVIENTOS
 ];
+

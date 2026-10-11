@@ -105,5 +105,13 @@ const TESTIMONIOS = [
     comentario: "Muchas gracias, la camiseta está super linda y la calidad espectacular!!",
     producto: "Barcelona 10/11 Local",
     imagenes: ["img/resena9.jpeg"]
+  },
+  {
+    nombre: "Matias M.",
+    ciudad: "Medellin",
+    calificacion: 5,
+    comentario: "Definitivamente una compra 11/10, la camiseta toda una belleza en cada aspecto, detalles, material de la tela, los parches y el dorsal. Tal cual a la de la epoca, ademas la comunicación con el vendedor y el domiciliario hicieron la compra mejor de lo que ya es.",
+    producto: "Real Madrid 17/18 Local. Manga larga + parches",
+    imagenes: ["img/resena10.jpeg","img/resena10-1.jpeg","img/resena10-2.jpeg"]
   }
 ];
